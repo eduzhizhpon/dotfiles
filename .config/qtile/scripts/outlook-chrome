@@ -1,0 +1,2 @@
+#!/bin/bash
+/opt/google/chrome/google-chrome "--profile-directory=Profile 1" --app-id=pkooggnaalmfkidjmlhoelhdllpphaga

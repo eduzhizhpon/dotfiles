@@ -1,0 +1,79 @@
+#!/bin/bash
+
+output=""
+side=""
+primary_output="DP-4"
+
+while test $# -gt 0; do
+	case $1 in
+		"-s" | "--side")
+			shift
+			side="$1"
+			;;
+		"-o" | "--output")
+			shift
+			output="$1"
+			;;
+	esac
+	shift
+done
+
+
+if [ -z "$output" ]; then
+	if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
+		output="HDMI-0"
+	fi
+elif [[ -z $(xrandr -q | grep "$output connected") ]]; then
+	echo "[ERROR] Output not found"
+	exit 1
+fi
+
+if [ -z "$output" ]; then
+	echo "[INFO] Set one of this monitors with -o or --output"
+	xrandr -q
+	exit 0
+fi
+
+if [ -z "$side" ]; then
+	side="l"
+fi
+
+echo "[INFO] Using side=$side | output=$output"
+
+case $side in
+	"l" | "left")
+	side="--left-of"	
+		;;
+		
+	"r" | "right")
+	side="--right-of"	
+		;;
+	*)
+	echo -n "unknow side"
+	exit 1
+	;;
+esac
+
+#xrandr --output $output --auto $side $primary_output --scale 1x1i
+#xrandr | grep -w connected  | awk -F'[ +]' '{print $4}'
+#xrandr --output $output --mode 1600x900 --scale-from 1920x1080 --same-as $primary_output
+#xrandr --output $output --same-as $primary_output
+xrandr --output $output --auto --scale-from 1920x1080 --same-as $primary_output
+
+#xrandr --output $output --mode 1600x900 --scale-from 1920x1080 --same-as $primary_output
+#bspc wm -r
+
+bspc monitor $primary_output -d I II III IV
+bspc monitor $output -d V
+
+# Polybar to presentation
+#polybar primary -c ~/.config/polybar/workspace.ini &
+#polybar primary-external-presentation -c ~/.config/polybar/workspace.ini &
+#MONITOR=$output polybar primary-external-presentation -c ~/.config/polybar/workspace.ini &
+
+if [ ! -z "$WALLPAPER" ]; then
+	echo "--> $WALLPAPER"
+	feh --bg-fill $WALLPAPER
+fi
+
+exit 0

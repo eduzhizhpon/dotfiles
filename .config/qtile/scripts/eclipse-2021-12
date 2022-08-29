@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/opt/eclipse-2021-12-jee/eclipse &

@@ -1,0 +1,17 @@
+/[^.]*
+!*alacritty
+!picom
+!qtile
+!dunst
+!polybar
+!rofi
+!bspwm
+!sxhkd
+!nvim
+!wallpapers
+!scripts
+
+# Fix plasma dolphin color background
+!kdeglobals
+
+!.gitignore

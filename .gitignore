@@ -1,0 +1,56 @@
+# non-dot files
+/[^.]*
+!bin
+
+# Don't include files with sensitive data
+.zshrc-secrets
+
+# iJunk
+.DS_Store
+.MacOSX
+.Trash
+
+# Node stuff
+.v8flags.*
+
+# ZSH junk
+.zcompdump*
+.zsh-update
+
+# Python virtual envs
+.virtualenvs/
+.conda
+
+# Ruby virtual envs
+.rvm
+
+# History files
+.*history
+
+# --- Dotfiles ---
+# All dotfiles
+.*
+!.bash_profile
+!.bashrc
+!.gitignore
+!.config
+!.xsessionrc
+!.autostart.sh
+
+# .config/*
+# !.config/gtk-3.0/*
+# !.config/picom/*
+# !.config/qtile/*
+
+
+# Custom dotfiles
+
+
+# Directories
+Projects
+
+# Powerline-specific cruft that isn't ignored in their own plugin
+Powerline_*.cache
+
+# Postgres stuff
+.pg*

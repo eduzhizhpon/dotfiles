@@ -1,0 +1,181 @@
+font:
+  normal:
+    family: "Fira Code"
+    style: Regular
+
+  bold:
+    family: "Fira Code"
+    style: Bold
+
+  italic:
+    family: "Fira Code"
+    style: Italic
+
+  bold_italic:
+    family: "Fira Code"
+    style: Bold Italic
+
+  size: 8
+
+cursor:
+  style:
+    shape: Beam
+    blinking: Always
+  vi_mode_style:
+    shape: Beam
+  blink_interval: 400
+  unfocused_hollow: true
+  thickness: 0.15
+
+window:
+  opacity: 0.85
+  padding:
+    x: 10
+    y: 10
+
+# ==================================================
+# Colors schemes
+# ==================================================
+
+schemes:
+  Dracula: &Dracula
+    primary:
+      #background: '0x282a36'
+      background: '0x14191e'
+      #foreground: '0xf8f8f2'
+      foreground: '0xf8f8f8'
+
+    # Normal colors
+    normal:
+      black:   '0x000000'
+      red:     '0xff5555'
+      green:   '0x50fa7b'
+      yellow:  '0xf1fa8c'
+      blue:    '0xcaa9fa'
+      magenta: '0xff79c6'
+      cyan:    '0x8be9fd'
+      white:   '0xbfbfbf'
+
+    # Bright colors
+    bright:
+      black:   '0x282a35'
+      red:     '0xff6e67'
+      green:   '0x5af78e'
+      yellow:  '0xf4f99d'
+      blue:    '0xcaa9fa'
+      magenta: '0xff92d0'
+      cyan:    '0x9aedfe'
+      white:   '0xe6e6e6'
+
+  Custom: &Custom
+    primary:
+      background: '0x14191e'
+      #foreground: '0x7f85a3'
+      foreground: '0xf8f8f2'
+
+    cursor:
+      text:   '0x7f85a3'
+      cursor: '0x808080'
+
+    normal:
+      black:   '0x444a73'
+      red:     '0xff5370'
+      #green:   '0x4fd6be'
+      green:   '0xA3BE8C'
+      yellow:  '0xffc777'
+      blue:    '0x3e68d7'
+      magenta: '0xfc7b7b'
+      cyan:    '0x86e1fc'
+      white:   '0xd0d0d0'
+
+    bright:
+      black:   '0x828bb8'
+      red:     '0xff98a4'
+      green:   '0xc3e88d'
+      yellow:  '0xffc777'
+      blue:    '0x82aaff'
+      magenta: '0xff966c'
+      cyan:    '0xb4f9f8'
+      white:   '0x5f8787'
+  
+  Nord: &Nord
+    # Default colors
+    primary:
+      background: '0x2E3440'
+      #foreground: '0xD8DEE9'
+      foreground: '0xf8f8f2'
+
+    # Normal colors
+    normal:
+      black:   '0x3B4252'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x88C0D0'
+      white:   '0xE5E9F0'
+
+    # Bright colors
+    bright:
+      black:   '0x4C566A'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x8FBCBB'
+      white:   '0xECEFF4'
+
+  Arc: &Arc
+    # Default colors
+    primary:
+      background: '0x383c4a'
+      #foreground: '0xd3dae3'
+      foreground: '0xf8f8f2'
+
+    # Normal colors
+    normal:
+      black:   '0x4b5164'
+      red:     '0xe14245'
+      green:   '0x5ca75b'
+      yellow:  '0xf6ab32'
+      blue:    '0x4877b1'
+      magenta: '0xa660c3'
+      cyan:    '0x5294e2'
+      white:   '0xa9a9aa'
+
+    # Bright colors
+    bright:
+      black:   '0x616981'
+      red:     '0xe16f7e'
+      green:   '0xadd488'
+      yellow:  '0xfdc35f'
+      blue:    '0x8ca9bf'
+      magenta: '0xe2afec'
+      cyan:    '0x73c5e2'
+      white:   '0xfcfcfc'
+
+    # Dim colors (Optional)
+    dim:
+      black:   '0x2c2f3a'
+      red:     '0x783228'
+      green:   '0x4b7c16'
+      yellow:  '0xb65619'
+      blue:    '0x2b486b'
+      magenta: '0x614a73'
+      cyan:    '0x1b668f'
+      white:   '0x63686d'
+
+      colors: *Dracula
+
+# ==================================================
+# END Colors schemes
+# ==================================================
+
+# ==================================================
+# Mouse bindings
+# ==================================================
+mouse_bindings:
+  - { mouse: Right, action: Copy }
+  - { mouse: Middle, action: Paste }
