@@ -23,19 +23,24 @@ fi
 # ==================================================
 
 # Java JDK
-export JAVA_HOME="/opt/jvm/jdk-11.0.13"
-export JBOSS_HOME="/opt/wildfly-26"
+export JAVA_HOME="/opt/jvm/jdk-11"
+export JBOSS_HOME="/opt/wildfly"
 
 # Android studio
-export ANDROID_SDK_ROOT="/media/data/linux/apps/android/sdk"
-export ANDROID_HOME="/media/data/linux/apps/android/sdk"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
+export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_STUDIO_HOME="/media/data/linux/apps/android/android-studio"
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # NodeJS
-export NODE_HOME="/opt/node-v14"
+export NODE_HOME="/opt/node"
 
 # Docker
-export DOCKER_HOME="/opt/docker-20.10.9"
+export DOCKER_HOME="/opt/docker"
+
+# Flutter
+export FLUTTER_HOME="/opt/flutter"
+export DART_HOME="/opt/dart-sdk"
 
 # QTILE (Disabled)
 #export QTILE_HOME="/home/eddzhizhpon/.config/qtile"
@@ -54,6 +59,8 @@ path_list=(
     "$NODE_HOME/bin"
     "$JAVA_HOME/bin"
     "$DOCKER_HOME"
+    "$FLUTTER_HOME/bin"
+    "$DARK_HOME/bin"
 
     "$HOME/.config/scripts"
     

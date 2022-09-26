@@ -3,19 +3,13 @@
 # Tap to click and Natural scrolling
 sh ~/.config/scripts/xinput-touchpad-props.sh Touchpad
 
-# Set laptop scale
-if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
-        xrandr --output DP-4 --scale 1x1 --dpi 110 --primary --output HDMI-0 --dpi 110 --mode 1920x1080 --rotate normal --right-of DP-4 --scale 1x1
-else
-        xrandr --output DP-4 --scale 1x1 --primary --dpi 102
-fi
-
 # Wallpaper
 feh --bg-fill $WALLPAPER
 
-# Transparenciy
+# Composer
 killall picom
-picom --experimental-backends &
+#picom --experimental-backends &
+picom --config ~/.config/bspwm/config/picom.conf &
 
 # Notification - dunts
 killall dunst
@@ -28,6 +22,7 @@ sh /opt/nvidia-settings/nvidia-brightness-load &
 ibus-daemon -drxR
 
 # Autostart apps
+killall megasync
 megasync & > /dev/null
 
 # Redshift
