@@ -3,9 +3,6 @@
 # Tap to click and Natural scrolling
 sh ~/.config/scripts/xinput-touchpad-props.sh Touchpad
 
-# Wallpaper
-feh --bg-fill $WALLPAPER
-
 # Composer
 killall picom
 #picom --experimental-backends &

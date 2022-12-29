@@ -13,18 +13,20 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 ##
 
 if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
+	# Config external monitor resolution
+	xrandr --output DP-4 --scale 1x1 --dpi 110 --primary --output HDMI-0 --dpi 110 --mode 1920x1080 --rotate normal --right-of DP-4 --scale 1x1
+
 	# Set workspaces
 	bspc monitor DP-4 -d I II III IV V
 	bspc monitor HDMI-0 -d VI VII VIII IX X
 	
-	# Config external monitor resolution
-	xrandr --output DP-4 --scale 1x1 --dpi 110 --primary --output HDMI-0 --dpi 110 -    -mode 1920x1080 --rotate normal --right-of DP-4 --scale 1x1
-else
+else	
+	# Config single monitor
+	xrandr --output DP-4 --scale 1x1 --primary --dpi 102
+
 	# Set workspaces
 	bspc monitor DP-4 -d I II III IV V VI VII VIII IX X
 	
-	# Config single monitor
-	xrandr --output DP-4 --scale 1x1 --primary --dpi 102
 fi
 
 ##
@@ -75,3 +77,6 @@ xset -dpms s off
 
 # Autostart apps
 # sh ~/.config/bspwm/autostart.sh
+
+# Wallpaper 
+feh --bg-fill $WALLPAPER
