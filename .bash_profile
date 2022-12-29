@@ -103,4 +103,4 @@ export WALLPAPER="/media/data/images/wallpaper/w-4.jpg"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 # Gnome dark theme
-export GTK_THEME=Adwaita:dark
+#export GTK_THEME=Adwaita:dark

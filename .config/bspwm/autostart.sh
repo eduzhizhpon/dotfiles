@@ -25,3 +25,5 @@ megasync & > /dev/null
 # Redshift
 # redshift -P -O 5000
 # redshift -x # neutral
+#
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
