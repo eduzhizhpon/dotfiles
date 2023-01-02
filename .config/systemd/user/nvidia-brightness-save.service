@@ -1,0 +1,14 @@
+[Unit]
+Description=Save nvidia brightness
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStop=nvidia-brightness-save
+TimeoutStartSec=0
+
+[Install]
+#WantedBy=default.target
+WantedBy=shutdown.target
