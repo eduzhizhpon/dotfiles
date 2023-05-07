@@ -104,3 +104,7 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 # Gnome dark theme
 #export GTK_THEME=Adwaita:dark
+#
+
+# Flutter
+export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"

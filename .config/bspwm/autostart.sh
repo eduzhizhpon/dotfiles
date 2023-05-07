@@ -31,3 +31,7 @@ megasync & > /dev/null
 # GTK 4 dark theme
 #
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+
+
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
