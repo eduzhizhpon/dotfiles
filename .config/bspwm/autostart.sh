@@ -1,26 +1,29 @@
 #!/bin/bash
 
+# BSPWM
+sh ~/.config/bspwm/bspwmrc &
+
 # Tap to click and Natural scrolling
-sh ~/.config/scripts/xinput-touchpad-props.sh Touchpad
+#sh ~/.config/scripts/xinput-touchpad-props.sh Touchpad
 
 # Composer
-killall picom
+#killall picom
 #picom --experimental-backends &
-picom --config ~/.config/bspwm/config/picom.conf &
+#picom --config ~/.config/bspwm/config/picom.conf &
 
 # Notification - dunts
-killall dunst
-dunst &
+#killall dunst
+#dunst &
 
 # Reload nvidia backlight
-sh /opt/nvidia-settings/nvidia-brightness-load &
+# sh /opt/nvidia-settings/nvidia-brightness-load &
 
 #IBus
-ibus-daemon -drxR
+#ibus-daemon -drxR
 
 # Autostart apps
 killall megasync
-megasync & > /dev/null
+#megasync & > /dev/null
 
 # Redshift
 # redshift -P -O 5000
@@ -30,8 +33,8 @@ megasync & > /dev/null
 #
 # GTK 4 dark theme
 #
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+#gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 
 
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
