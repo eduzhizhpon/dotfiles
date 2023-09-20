@@ -15,6 +15,7 @@
 !systemd
 !i3
 !autostart.sh
+!xorg.conf.d
 
 # Fix plasma dolphin color background
 !kdeglobals

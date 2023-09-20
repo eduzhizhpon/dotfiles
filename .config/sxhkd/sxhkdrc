@@ -14,7 +14,7 @@ super + shift + Return
 super + shift + @space
 	~/.config/polybar/scripts/./launcher
 
-	rofi -show run
+	# rofi -show run
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -155,12 +155,12 @@ super + z
 #
 
 # Lock session
-super + shift + Escape
+super + shift + m
 	slock
 
 # Change keyboard
 super + @space
-	{setxkbmap us, setxkbmap latam}
+	(setxkbmap -query | grep -q 'layout:\s\+us') && setxkbmap latam,us || setxkbmap us,latam
 
 # Take screnshot
 super + shift + s
