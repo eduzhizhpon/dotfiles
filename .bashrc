@@ -36,20 +36,10 @@ else
 	PS1='\W$(parse_git_branch) \$ '
 fi
 
-# ==================================================
-# Custom Aliases
-# ==================================================
+[[ -f ~/.commonrc ]] && . ~/.commonrc
 
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+[[ -f ~/.bashrc_local ]] && . ~/.bashrc_local
 
-if [[ -f $HOME/.bashrc_local ]]; then
-	source ~/.bashrc_local
-fi
-
-alias google-chrome='google-chrome-stable'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

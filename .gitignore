@@ -30,21 +30,19 @@
 # --- Dotfiles ---
 # All dotfiles
 .*
+!.gitignore
 !.bash_profile
 !.bashrc
-!.gitignore
 !.config
 !.xsessionrc
-!.autostart.sh
 
-# .config/*
-# !.config/gtk-3.0/*
-# !.config/picom/*
-# !.config/qtile/*
-
+!.zshrc
+!.zprofile
+!.p10k.zsh
 
 # Custom dotfiles
-
+!.common_profile
+!.commonrc
 
 # Directories
 Projects
