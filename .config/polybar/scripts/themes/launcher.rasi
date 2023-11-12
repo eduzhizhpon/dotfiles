@@ -2,7 +2,7 @@ configuration {
     font:                           "Fira Code, Iosevka, Nerd Font 10";
     show-icons:                     true;
     icon-theme: 		    "Papirus";
-    display-drun: 		    "";
+    display-drun: 		    " ";
     drun-display-format:            " {name}";
     threads:                        0;
     scroll-method:                  0;
