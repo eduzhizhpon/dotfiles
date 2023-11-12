@@ -12,20 +12,23 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 # Workspaces and resolution
 ##
 
-if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
+MONITOR='DP-4'
+MONITOR_RIGHT='HDMI-0'
+
+if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
 	# Config external monitor resolution
-	xrandr --output DP-4 --scale 1x1 --dpi 110 --primary --output HDMI-0 --dpi 110 --mode 1920x1080 --rotate normal --right-of DP-4 --scale 1x1
+	xrandr --output $MONITOR --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --mode 1920x1080 --rotate normal --right-of $MONITOR --scale 1x1
 
 	# Set workspaces
-	bspc monitor DP-4 -d I II III IV V
-	bspc monitor HDMI-0 -d VI VII VIII IX X
+	bspc monitor $MONITOR -d I II III IV V
+	bspc monitor $MONITOR_RIGHT -d VI VII VIII IX X
 	
 else	
 	# Config single monitor
-	xrandr --output DP-4 --scale 1x1 --primary --dpi 102
+	xrandr --output $MONITOR --scale 1x1 --primary --dpi 102
 
 	# Set workspaces
-	bspc monitor DP-4 -d I II III IV V VI VII VIII IX X
+	bspc monitor $MONITOR -d I II III IV V VI VII VIII IX X
 	
 fi
 

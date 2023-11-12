@@ -5,4 +5,4 @@ sh ~/.config/bspwm/bspwmrc &
 
 # Autostart apps
 killall megasync
-megasync & > /dev/null
+# megasync & > /dev/null

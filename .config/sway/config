@@ -22,6 +22,8 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 set $alt Mod1
 
+set $WALLPAPER /media/data/images/wallpaper/w-4.jpg
+
 default_border pixel 1
 default_floating_border pixel 3
 
@@ -32,7 +34,7 @@ gaps outer -8
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg $WALLPAPER fill
 #
 # Example configuration:
 #
@@ -78,7 +80,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+w kill
 
     # Start your launcher
-    bindsym $mod+Shift+space exec $menu
+    # bindsym $mod+Shift+space exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -254,9 +256,8 @@ bar {
 
     colors {
         statusline #ffffff
-        background #323232
+        background #32323250
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
 
-include /etc/sway/config.d/*

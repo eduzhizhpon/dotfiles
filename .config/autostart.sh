@@ -13,7 +13,7 @@ killall dunst
 dunst &
 
 #IBus
-ibus-daemon -drxR
+# ibus-daemon -drxR
 
 
 #
