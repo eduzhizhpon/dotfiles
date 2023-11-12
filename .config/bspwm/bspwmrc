@@ -17,7 +17,7 @@ MONITOR_RIGHT='HDMI-0'
 
 if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
 	# Config external monitor resolution
-	xrandr --output $MONITOR --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --mode 1920x1080 --rotate normal --right-of $MONITOR --scale 1x1
+	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --mode 1920x1080 --rotate normal --right-of $MONITOR --scale 1x1
 
 	# Set workspaces
 	bspc monitor $MONITOR -d I II III IV V

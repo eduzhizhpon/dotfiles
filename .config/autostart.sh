@@ -15,11 +15,15 @@ dunst &
 #IBus
 # ibus-daemon -drxR
 
-
-#
-#	GTK 4 dark theme
-#
+# GTK 4 dark theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 
- /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# Root password modal
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+
+# Autostart apps
+
+killall megasync
+megasync & > /dev/null
