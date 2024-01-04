@@ -15,7 +15,7 @@ fi
 # ==================================================
 
 # Java JDK
-export JAVA_HOME="/opt/jvm/jdk-11"
+export JAVA_HOME="/opt/jvm/jdk"
 export JBOSS_HOME="/opt/wildfly"
 
 # Android studio
@@ -55,12 +55,15 @@ path_list=(
 
 )
 
+path="$PATH"
 # Function to export $path_list binaries
 for path_bin in "${path_list[@]}"; do
     if [ -d "$path_bin" ] ; then
-        PATH="$PATH:$path_bin";
+        path="$path:$path_bin";
     fi
 done
+
+export PATH="$path"
 
 # ==================================================
 # Config environment variables
@@ -97,3 +100,4 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 # Flutter
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
+

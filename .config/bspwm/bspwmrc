@@ -20,15 +20,15 @@ if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
 	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --mode 1920x1080 --rotate normal --right-of $MONITOR --scale 1x1
 
 	# Set workspaces
-	bspc monitor $MONITOR -d I II III IV V
-	bspc monitor $MONITOR_RIGHT -d VI VII VIII IX X
+	bspc monitor $MONITOR -d 1 2 3 4 5
+	bspc monitor $MONITOR_RIGHT -d 6 7 8 9 10
 	
 else	
 	# Config single monitor
 	xrandr --output $MONITOR --scale 1x1 --primary --dpi 102
 
 	# Set workspaces
-	bspc monitor $MONITOR -d I II III IV V VI VII VIII IX X
+	bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8 9 10
 	
 fi
 

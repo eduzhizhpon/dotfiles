@@ -17,6 +17,7 @@
 !sway
 !autostart.sh
 !xorg.conf.d
+!fontconfig
 
 # Fix plasma dolphin color background
 !kdeglobals

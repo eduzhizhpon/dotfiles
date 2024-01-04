@@ -5,7 +5,7 @@
 # ==================================================
 # Default PATHs
 # ==================================================
-[[ -f ~/.common_profile ]] && . ~/.common_profile
+[[ -f ~/.core_env ]] && source ~/.core_env
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
 
