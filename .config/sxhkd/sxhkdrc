@@ -49,7 +49,7 @@ super + m
 #
 
 # set the window state
-super + {t,shift + t,d,f}
+super + {a,s,d,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
@@ -139,16 +139,16 @@ super + shift + {j,k,i,l}
 #
 
 # Chrome
-super + a
-	google-chrome-stable
+#super + a
+#	google-chrome-stable
 
 # File explorer
-super + s
-	nautilus
+#super + s
+#	nautilus
 
 # Code Editor
-super + z
-	code
+#super + z
+#	code
 
 #
 # Custom
