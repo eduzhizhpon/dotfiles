@@ -24,6 +24,12 @@ gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 
 # Autostart apps
+if [ "$(command -v megasync)" ]; then
+	killall megasync
+	megasync & > /dev/null
+fi
 
-killall megasync
-megasync & > /dev/null
+# RClone to sync OneDrive
+if [ "$(command -v rclone)" ]; then 
+	rclone --vfs-cache-mode writes mount OneDrive:sql-scripts sql-scripts & > /dev/null
+fi

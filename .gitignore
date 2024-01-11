@@ -54,3 +54,6 @@ Powerline_*.cache
 
 # Postgres stuff
 .pg*
+
+# README
+!README.md
