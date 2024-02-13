@@ -1,3 +1,5 @@
 #!/bin/bash
+# By: zeeviam
+
 alacritty -e "nmtui"
 exit 0

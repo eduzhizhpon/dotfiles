@@ -1,60 +1,59 @@
+@import "colors.rasi"
+
 configuration {
-    font:                           "Iosevka Nerd Font 10";
+    font:                           "Fira Code, Iosevka, Nerd Font 10";
     show-icons:                     false;
-	icon-theme: 					"Papirus";
-    display-drun: 					":";
+    icon-theme: 		    "Papirus";
+    display-drun: 		    ":";
     drun-display-format:            "{name}";
     threads:                        0;
     scroll-method:                  0;
     disable-history:                false;
     fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
-    location:                       7;
+    hide-scrollbar: 		    true;
+    sidebar-mode: 		    false;
+    location:                       1;
 }
-
-@import "colors_dark.rasi"
 
 window {
     transparency:                   "real";
     background-color:               @background;
     text-color:                     @foreground;
-    border-radius:                  20px;
-    height:                         27%;
-    width:                          17%;
-    x-offset:                       30;
-    y-offset:                       -90;
+    border-radius:                  8px;
+    height:                         240px;
+    width:                          12%;
+    x-offset:                       20;
+    y-offset:                       60;
 }
 
 prompt {
-    enabled: 						true;
-	padding: 						4px 4px 6px 6px;
-	background-color: 				@background;
-	text-color: 					@foreground;
+    enabled: 			    true;
+    padding: 			    4px;
+    background-color: 		    @background;
+    text-color: 		    @foreground;
 }
 
 textbox-prompt-colon {
-	expand: 						false;
-	str: 							"";
+    expand: 			    false;
+    str: 			    "󰣇 ";
     background-color:               @background;
     text-color:                     @logo;
     padding:                        5px 0px 0px 10px;
-	font:							"feather 10";
+    font:			    "Fira Code";
 }
 
 inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
+    children: 			    [ textbox-prompt-colon, prompt ];
     background-color:               @background;
     text-color:                     @foreground;
     expand:                         false;
-    border:                  		0px 0px 1px 0px;
-    border-radius:                  20px;
-    border-color:                  	@border;
-    margin:                         0px 0px 0px 0px;
+    border:                  	    0px 0px 1px 0px;
+    border-radius:                  0px;
+    border-color:                   @border;
+    margin:                         0px 0px 2px 0px;
     padding:                        0px 0px 0px 0px;
     position:                       center;
 }
-
 
 entry {
     background-color:               @background;
@@ -62,9 +61,9 @@ entry {
     placeholder-color:              @foreground;
     expand:                         true;
     horizontal-align:               0;
-    placeholder:                    "Search";
+    placeholder:                    "System";
     blink:                          true;
-    padding:                        4px 0px 0px 0px;
+    padding:                        0px 0px 0px 0px;
 }
 
 case-indicator {
@@ -72,7 +71,6 @@ case-indicator {
     text-color:                     @foreground;
     spacing:                        0;
 }
-
 
 listview {
     background-color:               @background;
@@ -86,8 +84,8 @@ listview {
 mainbox {
     background-color:               @background;
     children:                       [ inputbar, listview ];
-    spacing:                       	5px;
-    padding:                        5px 5px 5px 5px;
+    spacing:                        5px;
+    padding:                        5px;
 }
 
 element {
@@ -95,7 +93,7 @@ element {
     text-color:                     @foreground;
     orientation:                    horizontal;
     border-radius:                  4px;
-    padding:                        6px 6px 6px 6px;
+    padding:                        1px 3px 1px 1px;
 }
 
 element-icon {
@@ -104,17 +102,21 @@ element-icon {
 }
 
 element-text {
+    background-color:               @background;
+    text-color: 		    @foreground;
+    border-radius:                  4px;
     expand:                         true;
     horizontal-align:               0;
     vertical-align:                 0;
     margin:                         2px 0px 2px 2px;
+    padding:                        6px;
 }
 
 element normal.urgent,
 element alternate.urgent {
     background-color:               @urgent;
     text-color:                     @foreground;
-    border-radius:                  9px;
+    border-radius:                  8px;
 }
 
 element normal.active,
@@ -126,9 +128,9 @@ element alternate.active {
 element selected {
     background-color:               @selected;
     text-color:                     @background;
-    border:                  		0px;
-    border-radius:                  20px;
-    border-color:                  	@border;
+    border:                         0;
+    border-radius:                  8px;
+    border-color:                   @border;
 }
 
 element selected.urgent {
