@@ -45,6 +45,7 @@
 !.commonrc
 !.core_env
 !.core_rc
+!.sway_env
 
 # Directories
 Projects

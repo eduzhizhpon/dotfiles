@@ -2,7 +2,6 @@
 
 [[ -f ~/.core_env ]] && source ~/.core_env
 
-
 # Fix the Java Problem
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -35,4 +34,4 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # 
 # Final config
 #
-[[ -f ~/.zshrc ]] && source ~/.zshrc
+# [[ -f ~/.zshrc ]] && source ~/.zshrc

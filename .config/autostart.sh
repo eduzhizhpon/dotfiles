@@ -31,5 +31,5 @@ fi
 
 # RClone to sync OneDrive
 if [ "$(command -v rclone)" ]; then 
-	rclone --vfs-cache-mode writes mount OneDrive:sql-scripts ~/Documents/sql-scripts & > /dev/null
+	# rclone --vfs-cache-mode writes mount OneDrive:sql-scripts ~/Documents/sql-scripts & > /dev/null
 fi

@@ -178,12 +178,10 @@ XF86AudioMute
 
 # Brightness control
 XF86MonBrightnessDown
-	light -U 5
-	# xbacklight -dec 5
+	xbacklight -dec 5
 
 XF86MonBrightnessUp
-	light -A 5
-	# xbacklight -inc 5
+	xbacklight -inc 5
 
 # Player control
 XF86AudioPlay
