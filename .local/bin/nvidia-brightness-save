@@ -1,0 +1,12 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          nvidia-brightness-save
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     
+# Default-Stop:      0 6
+# Short-Description: Save nvidia brightness
+### END INIT INFO
+
+echo $(xbacklight -get) > /opt/nvidia-settings/actual_brightness
+exit 0

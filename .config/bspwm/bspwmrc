@@ -1,0 +1,74 @@
+#! /bin/sh
+
+##
+# This script configures bspwm
+##
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+# Config single monitor
+xrandr --output $MONITOR --scale 1x1 --primary --dpi 102
+
+if [ ! -z "$CUSTOM_RESOLUTION" ]; then
+	xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
+fi
+
+##
+# Workspaces and resolution
+##
+
+if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
+	# Config external monitor resolution
+	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --rotate normal --right-of $MONITOR --scale 1x1
+
+	# Set workspaces
+	bspc monitor $MONITOR -d 1 2 3 4 5
+	bspc monitor $MONITOR_RIGHT -d 6 7 8 9 10
+	
+else	
+	# Set workspaces
+	bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8 9 10
+	
+fi
+
+##
+# Style
+##
+
+bspc config border_width	1
+bspc config window_gap          10
+
+bspc config split_ratio          0.5
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# Colors
+bspc config normal_border_color		"#111111"
+bspc config focused_border_color	"#7f689a"
+bspc config presel_feedback_color	"#7f689a"
+
+##
+# Configs
+##
+
+# Focus on mouse hover
+bspc config focus_follows_pointer true
+
+# Fix mouse cursor "x"
+xsetroot -cursor_name left_ptr
+
+# Disable screen saver
+xset -dpms s off
+
+## 
+# Custom launch
+##
+
+# Launch Polybar
+~/.config/polybar/./launch.sh
+
+# Autostart apps
+# sh ~/.config/bspwm/autostart.sh
+
+# Wallpaper 
+feh --bg-fill $WALLPAPER

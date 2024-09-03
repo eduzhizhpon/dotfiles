@@ -1,0 +1,4 @@
+#!/bin/bash
+xbacklight -set $(cat /opt/nvidia-settings/actual_brightness)
+
+exit 0

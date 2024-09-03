@@ -1,0 +1,47 @@
+import = ["~/.config/alacritty/themes/dracula/dracula.toml"]
+
+[cursor]
+blink_interval = 400
+thickness = 0.15
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "Always"
+shape = "Beam"
+
+[cursor.vi_mode_style]
+shape = "Beam"
+
+[font]
+size = 8
+
+[font.bold]
+family = "FiraCode Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "FiraCode Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[[mouse.bindings]]
+action = "Copy"
+mouse = "Right"
+
+[[mouse.bindings]]
+action = "Paste"
+mouse = "Middle"
+
+[window]
+opacity = 0.75
+
+[window.padding]
+x = 10
+y = 10

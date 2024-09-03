@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DOTFILES_DIR="$HOME/dotfiles"
+ENV_FILES="$DOTFILES_DIR/.config/env-files"
+ENV_FILES_DIR="/opt/env-files"
+
+rm -rf "$ENV_FILES_DIR"
+ln -sf "$ENV_FILES" "$ENV_FILES_DIR"
+
+

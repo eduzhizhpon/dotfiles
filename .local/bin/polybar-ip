@@ -1,0 +1,87 @@
+#!/bin/bash
+
+STATE_FILE="/tmp/polybar-ip-state"
+
+NEXT="false"
+PREV="false"
+COLOR=""
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -next) 
+            NEXT="true"
+            ;;
+        -prev) 
+            PREV="true"
+            ;;
+        -color)
+            COLOR=$2
+            shift
+            ;;
+    esac
+    shift
+done
+
+get_all_available_interfaces() {
+    ip -o link show | awk -F': ' '{print $2}' | grep -Ev 'lo|docker|br|vethi|vmnet' | tr '\n' ' '
+}
+
+get_ip() {
+    ip addr show $1 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1
+}
+
+
+
+if [ ! -f "$STATE_FILE" ]; then
+    echo "0" > "$STATE_FILE"
+fi
+
+INTERFACES=($(get_all_available_interfaces))
+N=${#INTERFACES[@]}
+STATE=$(cat "$STATE_FILE")
+
+get_next_state() {
+    if [ -z $STATE ]; then
+        STATE=0
+    fi
+    next="$STATE"
+
+    if [ "$NEXT" == "true" ]; then
+        next=$(( (STATE + 1) % $N  ))
+    elif [ "$PREV" == "true" ]; then 
+        next=$(( (STATE - 1 + $N) % $N  ))
+    fi
+    
+    echo "$next"
+}
+
+load_state_ip() {
+    STATE=$(get_next_state)
+    CURRENT_INTERFACE=${INTERFACES[$STATE]}
+    IP=$(get_ip $CURRENT_INTERFACE)
+}
+
+load_state_ip
+iter=0
+while [ -z $IP ] && [ ! -z $CURRENT_INTERFACE ] && [ $STATE -lt $N ]; 
+do 
+    iter=$((iter + 1))
+    NEXT="true"
+    load_state_ip
+
+    if [ $iter -ge $N ]; then
+        break
+    fi
+done
+
+echo "$STATE" > "$STATE_FILE"
+
+if [ -z "$IP" ]; then
+    IP="No IP"
+fi
+
+if [ -z $COLOR ]; then
+    echo "$CURRENT_INTERFACE $IP"
+else
+    echo "$CURRENT_INTERFACE %{F$COLOR}$IP%{F-}"
+fi

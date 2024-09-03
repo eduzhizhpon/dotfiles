@@ -1,0 +1,4 @@
+#!/bin/bash
+
+alacritty -e "nmtui"
+exit 0
