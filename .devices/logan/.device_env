@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export MONITOR="HDMI-1"
+
+export MONITOR_RIGHT="HDMI-2"
+
+export NETWORK_INTERFACE="wlan0"
+
+export WALLPAPER="$HOME/.config/wallpapers/w-1.jpg"
+
+export CUSTOM_RESOLUTION="1920x1080"
