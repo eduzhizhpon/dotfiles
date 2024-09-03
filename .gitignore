@@ -48,6 +48,7 @@
 !.core_env
 !.core_rc
 !.sway_env
+!.device_env
 
 # Directories
 Projects
