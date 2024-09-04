@@ -1,0 +1,11 @@
+[Unit]
+Description=Run USB Monitor Service
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=30s
+Unit=mount-usb-monitor.service
+
+[Install]
+WantedBy=timers.target
+

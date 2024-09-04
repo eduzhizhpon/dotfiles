@@ -1,0 +1,6 @@
+[Unit]
+Description=USB Monitor Service
+
+[Service]
+ExecStart=%h/.local/bin/mount-usb-monitor
+

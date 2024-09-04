@@ -1,31 +1,5 @@
 # non-dot files
-/[^.]*
-!bin
-
-# Don't include files with sensitive data
-.zshrc-secrets
-
-# iJunk
-.DS_Store
-.MacOSX
-.Trash
-
-# Node stuff
-.v8flags.*
-
-# ZSH junk
-.zcompdump*
-.zsh-update
-
-# Python virtual envs
-.virtualenvs/
-.conda
-
-# Ruby virtual envs
-.rvm
-
-# History files
-.*history
+/*
 
 # --- Dotfiles ---
 # All dotfiles
@@ -43,24 +17,9 @@
 !.p10k.zsh
 
 # Custom dotfiles
-!.common_profile
-!.commonrc
 !.core_env
 !.core_rc
 !.sway_env
-!.device_env
-
-# Directories
-Projects
-
-# Powerline-specific cruft that isn't ignored in their own plugin
-Powerline_*.cache
-
-# Postgres stuff
-.pg*
 
 # README
 !README.md
-
-# Dot install
-!dot-install.sh
