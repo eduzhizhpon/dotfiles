@@ -217,13 +217,13 @@ makepkg -si
 ### BSPWM WM
 
 ```bash
-paru -S bspwm sxhkd
+paru -S bspwm sxhkd polybar
 ```
 
 ### Install necessary packages
 
 ```bash
-paru -Sy alacritty picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin google-chrome ttf-material-design-icons
+paru -Sy alacritty picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons breeze breeze-gtk
 ```
 
 ### Install Fira Code Nerd Font

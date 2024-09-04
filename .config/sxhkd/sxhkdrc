@@ -207,3 +207,9 @@ super + l
 
 super + j
 	playerctl previous
+
+XF86KbdBrightnessUp
+     brightnessctl -d smc::kbd_backlight s +50
+
+XF86KbdBrightnessDown
+     brightnessctl -d smc::kbd_backlight s 50-

@@ -1,8 +1,19 @@
 #!/bin/bash
 
+# Tap to click and Natural scrolling
+xinput-touchpad-props bcm5974
+
+
+# Composer
+killall picom
+picom --config ~/.config/picom/picom.conf &
+
 # Notification - dunts
 killall dunst
 dunst &
+
+#IBus
+# ibus-daemon -drxR
 
 # GTK 4 dark theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
@@ -22,4 +33,3 @@ fi
 # if [ "$(command -v rclone)" ]; then 
 	# rclone --vfs-cache-mode writes mount OneDrive:sql-scripts ~/Documents/sql-scripts & > /dev/null
 # fi
-

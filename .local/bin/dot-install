@@ -1,6 +1,11 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$HOME"
+
+if [ ! -z "$1" ]; then
+    DOTFILES_DIR="$1"
+fi
+
 ENV_FILES="$DOTFILES_DIR/.config/env-files"
 ENV_FILES_DIR="/opt/env-files"
 
