@@ -33,10 +33,4 @@ for file in "${DOTFILES[@]}"; do
 	ln -sf "$DOTFILES_DIR/$file" ~/$file
 done
 
-ln -sf  "$DOTFILES_DIR/.devices/logan/autostart.sh" ~/.config/autostart.sh
-echo ".config/autostart.sh"
-
-ln -sf  "$DOTFILES_DIR/.devices/logan/.device_env" ~/.device_env
-echo ".device_env"
-
 bash $HOME/.local/bin/dot-install "$DOTFILES_DIR"
