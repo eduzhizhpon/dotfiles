@@ -2,10 +2,21 @@
 
 
 LEFT_BARS=("logo" "workspaces" "host-ip")
-LEFT_BARS_WIDTHS=(50 220 250)
 
 RIGHT_BARS=("date" "sys-utils" "sys-tray")
-RIGHT_BARS_WIDTHS=(170 230 200)
+
+EXTERNAL_LEFT_BARS=("logo" "workspaces")
+
+EXTERNAL_RIGHT_BARS=("date")
+
+declare -A WIDTHS=( 
+    ["logo"]=53 
+    ["workspaces"]=220
+    ["host-ip"]=250
+    ["date"]=170
+    ["sys-utils"]=250
+    ["sys-tray"]=200
+)
 
 
 # Terminate already running bar instances
@@ -22,16 +33,12 @@ get_screen_width() {
     echo "$monitor_width"
 }
 
-screen_width=$(get_screen_width "$MONITOR")
-
 process_bars() {
     local offset=5
-    local bars=("${@:3:$2}")
-    local widths=("${@:$(($2 + 3))}")
     local is_right=$1
-
-    echo "${bars[@]}"
-    echo "${widths[@]}"
+    local monitor=$2
+    local bars=("${@:3}")
+    local screen_width=$(get_screen_width "$monitor")
 
     if [ "$is_right" == "true" ]; then
         offset=$(($screen_width - 5))  
@@ -39,13 +46,13 @@ process_bars() {
     
     for i in "${!bars[@]}"; do
         bar="${bars[$i]}"
-        bar_width="${widths[$i]}"
+        bar_width="${WIDTHS[$bar]}"
         
         if [ "$is_right" == true ]; then
             offset=$(($offset - $bar_width))  
         fi
 
-        OFFSET_X=$offset WIDTH=$bar_width polybar "$bar" -c ~/.config/polybar/components.ini  &
+        MONITOR=$monitor OFFSET_X=$offset WIDTH=$bar_width polybar "$bar" -c ~/.config/polybar/components.ini  &
         
         if [ "$is_right" == true ]; then
             offset=$(($offset - 5))  
@@ -55,16 +62,17 @@ process_bars() {
     done
 }
 
-process_bars "false" "${#LEFT_BARS[@]}" "${LEFT_BARS[@]}" "${LEFT_BARS_WIDTHS[@]}"
-process_bars "true" "${#RIGHT_BARS[@]}" "${RIGHT_BARS[@]}" "${RIGHT_BARS_WIDTHS[@]}"
+process_bars "false" "$MONITOR" "${LEFT_BARS[@]}"
+
+process_bars "true" "$MONITOR" "${RIGHT_BARS[@]}"
 
 ## External Monitor
 for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
 	if [ "$m" != "$MONITOR" ]; then
 		echo "Config for monitor=$m"
-		# MONITOR=$m polybar logo-external -c ~/.config/polybar/components.ini &
-		# MONITOR=$m polybar date-external -c ~/.config/polybar/components.ini &
-		MONITOR=$m polybar workspaces-external -c ~/.config/polybar/components.ini &
+        process_bars "false" "$m" "${EXTERNAL_LEFT_BARS[@]}"
+    
+        process_bars "true" "$m" "${EXTERNAL_RIGHT_BARS[@]}"
 	fi
 done;
 

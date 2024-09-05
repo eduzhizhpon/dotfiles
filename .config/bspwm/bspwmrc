@@ -7,7 +7,7 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Config single monitor
-xrandr --output $MONITOR --scale 1x1 --primary --dpi 102
+xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
 
 if [ ! -z "$CUSTOM_RESOLUTION" ]; then
 	xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
@@ -18,8 +18,8 @@ fi
 ##
 
 if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
-	# Config external monitor resolution
-	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --rotate normal --right-of $MONITOR --scale 1x1
+	echo "Config external monitor resolution"
+	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --rotate normal --right-of $MONITOR --scale 1x1 --mode "$RIGHT_CUSTOM_RESOLUTION"
 
 	# Set workspaces
 	bspc monitor $MONITOR -d 1 2 3 4 5
@@ -65,10 +65,12 @@ xset -dpms s off
 ##
 
 # Launch Polybar
-~/.config/polybar/./launch.sh
+bash ~/.config/polybar/launch.sh &
 
 # Autostart apps
 # sh ~/.config/bspwm/autostart.sh
 
 # Wallpaper 
-feh --bg-fill $WALLPAPER
+feh --bg-fill $WALLPAPER &
+
+exit 0
