@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <prefix> <directory>"
+  exit 1
+fi
+
+prefix=$1
+directory=$2
+
+highest_num=0
+next_num=0
+
+get_number() {
+  local filename=$1
+  local regex="${prefix}-([0-9]+)\..+"
+  
+  if [[ $filename =~ $regex ]]; then
+    echo "${BASH_REMATCH[1]}"
+  else
+    echo ""
+  fi
+}
+
+for file in "$directory"/*; do
+  if [[ -f "$file" ]]; then
+    filename=$(basename "$file")
+    num=$(get_number "$filename")
+    
+    if [[ $num ]]; then
+      if (( num > highest_num )); then
+        highest_num=$num
+      fi
+    fi
+  fi
+done
+
+next_num=$((highest_num + 1))
+
+for file in "$directory"/*; do
+  if [[ -f "$file" ]]; then
+    filename=$(basename "$file")
+    num=$(get_number "$filename")
+    
+    if [[ ! $num ]]; then
+      extension="${filename##*.}"
+      new_filename="${prefix}-${next_num}.${extension}"
+      echo "Renaming '$filename' to '$new_filename'"
+      mv "$file" "$directory/$new_filename"
+      next_num=$((next_num + 1))
+    fi
+  fi
+done
+

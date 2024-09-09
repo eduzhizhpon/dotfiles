@@ -28,7 +28,7 @@ mount_usb() {
     # Check if already mounted
     if ! mount | grep -q "$mount_point"; then
         echo "$(date): Mounting $uuid at $mount_point" >> "$LOG_FILE"
-        sudo /usr/bin/ntfs-3g "/dev/disk/by-uuid/$uuid" "$mount_point" >> "$LOG_FILE" 2>&1
+        sudo /bin/mount "/dev/disk/by-uuid/$uuid" "$mount_point" >> "$LOG_FILE" 2>&1
         if [ $? -ne 0 ]; then
             echo "$(date): Mount failed for UUID $uuid at $mount_point" >> "$LOG_FILE"
         else
@@ -45,7 +45,7 @@ unmount_usb() {
 
     if mount | grep -q "$mount_point"; then
         echo "$(date): Unmounting $mount_point" >> "$LOG_FILE"
-        sudo /bin/umount "$mount_point" >> "$LOG_FILE" 2>&1
+        sudo /bin/umount -lf "$mount_point" >> "$LOG_FILE" 2>&1
         if [ $? -ne 0 ]; then
             echo "$(date): Unmount failed for $mount_point" >> "$LOG_FILE"
         else
