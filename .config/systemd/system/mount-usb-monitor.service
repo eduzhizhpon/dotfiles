@@ -1,0 +1,15 @@
+[Unit]
+Description=USB Mount Monitor Service
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/mount-usb-monitor
+Restart=always
+KillSignal=SIGTERM
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+

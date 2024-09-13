@@ -4,7 +4,11 @@
 ENV_FILE="/opt/env-files/usb-monitor.env"
 
 # Define log file
-LOG_FILE="/tmp/usb-monitor.log"
+LOG_FILE="/tmp/mount-usb-monitor.log"
+
+running=true
+
+TIMEOUT=30
 
 # Check if environment file exists
 if [ ! -f "$ENV_FILE" ]; then
@@ -56,13 +60,41 @@ unmount_usb() {
     fi
 }
 
+terminate_script() {
+    running=false
+    echo "$(date): Received termination signal. Running=$running" >> "$LOG_FILE"
+}
+
+umount_all() {
+    for i in "${!USB_UUIDS[@]}"; do
+        uuid="${USB_UUIDS[$i]}"
+        mount_point="${MOUNT_POINTS[$i]}"
+        if [ ! -e "/dev/disk/by-uuid/$uuid" ]; then
+            unmount_usb "$mount_point"
+        fi
+    done
+    
+}
+
+trap terminate_script SIGTERM SIGINT
+
 # Main logic
-for i in "${!USB_UUIDS[@]}"; do
-    uuid="${USB_UUIDS[$i]}"
-    mount_point="${MOUNT_POINTS[$i]}"
-    if [ -e "/dev/disk/by-uuid/$uuid" ]; then
-        mount_usb "$uuid" "$mount_point"
-    else
-        unmount_usb "$mount_point"
-    fi
+while "$running"; do
+    for i in "${!USB_UUIDS[@]}"; do
+        uuid="${USB_UUIDS[$i]}"
+        mount_point="${MOUNT_POINTS[$i]}"
+        if [ -e "/dev/disk/by-uuid/$uuid" ]; then
+            mount_usb "$uuid" "$mount_point"
+        else
+            unmount_usb "$mount_point"
+        fi
+    done
+
+    sleep "$TIMEOUT"
 done
+
+umount_all
+
+echo "$(date): Finished" >> "$LOG_FILE"
+
+exit 0
