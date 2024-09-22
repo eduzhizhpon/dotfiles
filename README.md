@@ -321,8 +321,8 @@ usermod --shell /usr/bin/zsh $USER
 # Link configs
 sudo su
 cd
-ln -s $HOME/.zshrc .
-ln -s $HOME/.p10k.zsh .sd
+ln -s <USER HOME>/.zshrc .
+ln -s <USER HOME>/.p10k.zsh .
 
 # zsh sudo
 sudo mkdir /usr/share/zsh/plugins/zsh-sudo && cd $_
