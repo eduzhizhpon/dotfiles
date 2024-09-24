@@ -247,6 +247,26 @@ fc-cache -fv
 fc-list
 ```
 
+# Installing Fira Code Nerd Font on macOS
+
+```bash
+# Download Fira Code Nerd Font from: https://www.nerdfonts.com/font-downloads
+
+# Create the fonts directory (optional on macOS)
+mkdir -p ~/Library/Fonts/FiraCodeNerdFont
+
+# Unzip fonts to the fonts directory
+unzip /path/to/downloaded/font.zip -d ~/Library/Fonts/FiraCodeNerdFont
+
+# Or copy fonts directly
+cp /path/to/downloaded/fonts/* ~/Library/Fonts/FiraCodeNerdFont
+
+# No need to run fc-cache; macOS handles fonts automatically
+
+# Verify installed fonts
+system_profiler SPFontsDataType | grep "FiraCode"
+```
+
 ### Nvidia Config
 
 1. GRUB config

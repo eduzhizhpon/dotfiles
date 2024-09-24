@@ -37,9 +37,19 @@ compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS paths
+    source /usr/local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source /usr/local/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
+else
+    # Default paths (for Linux or others)
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
+fi
+
 
 # Functions
 function mkt(){
