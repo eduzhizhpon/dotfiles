@@ -17,24 +17,27 @@ fi
 # ==================================================
 
 # Java JDK
-export JAVA_HOME="/opt/bin/jvm/jdk"
-export JBOSS_HOME="/opt/bin/wildfly"
+export JAVA_HOME="/opt/local/jvm/jdk"
+export JBOSS_HOME="/opt/local/wildfly"
 
 # Android studio
-export ANDROID_SDK_ROOT="/opt/bin/android-sdk"
-export ANDROID_HOME="/opt/bin/android-sdk"
+export ANDROID_SDK_ROOT="/opt/local/android-sdk"
+export ANDROID_HOME="/opt/local/android-sdk"
 export ANDROID_STUDIO_HOME="/media/data/linux/apps/android/android-studio"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # NodeJS
-export NODE_HOME="/opt/bin/node"
+export NODE_HOME="/opt/local/node"
 
 # Docker
-export DOCKER_HOME="/opt/bin/docker"
+export DOCKER_HOME="/opt/local/docker"
 
 # Flutter
-export FLUTTER_HOME="/opt/bin/flutter"
-export DART_HOME="/opt/bin/dart-sdk"
+export FLUTTER_HOME="/opt/local/flutter"
+export DART_HOME="/opt/local/dart-sdk"
+
+# Conda
+export CONDA_HOME="/opt/local/miniconda3"
 
 # ==================================================
 # Export binaries

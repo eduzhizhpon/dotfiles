@@ -1,5 +1,3 @@
-# Created by newuser for 5.9
-#
 
 # Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -37,14 +35,11 @@ compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Plugins
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS paths
     source /usr/local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     source /usr/local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     source /usr/local/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
 else
-    # Default paths (for Linux or others)
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     source /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
@@ -117,14 +112,15 @@ source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$("$CONDA_HOME/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$CONDA_HOME/etc/profile.d/conda.sh" ]; then
+        . "$CONDA_HOME/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/miniconda3/bin:$PATH"
+        export PATH="$CONDA_HOME/bin:$PATH"
     fi
 fi
 unset __conda_setup
