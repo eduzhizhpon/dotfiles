@@ -61,7 +61,7 @@ path_list=(
 
 )
 
-path="$PATH"
+path=""
 # Function to export $path_list binaries
 for path_bin in "${path_list[@]}"; do
     if [ -d "$path_bin" ] ; then
@@ -69,7 +69,10 @@ for path_bin in "${path_list[@]}"; do
     fi
 done
 
-export PATH="$path"
+if [ -n "$path" ]; then
+    export PATH="$path:$PATH"
+fi;
+
 
 # ==================================================
 # Config environment variables
