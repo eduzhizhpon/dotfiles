@@ -2,23 +2,15 @@
 
 # ENV
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
 # ==================================================
 # User environment variables
 # ==================================================
 
 # Java JDK
 export JAVA_HOME="/opt/local/jvm/jdk"
-export JBOSS_HOME="/opt/local/wildfly"
+
+# export JBOSS_HOME="/opt/local/wildfly"
+export MAVEN_HOME="/opt/local/maven"
 
 # Android studio
 export ANDROID_SDK_ROOT="/opt/local/android-sdk"
@@ -45,27 +37,32 @@ export CONDA_HOME="/opt/local/miniconda3"
 
 # Binaries list
 path_list=(
+    "/bin"
+    "/usr/bin"
     "/snap/bin"
+    "$HOME/bin"
+    "$HOME/.local/bin"
     "$ANDROID_STUDIO_HOME/bin"
     "$ANDROID_SDK_ROOT/tools/bin"
     "$ANDROID_SDK_ROOT/platform-tools"
     "$ANDROID_SDK_ROOT/emulator"
-
     "$NODE_HOME/bin"
     "$JAVA_HOME/bin"
+    "$MAVEN_HOME/bin"
     "$DOCKER_HOME"
     "$FLUTTER_HOME/bin"
     "$DARK_HOME/bin"
-
-    "$HOME/.local/bin"
-
 )
 
 path=""
 # Function to export $path_list binaries
 for path_bin in "${path_list[@]}"; do
     if [ -d "$path_bin" ] ; then
-        path="$path:$path_bin";
+        if [ -n "$path" ]; then
+            path="$path:$path_bin"
+        else
+            path="$path_bin"
+        fi;
     fi
 done
 
