@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/themes/dracula/dracula.toml"]
+general.import = ["~/.config/alacritty/themes/dracula/dracula.toml"]
 
 [cursor]
 blink_interval = 400
