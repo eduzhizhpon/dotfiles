@@ -107,3 +107,5 @@ export GTK_THEME=Breeze:dark
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
 
 [[ -f ~/.device_env ]] && source ~/.device_env
+
+[[ -f ~/.local_env ]] && source ~/.local_env
