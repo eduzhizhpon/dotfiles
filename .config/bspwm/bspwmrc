@@ -4,8 +4,6 @@
 # This script configures bspwm
 ##
 
-pgrep -x sxhkd > /dev/null || sxhkd &
-
 # Config single monitor
 xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
 
@@ -17,13 +15,26 @@ fi
 # Workspaces and resolution
 ##
 
-if [[ $(xrandr -q | grep "$MONITOR_RIGHT connected") ]]; then
+if [[ $(xrandr -q | grep "$EXTRA_MONITOR connected") ]]; then
 	echo "Config external monitor resolution"
-	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary --output $MONITOR_RIGHT --dpi 110 --rotate normal --right-of $MONITOR --scale 1x1 --mode "$RIGHT_CUSTOM_RESOLUTION"
+
+    side="--right-of"
+
+    if [ "$EXTRA_MONITOR_SIDE" == "left" ]; then
+        side="--left-of"
+    fi
+
+	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary 
+    xrandr --output $EXTRA_MONITOR --dpi 110 --rotate $EXTRA_MONITOR_ROTATION "$side" $MONITOR --scale 1x1 --mode "$EXTRA_MONITOR_RESOLUTION"
 
 	# Set workspaces
-	bspc monitor $MONITOR -d 1 2 3 4 5
-	bspc monitor $MONITOR_RIGHT -d 6 7 8 9 10
+    if [ "$EXTRA_MONITOR_SIDE" == "left" ]; then
+	    bspc monitor $EXTRA_MONITOR -d 6 7 8 9 10
+        bspc monitor $MONITOR -d 1 2 3 4 5
+    else
+        bspc monitor $MONITOR -d 1 2 3 4 5
+	    bspc monitor $EXTRA_MONITOR -d 6 7 8 9 10
+    fi
 	
 else	
 	# Set workspaces
@@ -72,5 +83,8 @@ bash ~/.config/polybar/launch.sh &
 
 # Wallpaper 
 feh --bg-fill $WALLPAPER &
+
+# Key binding
+pgrep -x sxhkd > /dev/null || sxhkd &
 
 exit 0

@@ -95,7 +95,7 @@ export QT_SELECT="5"
 export EDITOR='nvim'
 
 # Wallpaper
-export WALLPAPER="/media/data/images/wallpaper/w-4.jpg"
+export WALLPAPER="/usr/share/wallpapers/feh/w-1.jpg"
 
 # VS Code LiveShare "Couldn't find a valid ICU package installed
 # on the system" solution
