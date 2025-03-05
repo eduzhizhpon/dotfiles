@@ -15,6 +15,7 @@
 !.zshrc
 !.zprofile
 !.p10k.zsh
+!.Xresources
 
 # Custom dotfiles
 !.core_env

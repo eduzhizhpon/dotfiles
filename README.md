@@ -350,3 +350,22 @@ sudo mkdir /usr/share/zsh/plugins/zsh-sudo && cd $_
 sudo curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh --output sudo.plugin.zsh
 ```
 
+### Fix cursor size
+
+1. Create config file
+
+```
+sudo nano /etc/X11/xorg.conf.d/30-cursor.conf
+
+```
+2. Add:
+
+```bash
+Section "InputClass"
+    Identifier "Cursor Settings"
+    MatchIsPointer "yes"
+    Option "Xcursor.theme" "Adwaita"
+    Option "Xcursor.size" "24"
+EndSection
+```
+

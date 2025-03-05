@@ -4,13 +4,6 @@
 # This script configures bspwm
 ##
 
-# Config single monitor
-xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
-
-if [ ! -z "$CUSTOM_RESOLUTION" ]; then
-	xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
-fi
-
 ##
 # Workspaces and resolution
 ##
@@ -37,6 +30,13 @@ if [[ $(xrandr -q | grep "$EXTRA_MONITOR connected") ]]; then
     fi
 	
 else	
+    # Config single monitor
+    xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
+
+    if [ ! -z "$CUSTOM_RESOLUTION" ]; then
+	    xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
+    fi
+
 	# Set workspaces
 	bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8 9 10
 	

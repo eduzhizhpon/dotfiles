@@ -7,29 +7,29 @@
 # ==================================================
 
 # Java JDK
-export JAVA_HOME="/opt/local/jvm/jdk"
+export JAVA_HOME="/opt/bin/jvm/jdk"
 
-# export JBOSS_HOME="/opt/local/wildfly"
-export MAVEN_HOME="/opt/local/maven"
+# export JBOSS_HOME="/opt/bin/wildfly"
+export MAVEN_HOME="/opt/bin/maven"
 
 # Android studio
-export ANDROID_SDK_ROOT="/opt/local/android-sdk"
-export ANDROID_HOME="/opt/local/android-sdk"
-export ANDROID_STUDIO_HOME="/media/data/linux/apps/android/android-studio"
+export ANDROID_SDK_ROOT="/opt/bin/android/sdk"
+export ANDROID_HOME="/opt/bin/android/sdk"
+export ANDROID_STUDIO_HOME="/opt/bin/android/studio"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # NodeJS
-export NODE_HOME="/opt/local/node"
+export NODE_HOME="/opt/bin/node"
 
 # Docker
-export DOCKER_HOME="/opt/local/docker"
+export DOCKER_HOME="/opt/bin/docker"
 
 # Flutter
-export FLUTTER_HOME="/opt/local/flutter"
-export DART_HOME="/opt/local/dart-sdk"
+export FLUTTER_HOME="/opt/bin/flutter"
+export DART_HOME="/opt/bin/dart-sdk"
 
 # Conda
-export CONDA_HOME="/opt/local/miniconda3"
+export CONDA_HOME="/opt/bin/miniconda3"
 
 # ==================================================
 # Export binaries
@@ -85,11 +85,13 @@ export XMODIFIERS=@im=ibus
 export LS_COLORS="ow=1;30;104"
 
 # GTK and Qt compatibility
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export QT_SELECT="5"
-#export QT_STYLE_OVERRIDE="gtk2"
-#export QT_STYLE_OVERRIDE=adwaita-dark
+export QT_QPA_PLATFORMTHEME="qt6ct"
+export XCURSOR_SIZE=26
+export XCURSOR_THEME=Adwaita
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCALE_FACTOR=1
+export QT_FONT_DPI=110
+export QT_SELECT="6"
 
 # Crontab Editor
 export EDITOR='nvim'
