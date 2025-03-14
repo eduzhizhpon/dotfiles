@@ -167,7 +167,7 @@ super + @space
 
 # Take screnshot
 super + shift + s
-	spectacle -bcr
+	flameshot gui -c
 
 # Volume Control
 XF86AudioLowerVolume
