@@ -224,6 +224,12 @@ paru -S bspwm sxhkd polybar
 
 ```bash
 paru -Sy alacritty picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons breeze breeze-gtk
+
+paru -S ttf-liberation ttf-dejavu noto-fonts
+
+paru -S ttf-ms-fonts noto-fonts-cjk ttf-baekmuk noto-fonts-emoji
+
+paru -S fontconfig
 ```
 
 ### Install Fira Code Nerd Font
