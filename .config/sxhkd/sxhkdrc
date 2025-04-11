@@ -169,6 +169,10 @@ super + @space
 super + shift + s
 	flameshot gui -c
 
+# Clipboard manager
+super + v
+    copyq menu
+
 # Volume Control
 XF86AudioLowerVolume
 	amixer set Master 5%-

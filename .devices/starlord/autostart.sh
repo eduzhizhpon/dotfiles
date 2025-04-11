@@ -8,6 +8,10 @@ picom --config ~/.config/picom/picom.conf &
 killall dunst
 dunst &
 
+# Clip manager
+killall copyq
+pgrep -x copyq || copyq &
+
 #IBus
 # ibus-daemon -drxR
 

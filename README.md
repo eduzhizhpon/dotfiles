@@ -229,7 +229,7 @@ paru -S ttf-liberation ttf-dejavu noto-fonts
 
 paru -S ttf-ms-fonts noto-fonts-cjk ttf-baekmuk noto-fonts-emoji
 
-paru -S fontconfig
+paru -S fontconfig copyq
 ```
 
 ### Install Fira Code Nerd Font
