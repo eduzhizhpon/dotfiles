@@ -1,12 +1,13 @@
 /* Color-Scheme For All Themes*/
+@import "theme.rasi"
 
 * {
   background: #1d1d1dff;
   background-alt: #2e2e2eff;
   foreground: #eeeeee;
   placeholder: #888888ff;
-  border: #7f689a;
-  selected: #7f689a;
+  border: @theme-color;
+  selected: @theme-color;
   urgent: #ec407aff;
   logo: #ec407aff;
   on: #61c766ff;
