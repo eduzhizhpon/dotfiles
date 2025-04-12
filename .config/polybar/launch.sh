@@ -3,7 +3,7 @@
 
 LEFT_BARS=("logo" "workspaces" "host-ip")
 
-RIGHT_BARS=("date" "sys-utils" "sys-tray")
+RIGHT_BARS=("date" "sys-utils" "music-control" "sys-tray")
 
 EXTERNAL_LEFT_BARS=("logo" "workspaces")
 
@@ -15,6 +15,7 @@ declare -A WIDTHS=(
     ["host-ip"]=250
     ["date"]=170
     ["sys-utils"]=250
+    ["music-control"]=150
     ["sys-tray"]=200
 )
 

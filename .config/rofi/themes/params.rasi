@@ -1,0 +1,18 @@
+/* Color-Scheme For All Themes*/
+
+* {
+  background: #1d1d1dff;
+  background-alt: #2e2e2eff;
+  foreground: #eeeeee;
+  placeholder: #888888ff;
+  border: #7f689a;
+  selected: #7f689a;
+  urgent: #ec407aff;
+  logo: #ec407aff;
+  on: #61c766ff;
+  off: #ec7875ff;
+
+  window-border-color: #555555;
+  window-border-radius: 16px;
+  input-border-radius: 8px;
+}

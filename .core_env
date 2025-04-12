@@ -99,6 +99,9 @@ export EDITOR='nvim'
 # Wallpaper
 export WALLPAPER="/usr/share/wallpapers/feh/w-1.jpg"
 
+# Theme color
+export THEME_COLOR="#7f689a"
+
 # VS Code LiveShare "Couldn't find a valid ICU package installed
 # on the system" solution
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1

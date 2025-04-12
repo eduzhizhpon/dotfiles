@@ -12,9 +12,7 @@ super + shift + Return
 
 # program launcher
 super + shift + @space
-	~/.config/polybar/scripts/./launcher
-
-	# rofi -show run
+	rofi-launcher
 
 # make sxhkd reload its configuration files:
 super + Escape

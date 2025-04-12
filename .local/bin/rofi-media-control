@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Source the common functions file
+source ~/.config/polybar/scripts/media-info-commons
+
+# Get active player
+active_player=$(get_active_player)
+
+if [ -n "$active_player" ]; then
+    # Get the current song playing
+    song=$(playerctl -p "$active_player" metadata --format '{{ artist }} - {{ title }}' 2>/dev/null)
+else
+    song="Nothing Playing"
+fi
+
+# Rofi menu options
+#options=("Play/Pause" "Next" "Previous" "Exit")
+options="Play/Pause
+Next
+Previous
+Exit"
+
+# Display Rofi menu
+selected=$(echo -e "${options[*]}" | rofi -dmenu -p "$song" -theme $HOME/.config/polybar/scripts/themes/media-control.rasi)
+
+# Handle the selected action
+case $selected in
+    "Play/Pause")
+        playerctl -p "$active_player" play-pause
+        ;;
+    "Next")
+        playerctl -p "$active_player" next
+        ;;
+    "Previous")
+        playerctl -p "$active_player" previous
+        ;;
+    "Exit")
+        exit 0
+        ;;
+    *)
+        echo "No action selected"
+        ;;
+esac
+

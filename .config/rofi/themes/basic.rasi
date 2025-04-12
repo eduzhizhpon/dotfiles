@@ -1,0 +1,110 @@
+@import "params.rasi"
+
+configuration {
+  font: "Cantarell 11, FiraCode Nerd Font 11";
+  fullscreen: false;
+  show-icons: false;
+  location: 0;
+}
+
+window {
+  background-color: @background;
+  text-color: @foreground;
+  border: 1px;
+  border-color: @window-border-color;
+  border-radius: @window-border-radius;
+  transparency: "real";
+  location: center;
+  anchor: center;
+}
+
+prompt {
+  enabled: true;
+  background-color: @background;
+  text-color: @foreground;
+}
+
+inputbar {
+  background-color: @background;
+  text-color: @selected;
+  border: 1px;
+  border-radius: @input-border-radius;
+  border-color: @border;
+  expand: false;
+  position: center;
+  padding: 8px;
+}
+
+listview {
+  background-color: @background;
+  columns: 1;
+  spacing: 1px;
+  cycle: true;
+  dynamic: true;
+  layout: vertical;
+}
+
+mainbox {
+  children: [inputbar, listview];
+  background-color: @background;
+  spacing: 10px;
+  padding: 16px;
+}
+
+element {
+  background-color: @background;
+  text-color: @foreground;
+  orientation: horizontal;
+  border-radius: 8px;
+  padding: 1px;
+}
+
+element-icon {
+  background-color: @background;
+  size: 30px;
+  border: 0px;
+  padding: 5px;
+}
+
+element-text {
+  background-color: @background;
+  text-color: @foreground;
+  border-radius: 8px;
+  padding: 5px;
+  expand: true;
+  horizontal-align: 0;
+  vertical-align: 0.5;
+  margin: 0px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+  background-color: @urgent;
+  text-color: @foreground;
+}
+
+element selected.urgent {
+  background-color: @urgent;
+  text-color: @foreground;
+}
+
+element normal.active,
+element alternate.active {
+  background-color: @background-alt;
+  text-color: @foreground;
+}
+
+element selected {
+  background-color: @selected;
+}
+
+element selected.active {
+  background-color: @background-alt;
+  color: @foreground;
+}
+
+
+element-icon selected {
+  background-color: @selected;
+}
+

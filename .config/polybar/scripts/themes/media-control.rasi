@@ -1,0 +1,18 @@
+@import "~/.config/rofi/config.rasi"
+
+window {
+  width: 500px;
+}
+
+prompt {
+  expand: true;
+}
+
+inputbar {
+  children: [prompt];
+  border: 0px;
+}
+
+listview {
+  lines: 4;
+}
