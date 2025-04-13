@@ -12,15 +12,10 @@ dunst &
 killall copyq
 pgrep -x copyq || copyq &
 
-#IBus
-# ibus-daemon -drxR
-
 # GTK 4 dark theme
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 # gsettings set org.gnome.desktop.interface gtk-theme Breeze:Dark
-
-
 
 # Root password modal
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

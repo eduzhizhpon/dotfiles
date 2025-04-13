@@ -8,7 +8,8 @@
 # Workspaces and resolution
 ##
 
-if [[ $(xrandr -q | grep "$EXTRA_MONITOR connected") ]]; then
+if [[ -n "$EXTRA_MONITOR" ]] && xrandr -q | grep -q "^$EXTRA_MONITOR connected"; then
+
 	echo "Config external monitor resolution"
 
     side="--right-of"

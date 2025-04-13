@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export MONITOR="DP-4"
+
+export NETWORK_INTERFACE="wlp0s20f3"
+
+
