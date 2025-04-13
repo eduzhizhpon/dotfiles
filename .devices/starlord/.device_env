@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export MONITOR="DP-0"
+
+export EXTRA_MONITOR="HDMI-0"
+
+export EXTRA_MONITOR_RESOLUTION="1920x1080"
+
+export EXTRA_MONITOR_SIDE="left"
+
+export EXTRA_MONITOR_ROTATION="right"
+
+export NETWORK_INTERFACE="enp7s0"
