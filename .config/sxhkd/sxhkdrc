@@ -169,7 +169,7 @@ super + shift + s
 
 # Clipboard manager
 super + v
-    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+    rofi -modi " :greenclip print" -show " " -run-command '{cmd}'
     #copyq menu
 
 # Volume Control

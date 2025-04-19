@@ -24,6 +24,12 @@ prompt {
   text-color: @foreground;
 }
 
+entry {
+  background-color: @background;
+  text-color: @foreground;
+  padding: 0 5px;
+}
+
 inputbar {
   background-color: @background;
   text-color: @selected;
