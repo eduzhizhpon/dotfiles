@@ -13,8 +13,10 @@ killall dunst
 dunst &
 
 # Clip manager
-killall copyq
-pgrep -x copyq || copyq &
+# killall copyq
+# pgrep -x copyq || copyq &
+killall greenclip
+greenclip daemon &
 
 # GTK 4 dark theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark

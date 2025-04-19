@@ -169,7 +169,8 @@ super + shift + s
 
 # Clipboard manager
 super + v
-    copyq menu
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+    #copyq menu
 
 # Volume Control
 XF86AudioLowerVolume
