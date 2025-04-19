@@ -1,6 +1,6 @@
 #!/bin/bash
 
-priority=("chromium" "firefox" "spotify" "vlc" "mpd")
+priority=("chromium" "firefox" "brave" "spotify" "vlc" "mpd")
 last_paused_file="/tmp/last_paused_media"
 
 is_player_playing() {
