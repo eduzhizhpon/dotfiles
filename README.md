@@ -375,3 +375,9 @@ Section "InputClass"
 EndSection
 ```
 
+### Themes
+
+```bash
+paru -S papirus-icon-theme xsettingsd adwaita-qt5-git adwaita-qt6-git kvantum-qt5
+```
+

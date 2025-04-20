@@ -76,6 +76,10 @@ xset -dpms s off
 # Custom launch
 ##
 
+# GTK manager X11
+killall xsettingsd
+xsettingsd &
+
 # Launch Polybar
 bash ~/.config/polybar/launch.sh &
 

@@ -85,13 +85,15 @@ export XMODIFIERS=@im=ibus
 export LS_COLORS="ow=1;30;104"
 
 # GTK and Qt compatibility
-export QT_QPA_PLATFORMTHEME="qt6ct"
+export QT_QPA_PLATFORMTHEME=qt6ct
+#export QT_STYLE_OVERRIDE=kvantum
 export XCURSOR_SIZE=26
 export XCURSOR_THEME=Adwaita
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCALE_FACTOR=1
 export QT_FONT_DPI=110
 export QT_SELECT="6"
+export QT_QUICK_CONTROLS_STYLE=Default
 
 # Crontab Editor
 export EDITOR='nvim'
@@ -107,7 +109,7 @@ export THEME_COLOR="#7f689a"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 # Gnome dark theme
-export GTK_THEME=Breeze:dark
+export GTK_THEME=Adwaita-dark
 
 # Flutter
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
