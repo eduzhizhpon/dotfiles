@@ -169,8 +169,9 @@ super + shift + s
 
 # Clipboard manager
 super + v
-    rofi -modi " :greenclip print" -show " " -run-command '{cmd}'
-    #copyq menu
+    copyq menu
+    # cliphist list | rofi -dmenu | cliphist decode | wl-copy
+    # rofi -modi " :greenclip print" -show " " -run-command '{cmd}'
 
 # Volume Control
 XF86AudioLowerVolume
