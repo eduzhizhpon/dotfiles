@@ -38,6 +38,7 @@ export CONDA_HOME="/opt/bin/miniconda3"
 # Binaries list
 path_list=(
     "/bin"
+    "/sbin"
     "/usr/bin"
     "/usr/sbin"
     "/snap/bin"

@@ -1,0 +1,5 @@
+export CONDA_HOME=/opt/local/miniconda3
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+alias dircolors='gdircolors'
