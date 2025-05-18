@@ -31,6 +31,9 @@ export DART_HOME="/opt/bin/dart-sdk"
 # Conda
 export CONDA_HOME="/opt/bin/miniconda3"
 
+# PNPM
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
 # ==================================================
 # Export binaries
 # ==================================================
@@ -54,6 +57,7 @@ path_list=(
     "$DOCKER_HOME"
     "$FLUTTER_HOME/bin"
     "$DARK_HOME/bin"
+    "$PNPM_HOME"
 )
 
 path=""

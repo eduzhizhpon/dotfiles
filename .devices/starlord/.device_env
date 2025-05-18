@@ -11,3 +11,5 @@ export EXTRA_MONITOR_SIDE="left"
 export EXTRA_MONITOR_ROTATION="right"
 
 export NETWORK_INTERFACE="enp7s0"
+
+export WALLPAPER="/media/data/wallpapers/w-4.jpg"

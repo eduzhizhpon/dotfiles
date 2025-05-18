@@ -381,3 +381,8 @@ EndSection
 paru -S papirus-icon-theme xsettingsd adwaita-qt5-git adwaita-qt6-git kvantum-qt5
 ```
 
+# Gnome Keyring
+```bash
+systemctl --user daemon-reexec
+systemctl --user enable --now gnome-keyring-daemon.service
+```

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Start GNOME Keyring Daemon
-# eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
-# export SSH_AUTH_SOCK
-
 # Composer
 killall picom
 picom --config ~/.config/picom/picom.conf &
