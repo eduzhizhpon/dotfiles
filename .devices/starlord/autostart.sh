@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Start GNOME Keyring Daemon
+# eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+# export SSH_AUTH_SOCK
+
 # Composer
 killall picom
 picom --config ~/.config/picom/picom.conf &
@@ -11,11 +15,6 @@ dunst &
 # Clip manager
 killall copyq
 pgrep -x copyq || copyq &
-
-# GTK 4 dark theme
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
-# gsettings set org.gnome.desktop.interface gtk-theme Breeze:Dark
 
 # Root password modal
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

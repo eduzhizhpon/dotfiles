@@ -1,3 +1,14 @@
+#!/bin/bash
+
+
+# Attempt to import gnome-keyring environment variables for SSH_AUTH_SOCK and others
+if [ -n "$(pgrep -x gnome-keyring-daemon)" ]; then
+  # Try to get the environment variables from systemd user environment
+  eval "$(systemctl --user show-environment | grep '^SSH_AUTH_SOCK=' | sed 's/^/export /')"
+  eval "$(systemctl --user show-environment | grep '^GNOME_KEYRING_CONTROL=' | sed 's/^/export /')"
+fi
+
+
 bash ~/.config/autostart.sh
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark

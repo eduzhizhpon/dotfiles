@@ -1,0 +1,14 @@
+[Unit]
+Description=GNOME Keyring Daemon
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/gnome-keyring-daemon --foreground --components=pkcs11,secrets,ssh,gpg
+Restart=on-failure
+Environment=DISPLAY=:0
+Environment=XDG_SESSION_TYPE=x11
+
+[Install]
+WantedBy=default.target
+
