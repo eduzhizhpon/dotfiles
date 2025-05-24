@@ -25,7 +25,7 @@ while true; do
     [ -z "$song" ] && song="Nothing Playing"
 
     if [[ "$song" != "$last_song" ]]; then
-        full_song="   $song "
+        full_song="   $song        "
         len=${#full_song}
         last_song="$song"
         i=0

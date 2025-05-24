@@ -18,8 +18,8 @@ if [[ -n "$EXTRA_MONITOR" ]] && xrandr -q | grep -q "^$EXTRA_MONITOR connected";
         side="--left-of"
     fi
 
-	xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary 
-    xrandr --output $EXTRA_MONITOR --dpi 110 --rotate $EXTRA_MONITOR_ROTATION "$side" $MONITOR --scale 1x1 --mode "$EXTRA_MONITOR_RESOLUTION"
+	# xrandr --output $MONITOR --auto --scale 1x1 --dpi 110 --primary 
+    # xrandr --output $EXTRA_MONITOR --dpi 110 --rotate $EXTRA_MONITOR_ROTATION "$side" $MONITOR --scale 1x1 --mode "$EXTRA_MONITOR_RESOLUTION"
 
 	# Set workspaces
     if [ "$EXTRA_MONITOR_SIDE" == "left" ]; then
@@ -32,11 +32,11 @@ if [[ -n "$EXTRA_MONITOR" ]] && xrandr -q | grep -q "^$EXTRA_MONITOR connected";
 	
 else	
     # Config single monitor
-    xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
+    # xrandr --output $MONITOR --scale 1x1 --primary --dpi 102 --auto
 
-    if [ ! -z "$CUSTOM_RESOLUTION" ]; then
-	    xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
-    fi
+    # if [ ! -z "$CUSTOM_RESOLUTION" ]; then
+	#   xrandr --output $MONITOR --mode "$CUSTOM_RESOLUTION"
+    # fi
 
 	# Set workspaces
 	bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8 9 10
