@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Get volume using amixer
+volume=$(amixer get Master | grep -oP '\[\d+%\]' | head -1 | tr -d '[]%')
+
+# Check mute status
+mute=$(amixer get Master | grep -o '\[on\]' | head -1)
+
+# Pick icon based on volume/mute
+if [ "$mute" != "[on]" ]; then
+    icon="🔇"
+elif [ "$volume" -lt 30 ]; then
+    icon="🔈"
+elif [ "$volume" -lt 70 ]; then
+    icon="🔉"
+else
+    icon="🔊"
+fi
+
+# Show notification
+notify-send -h int:value:"$volume" -t 1000 -r 1000 -u low "Volume: $volume%" "$icon"
+

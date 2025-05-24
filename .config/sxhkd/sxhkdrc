@@ -175,13 +175,13 @@ super + v
 
 # Volume Control
 XF86AudioLowerVolume
-	amixer set Master 2%-
+	amixer set Master 2%- && volume-notify
 
 XF86AudioRaiseVolume
-	amixer set Master 2%+
+	amixer set Master 2%+ && volume-notify
 
 XF86AudioMute
-        amixer set Master toggle
+        amixer set Master toggle && volume-notify
 
 # Brightness control
 XF86MonBrightnessDown
