@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 ##
 # This script configures bspwm
@@ -84,7 +84,7 @@ xsettingsd &
 bash ~/.config/polybar/launch.sh &
 
 # Autostart apps
-# sh ~/.config/bspwm/autostart.sh
+sh ~/.config/autostart.sh
 
 # Wallpaper 
 feh --bg-fill $WALLPAPER &
