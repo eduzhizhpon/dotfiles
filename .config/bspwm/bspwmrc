@@ -80,16 +80,20 @@ xset -dpms s off
 killall xsettingsd
 xsettingsd &
 
+# GTK configs
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+gsettings set org.gnome.desktop.interface gtk-theme Breeze:Dark
+
 # Launch Polybar
 bash ~/.config/polybar/launch.sh &
-
-# Autostart apps
-sh ~/.config/autostart.sh
 
 # Wallpaper 
 feh --bg-fill $WALLPAPER &
 
 # Key binding
 pgrep -x sxhkd > /dev/null || sxhkd &
+
+# Custom device autostart
+[ -x ~/.config/autostart.sh ] && bash ~/.config/autostart.sh &
 
 exit 0

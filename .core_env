@@ -44,6 +44,7 @@ path_list=(
     "/sbin"
     "/usr/bin"
     "/usr/sbin"
+    "/usr/local/bin"
     "/snap/bin"
     "$HOME/bin"
     "$HOME/.local/bin"
@@ -116,7 +117,7 @@ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 # Gnome dark theme
 export GTK_THEME=Adwaita-dark
 
-# Flutter
+# Flutter browser support
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
 
 [[ -f ~/.device_env ]] && source ~/.device_env
