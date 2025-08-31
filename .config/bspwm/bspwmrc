@@ -4,6 +4,8 @@
 # This script configures bspwm
 ##
 
+[ -x ~/.device/pre-start.sh ] && bash ~/.device/pre-start.sh
+
 ##
 # Workspaces and resolution
 ##
@@ -94,6 +96,6 @@ feh --bg-fill $WALLPAPER &
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Custom device autostart
-[ -x ~/.config/autostart.sh ] && bash ~/.config/autostart.sh &
+[ -x ~/.device/autostart.sh ] && bash ~/.device/autostart.sh &
 
 exit 0
