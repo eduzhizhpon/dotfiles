@@ -1,0 +1,25 @@
+* {
+  font-family: JetBrains Mono, Roboto, sans-serif;
+  font-size: 12pt;
+}
+
+#pulseaudio,
+#backlight,
+#battery,
+#clock {
+  padding: 0 12px;
+}
+
+window#waybar {
+  background-color: #1e1e2e;
+  color: #ffffff;
+}
+
+#battery.charging {
+  color: #a6e3a1;
+}
+
+#battery.warning {
+  color: #f38ba8;
+}
+

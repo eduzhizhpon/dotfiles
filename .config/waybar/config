@@ -1,0 +1,32 @@
+{
+  "layer": "top",
+  "position": "top",
+  
+  "modules-left": ["sway/workspaces"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["pulseaudio", "backlight", "battery", "clock"],
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " muted",
+    "scroll-step": 2
+  },
+
+  "backlight": {
+    "format": " {percent}%",
+    "device": "intel_backlight"
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 20
+  },
+
+  "clock": {
+    "format": "{:%H:%M}"
+  }
+}
+
