@@ -18,7 +18,8 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu rofi-launcher | dmenu_path | dmenu | xargs swaymsg exec --
+set $menu rofi-launcher 
 
 set $alt Mod1
 
@@ -75,7 +76,7 @@ output * bg $WALLPAPER fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-
+    
     # Kill focused window
     bindsym $mod+w kill
 
@@ -220,9 +221,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Keyboard layout
 bindsym $mod+space exec --no-startup-id "(setxkbmap -query | grep -q 'layout:\s\+us') && setxkbmap latam,us || setxkbmap us,latam"
 
-# Launcher
-bindsym --release $mod+Shift+space exec "sh ~/.config/polybar/scripts/./launcher"
-
 # Alter terminal 
 bindsym $mod+Shift+Return exec gnome-terminal
 
@@ -255,17 +253,16 @@ bindsym $mod+v exec --no-startup-id "copyq menu"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+# bar {
+#     position top
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#     colors {
+#         statusline #ffffff
+#         background #32323250
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #32323250
-        inactive_workspace #32323200 #32323200 #5c5c5c
+    bar {
+        swaybar_command waybar
     }
-}
-
