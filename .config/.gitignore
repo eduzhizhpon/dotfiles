@@ -16,6 +16,7 @@
 !systemd
 !i3
 !sway
+!waybar
 !xorg.conf.d
 !fontconfig
 !env-files

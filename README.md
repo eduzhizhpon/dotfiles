@@ -220,6 +220,12 @@ makepkg -si
 paru -S bspwm sxhkd polybar
 ```
 
+### Sway
+
+```bash
+paru -S sway swaylock swayidle swaybg waybar
+```
+
 ### Install necessary packages
 
 ```bash

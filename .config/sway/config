@@ -206,6 +206,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
 
 # 
@@ -263,6 +264,9 @@ bindsym $mod+v exec --no-startup-id "copyq menu"
 #     }
 # }
 
-    bar {
-        swaybar_command waybar
-    }
+bar {
+    swaybar_command waybar
+}
+
+# Custom device autostart
+exec_always [ -x ~/.device/autostart.sh ] && bash ~/.device/autostart.sh &
