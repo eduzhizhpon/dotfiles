@@ -19,7 +19,7 @@ pgrep -x copyq || copyq &
 # Autostart apps
 if [ "$(command -v megasync)" ]; then
 	killall megasync
-	megasync & > /dev/null
+	#megasync & > /dev/null
 fi
 
 # RClone to sync OneDrive

@@ -4,38 +4,31 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+include ~/.device/env
+
 ### Variables
-#
-# Logo key. Use Mod1 for Alt.
+
 set $mod Mod4
-# Home row direction keys, like vim
+set $alt Mod1
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
 set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-# set $menu rofi-launcher | dmenu_path | dmenu | xargs swaymsg exec --
 set $menu rofi-launcher 
 
-set $alt Mod1
-
-set $WALLPAPER /usr/share/wallpapers/feh/w-1.jpg
+### Layout
 
 default_border pixel 1
 default_floating_border pixel 3
-
 gaps inner 8
-
-gaps outer -8
+#gaps outer -8
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+exec_always ~/.config/sway/scripts/monitor-setup
 output * bg $WALLPAPER fill
+# exec_always swaybg -i "$WALLPAPER" -m fill
+
 #
 # Example configuration:
 #

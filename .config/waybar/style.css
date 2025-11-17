@@ -1,18 +1,28 @@
 * {
-  font-family: JetBrains Mono, Roboto, sans-serif;
-  font-size: 12pt;
+  font-family: FiraCode Nerd Font, JetBrains Mono, Roboto, sans-serif;
+  font-size: 1rem;
 }
 
-#pulseaudio,
-#backlight,
-#battery,
-#clock {
-  padding: 0 12px;
+.modules-left,
+.modules-center,
+.modules-right {
+  background: rgba(42, 42, 42, 0.5);
+  border-radius: 16px;
+  margin: 2px 0;
+}
+
+.module {
+  padding: 0 10px;
+  border-radius: 16px;
+}
+
+#pulseaudio:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 window#waybar {
-  background-color: #1e1e2e;
-  color: #ffffff;
+  background: transparent;
+  color: #dddddd;
 }
 
 #battery.charging {
@@ -23,3 +33,6 @@ window#waybar {
   color: #f38ba8;
 }
 
+#workspaces > * {
+  border-radius: 16px;
+}

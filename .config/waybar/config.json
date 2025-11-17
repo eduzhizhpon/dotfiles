@@ -14,6 +14,7 @@
     "clock"
   ],
   "sway/workspaces": {
+    "class": "clickable",
     "disable-scroll": true,
     "all-outputs": true,
     "format": "{icon}",
@@ -23,6 +24,7 @@
     }
   },
   "pulseaudio": {
+    "class": "clickable",
     "format": "󰕾 {volume}%",
     "format-muted": " M",
     "scroll-step": 2,
