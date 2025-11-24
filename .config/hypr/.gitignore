@@ -1,0 +1,8 @@
+# Dynamic configuration files
+conf/monitor.conf
+
+conf/workspace.conf
+
+conf/environment.conf
+
+conf/animation.conf

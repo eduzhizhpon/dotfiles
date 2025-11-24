@@ -1,0 +1,43 @@
+#!/bin/bash
+
+max_length=30
+delay=0.5
+scroll_speed=1
+
+# Source the common functions file
+source ~/.local/bin/media-info-commons
+
+last_song=""
+active_player=""
+
+while true; do
+    active_player=$(get_active_player)
+
+    if [ -n "$active_player" ]; then
+        song=$(playerctl -p "$active_player" metadata --format '{{ artist }} - {{ title }}' 2>/dev/null)
+        if is_player_paused "$active_player"; then
+            song="$song (PAUSED)"
+        fi
+    else
+        song=""
+    fi
+
+    [ -z "$song" ] && song="Nothing Playing"
+
+    if [[ "$song" != "$last_song" ]]; then
+        full_song="   $song        "
+        len=${#full_song}
+        last_song="$song"
+        i=0
+    fi
+
+    part="${full_song:i:max_length}"
+    if [ ${#part} -lt $max_length ]; then
+        part+="${full_song:0:max_length - ${#part}}"
+    fi
+    echo "$part"
+
+    ((i=(i + scroll_speed) % len))
+    sleep $delay
+done
+

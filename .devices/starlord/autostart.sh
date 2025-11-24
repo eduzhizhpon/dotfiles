@@ -2,7 +2,9 @@
 
 # Composer
 killall picom
-picom --config ~/.config/picom/picom.conf &
+if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+    picom --config ~/.config/picom/picom.conf &
+fi;
 
 # Notification - dunts
 killall dunst

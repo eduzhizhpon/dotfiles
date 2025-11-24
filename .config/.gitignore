@@ -17,9 +17,11 @@
 !i3
 !sway
 !waybar
+!hypr
 !xorg.conf.d
 !fontconfig
 !env-files
+!kitty
 
 # Fix plasma dolphin color background
 !kdeglobals

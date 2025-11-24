@@ -1,18 +1,6 @@
 {
   "layer": "top",
   "position": "top",
-  "modules-left": [
-    "sway/workspaces"
-  ],
-  "modules-center": [
-    "sway/window"
-  ],
-  "modules-right": [
-    "pulseaudio",
-    "backlight",
-    "battery",
-    "clock"
-  ],
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
@@ -22,6 +10,73 @@
       "default": ""
     }
   },
+  "hyprland/workspaces": {
+    "on-scroll-up": "hyprctl dispatch workspace r-1",
+    "on-scroll-down": "hyprctl dispatch workspace r+1",
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": false,
+    "format": "{}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    }
+  },
+  "hyprland/language": {
+    "format": "󰌌 {short}",
+    "disable-scroll": true,
+    "on-click": "custom-next-kb-lang"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "Alacritty",
+      "kitty"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+      "Firefox Web Browser": "Firefox",
+      "Foot Server": "Terminal"
+    }
+  },
+  "hyprland/window": {
+    "max-length": 60,
+    "rewrite": {
+      "(.*) - Brave": "$1",
+      "(.*) - Chromium": "$1",
+      "(.*) - Brave Search": "$1",
+      "(.*) - Outlook": "$1",
+      "(.*) Microsoft Teams": "$1",
+      "(.*) Visual Studio Code": "$1 VS Code"
+    },
+    "separate-outputs": true
+  },
+  "custom/empty": {
+    "format": ""
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/nowplaying": {
+    "exec": "~/.local/bin/media-info",
+    "format": "  {text}",
+    "return-type": "text",
+    "interval": 1,
+    "escape": true,
+    "hide-empty-text": false,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "tooltip-format": "Left: Play/Pause\nRight: Next\nMiddle: Previous"
+  },
   "pulseaudio": {
     "format": "󰕾 {volume}%",
     "format-muted": " M",
@@ -29,8 +84,25 @@
     "on-click": "pavucontrol"
   },
   "backlight": {
-    "format": " {percent}%",
-    "device": "intel_backlight"
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "scroll-step": 1
   },
   "battery": {
     "format": "{icon} {capacity}%",
@@ -47,6 +119,37 @@
   },
   "clock": {
     "format": "{:%H:%M:%S}",
-    "interval": 1
-  }
+    "interval": 1,
+    "tooltip": false
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": "",
+    "format-off": "",
+    "interval": 30,
+    "format-no-controller": "",
+    "on-click": "blueman-manager"
+  },
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": [
+      "hyprland/language",
+      "bluetooth",
+      "pulseaudio",
+      "backlight",
+      "battery",
+      "clock"
+    ]
+  },
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "tray",
+    "custom/nowplaying",
+    "group/hardware"
+  ]
 }

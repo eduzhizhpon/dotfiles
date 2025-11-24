@@ -1,0 +1,43 @@
+#!/bin/bash
+
+priority=("chromium" "firefox" "brave" "spotify" "vlc" "mpd")
+last_paused_file="/tmp/last_paused_media"
+
+is_player_playing() {
+    local player=$1
+    status=$(playerctl -p "$player" status 2>/dev/null)
+    [[ "$status" == "Playing" ]]
+}
+
+is_player_paused() {
+    local player=$1
+    status=$(playerctl -p "$player" status 2>/dev/null)
+    [[ "$status" == "Paused" ]]
+}
+
+get_active_player() {
+    local available=($(playerctl -l 2>/dev/null))
+
+    # Check if any preferred player is playing
+    for p in "${priority[@]}"; do
+        for a in "${available[@]}"; do
+            if [[ "$a" == *"$p"* ]] && is_player_playing "$a"; then
+                echo "$a" > "$last_paused_file"
+                echo "$a"
+                return
+            fi
+        done
+    done
+
+    # Fallback: use last paused player if it exists
+    if [[ -f "$last_paused_file" ]]; then
+        lp=$(cat "$last_paused_file")
+        if [[ " ${available[*]} " == *" $lp "* ]]; then
+            echo "$lp"
+            return
+        fi
+    fi
+
+    echo ""
+}
+

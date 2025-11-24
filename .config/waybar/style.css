@@ -1,3 +1,15 @@
+@define-color background #1a110f;
+
+@define-color on_surface #f1dfda;
+
+@define-color primary #ffb59d;
+@define-color on_primary #55200c;
+
+@define-color primary_container #723520;
+@define-color on_primary_container #ffdbd0;
+
+@define-color on_primary_container #ffdbd0;
+
 * {
   font-family: FiraCode Nerd Font, JetBrains Mono, Roboto, sans-serif;
   font-size: 1rem;
@@ -6,9 +18,7 @@
 .modules-left,
 .modules-center,
 .modules-right {
-  background: rgba(42, 42, 42, 0.5);
-  border-radius: 16px;
-  margin: 2px 0;
+  background: transparent;
 }
 
 .module {
@@ -16,8 +26,18 @@
   border-radius: 16px;
 }
 
+#taskbar button:hover,
+#bluetooth:hover,
+#language:hover,
 #pulseaudio:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+#taskbar button {
+  margin: 0;
+  border-radius: 16px;
+  padding: 0px 0.5rem;
 }
 
 window#waybar {
@@ -33,6 +53,91 @@ window#waybar {
   color: #f38ba8;
 }
 
-#workspaces > * {
+/* -----------------------------------------------------
+ * Groups
+ * ----------------------------------------------------- */
+#nowplaying,
+#hardware {
+  background: rgba(42, 42, 42, 0.5);
   border-radius: 16px;
+  margin: 2px 0;
+}
+
+/* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+  padding: 0px 15px 0px 0px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* -----------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------- */
+
+#workspaces {
+  margin: 0px 7px 0px 0px;
+  min-width: 210px;
+  padding: 0px;
+}
+
+#workspaces button {
+  padding: 0px 6px;
+  margin: 3px 3px;
+  border-radius: 8px;
+  color: @on_surface;
+  background: @background;
+  transition: all 0.3s ease-in-out;
+  border: 0px solid @primary;
+}
+
+#workspaces button.active {
+  color: @on_primary;
+  background: @primary;
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  border-color: @primary;
+  min-width: 30px;
+}
+
+#workspaces button:hover {
+  color: @on_surface;
+  background: @primary_container;
+  border-radius: 16px;
+  border-color: @primary;
+  box-shadow: none;
+}
+
+/* -----------------------------------------------------
+ * Modules
+ * ----------------------------------------------------- */
+
+.modules-left {
+  padding-left: 8px;
+}
+
+.modules-right {
+  padding-right: 8px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  padding-top: 8px;
+}
+
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
 }
