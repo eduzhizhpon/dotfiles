@@ -1,15 +1,6 @@
 {
   "layer": "top",
   "position": "top",
-  "sway/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "focused": "",
-      "default": ""
-    }
-  },
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch workspace r-1",
     "on-scroll-down": "hyprctl dispatch workspace r+1",
@@ -140,16 +131,5 @@
       "battery",
       "clock"
     ]
-  },
-  "modules-left": [
-    "hyprland/workspaces"
-  ],
-  "modules-center": [
-    "hyprland/window"
-  ],
-  "modules-right": [
-    "tray",
-    "custom/nowplaying",
-    "group/hardware"
-  ]
+  }
 }
