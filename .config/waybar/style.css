@@ -13,15 +13,20 @@
   font-size: 1rem;
 }
 
-.modules-left,
-.modules-center,
-.modules-right {
+window#waybar {
   background: transparent;
+  color: #dddddd;
 }
 
 .module {
   padding: 0 10px;
   border-radius: 16px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
 }
 
 #taskbar button:hover,
@@ -37,11 +42,6 @@
   margin: 0;
   border-radius: 16px;
   padding: 0px 0.5rem;
-}
-
-window#waybar {
-  background: transparent;
-  color: #dddddd;
 }
 
 #battery.charging {
@@ -62,16 +62,18 @@ window#waybar {
 #workspaces {
   background: rgba(42, 42, 42, 0.5);
   border-radius: 16px;
-  margin: 2px 0 2px 5px;
+}
+
+#custom-weather,
+#custom-nowplaying,
+#custom-network,
+#hardware {
+  margin-left: 5px;
 }
 
 /* -----------------------------------------------------
  * Tray
  * ----------------------------------------------------- */
-
-#tray {
-  padding: 0px 15px 0px 0px;
-}
 
 #tray > .passive {
   -gtk-icon-effect: dim;
@@ -86,8 +88,7 @@ window#waybar {
  * ----------------------------------------------------- */
 
 #workspaces {
-  margin: 0px 7px 0px 0px;
-  min-width: 210px;
+  min-width: 200px;
   padding: 0px;
 }
 
