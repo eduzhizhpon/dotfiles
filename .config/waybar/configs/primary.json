@@ -7,8 +7,8 @@
     "hyprland/window"
   ],
   "modules-right": [
-    "custom/nowplaying",
     "tray",
+    "custom/nowplaying",
     "group/hardware"
   ]
 }
