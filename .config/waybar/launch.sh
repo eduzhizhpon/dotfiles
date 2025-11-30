@@ -53,6 +53,8 @@ for monitor in "${monitors[@]}"; do
   configs=$(echo "$configs" | jq ". + [$config]")
 done
 
+configs=$(echo "$configs" | sed "s/\${primary}/$primary_monitor/g")
+
 echo "$configs" > "$generated_config_path"
 
 waybar -c "$generated_config_path" -s "$style_path" &

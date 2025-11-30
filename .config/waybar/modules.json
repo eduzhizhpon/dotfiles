@@ -58,15 +58,23 @@
   },
   "custom/nowplaying": {
     "exec": "~/.local/bin/media-info",
-    "format": "  {text}",
-    "return-type": "text",
-    "interval": 1,
-    "escape": true,
-    "hide-empty-text": false,
+    "hide-empty-text": true,
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl next",
     "on-click-middle": "playerctl previous",
     "tooltip-format": "Left: Play/Pause\nRight: Next\nMiddle: Previous"
+  },
+  "custom/weather": {
+    "exec": "curl 'https://wttr.in/?format=1'",
+    "interval": 3600,
+    "hide-empty-text": true
+  },
+  "custom/network": {
+    "exec": "custom-get-ip",
+    "interval": 3600,
+    "on-click": "custom-get-ip -next",
+    "on-scroll-up": "custom-get-ip -prev",
+    "on-scroll-down": "custom-get-ip -next"
   },
   "pulseaudio": {
     "format": "󰕾 {volume}%",

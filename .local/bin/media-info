@@ -4,6 +4,10 @@ max_length=30
 delay=0.5
 scroll_speed=1
 
+prefix="   "
+prefix_len=${#prefix}
+scroll_len=$((max_length - prefix_len))
+
 # Source the common functions file
 source ~/.local/bin/media-info-commons
 
@@ -25,17 +29,19 @@ while true; do
     [ -z "$song" ] && song="Nothing Playing"
 
     if [[ "$song" != "$last_song" ]]; then
-        full_song="   $song        "
-        len=${#full_song}
+        song_part=" $song        "
+        len=${#song_part}
         last_song="$song"
         i=0
+        # Create a long string for scrolling/padding
+        scroll_song="$song_part"
+        while [ ${#scroll_song} -lt $((len + scroll_len)) ]; do
+            scroll_song+="$song_part"
+        done
     fi
 
-    part="${full_song:i:max_length}"
-    if [ ${#part} -lt $max_length ]; then
-        part+="${full_song:0:max_length - ${#part}}"
-    fi
-    echo "$part"
+    scrolled_text="${scroll_song:i:scroll_len}"
+    echo "$prefix$scrolled_text"
 
     ((i=(i + scroll_speed) % len))
     sleep $delay

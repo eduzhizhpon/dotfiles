@@ -1,13 +1,14 @@
 {
   "modules-left": [
-    "hyprland/workspaces"
+    "hyprland/workspaces",
+    "custom/network"
   ],
   "modules-center": [
     "hyprland/window"
   ],
   "modules-right": [
-    "tray",
     "custom/nowplaying",
+    "tray",
     "group/hardware"
   ]
 }
