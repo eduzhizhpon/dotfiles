@@ -58,7 +58,8 @@ window#waybar {
 #custom-weather,
 #custom-nowplaying,
 #custom-network,
-#hardware {
+#hardware,
+#workspaces {
   background: rgba(42, 42, 42, 0.5);
   border-radius: 16px;
   margin: 2px 0 2px 5px;
