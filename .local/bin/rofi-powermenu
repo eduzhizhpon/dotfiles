@@ -31,7 +31,14 @@ case $chosen in
         systemctl suspend
         ;;
     $logout)
-        bspc quit
+        if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+            if pgrep -x "sway" > /dev/null; then
+                swaymsg exit
+            elif pgrep -x "Hyprland" > /dev/null; then
+                hyprctl dispatch exit ""
+            fi
+        elif [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
+            bspc quit
+        fi
         ;;
 esac
-

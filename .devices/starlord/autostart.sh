@@ -12,7 +12,9 @@ dunst &
 
 # Clip manager
 killall copyq
-pgrep -x copyq || copyq &
+if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+    pgrep -x copyq || copyq &
+fi;
 
 # Root password modal
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -21,7 +23,7 @@ pgrep -x copyq || copyq &
 # Autostart apps
 if [ "$(command -v megasync)" ]; then
 	killall megasync
-	#megasync & > /dev/null
+	megasync & > /dev/null
 fi
 
 # RClone to sync OneDrive
