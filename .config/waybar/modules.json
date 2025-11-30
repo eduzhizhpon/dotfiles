@@ -109,7 +109,7 @@
     "interval": 20
   },
   "clock": {
-    "format": "{:%H:%M:%S}",
+    "format": "{:%m/%d %H:%M:%S}",
     "interval": 1,
     "tooltip": false
   },
