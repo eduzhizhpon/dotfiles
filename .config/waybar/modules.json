@@ -122,11 +122,13 @@
     "tooltip": false
   },
   "bluetooth": {
-    "format": " {status}",
-    "format-disabled": "",
-    "format-off": "",
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱",
     "interval": 30,
-    "format-no-controller": "",
+    "format-no-controller": "󰂲 ",
     "on-click": "blueman-manager"
   },
   "group/hardware": {
