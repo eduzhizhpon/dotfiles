@@ -226,10 +226,16 @@ paru -S bspwm sxhkd polybar
 paru -S sway swaylock swayidle swaybg waybar
 ```
 
+### Hyprland
+
+```bash
+paru -S hyprland hyprpaper qt5-wayland qt6-wayland ttf-firacode-nerd kitty waybar
+```
+
 ### Install necessary packages
 
 ```bash
-paru -Sy alacritty picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons breeze breeze-gtk
+paru -Sy alacritty kitty jq picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons breeze breeze-gtk
 
 paru -S ttf-liberation ttf-dejavu noto-fonts
 
