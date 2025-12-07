@@ -38,7 +38,7 @@
     }
   },
   "hyprland/window": {
-    "max-length": 60,
+    "max-length": 40,
     "rewrite": {
       "(.*) - Brave": "$1",
       "(.*) - Chromium": "$1",
@@ -57,8 +57,12 @@
     "spacing": 10
   },
   "custom/nowplaying": {
-    "exec": "~/.local/bin/media-info",
-    "hide-empty-text": true,
+    "exec": "custom-media-info",
+    "hide-empty-text": true
+  },
+  "custom/nowplaying-icon": {
+    "exec": "custom-media-info-icon",
+    "interval": 2,
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl next",
     "on-click-middle": "playerctl previous",
@@ -140,6 +144,17 @@
       "backlight",
       "battery",
       "clock"
+    ]
+  },
+  "group/nowplaying": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/nowplaying-icon",
+      "custom/nowplaying"
     ]
   }
 }

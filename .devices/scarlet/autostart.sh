@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Tap to click and Natural scrolling
-xinput-touchpad-props Touchpad
+# xinput-touchpad-props Touchpad
 
 
 # Composer
 killall picom
-picom --config ~/.config/picom/picom.conf &
+# picom --config ~/.config/picom/picom.conf &
 
 # Notification - dunts
 killall dunst
@@ -14,7 +14,7 @@ dunst &
 
 # Clip manager
 killall copyq
-pgrep -x copyq || copyq &
+# pgrep -x copyq || copyq &
 
 # GTK 4 dark theme
 # gsettings set org.gnome.desktop.interface color-scheme prefer-dark

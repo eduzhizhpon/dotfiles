@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This script returns an icon based on the current media player state.
+# It checks if a player is playing, paused, or stopped/inactive.
+
+ICON_PLAYING=""
+ICON_PAUSED="󰏤"
+ICON_NO_SONG=""
+
+update_icon() {
+    local status="$1"
+    if [[ "$status" == "Playing" ]]; then
+        echo "$ICON_PLAYING"
+    elif [[ "$status" == "Paused" ]]; then
+        echo "$ICON_PAUSED"
+    else
+        echo "$ICON_NO_SONG"
+    fi
+}
+
+# Output initial status
+update_icon "$(playerctl status 2>/dev/null)"

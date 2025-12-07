@@ -8,7 +8,7 @@
   ],
   "modules-right": [
     "tray",
-    "custom/nowplaying",
+    "group/nowplaying",
     "group/hardware"
   ]
 }

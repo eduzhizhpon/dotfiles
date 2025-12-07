@@ -70,7 +70,7 @@ mount /dev/{boot partition} /mnt/boot
 7. Install BASE
 
 ```bash
-pacstrap /mnt linux linux-firmware linux-headers base base-devel nano neovim grub efibootmgr os-prober iw wpa_supplicant dialog networkmanager dhcpcd netctl git
+pacstrap /mnt linux-lts linux-firmware linux-lts-headers base base-devel nano neovim grub efibootmgr os-prober iw wpa_supplicant dialog networkmanager dhcpcd netctl git
 ```
 
 8. Gen FsTab
@@ -205,7 +205,7 @@ git pull
 ### Install basics
 
 ```bash
-pacman -S nvidia nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip discord
+pacman -S nvidia-lts nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip discord
 ```
 ### Install PARU
 
@@ -229,13 +229,13 @@ paru -S sway swaylock swayidle swaybg waybar
 ### Hyprland
 
 ```bash
-paru -S hyprland hyprpaper qt5-wayland qt6-wayland ttf-firacode-nerd kitty waybar
+paru -S hyprland hyprpaper qt5-wayland qt6-wayland waybar cliphist
 ```
 
 ### Install necessary packages
 
 ```bash
-paru -Sy alacritty kitty jq picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons breeze breeze-gtk
+paru -Sy alacritty kitty jq picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
 
 paru -S ttf-liberation ttf-dejavu noto-fonts
 

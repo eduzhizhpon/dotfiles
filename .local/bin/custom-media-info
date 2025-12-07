@@ -16,7 +16,7 @@ while getopts "l:" opt; do
   esac
 done
 
-prefix="  "
+prefix=""
 prefix_len=${#prefix}
 scroll_len=$((max_length - prefix_len))
 
@@ -38,24 +38,24 @@ while true; do
         song=""
     fi
 
-    [ -z "$song" ] && song="Nothing Playing"
-
-    if [[ "$song" != "$last_song" ]]; then
-        song_part=" $song        "
-        len=${#song_part}
-        last_song="$song"
-        i=0
-        # Create a long string for scrolling/padding
-        scroll_song="$song_part"
-        while [ ${#scroll_song} -lt $((len + scroll_len)) ]; do
-            scroll_song+="$song_part"
-        done
+    if [ -n "$song" ]; then
+        if [[ "$song" != "$last_song" ]]; then
+            song_part=" $song        "
+            len=${#song_part}
+            last_song="$song"
+            i=0
+            # Create a long string for scrolling/padding
+            scroll_song="$song_part"
+            while [ ${#scroll_song} -lt $((len + scroll_len)) ]; do
+                scroll_song+="$song_part"
+            done
+        fi
+        scrolled_text="${scroll_song:i:scroll_len}"
+        echo "$prefix $scrolled_text"
+        ((i=(i + scroll_speed) % len))
+    else
+        echo "$prefix"
+        last_song=""
     fi
-
-    scrolled_text="${scroll_song:i:scroll_len}"
-    echo "$prefix$scrolled_text"
-
-    ((i=(i + scroll_speed) % len))
     sleep $delay
 done
-
