@@ -70,7 +70,7 @@ mount /dev/{boot partition} /mnt/boot
 7. Install BASE
 
 ```bash
-pacstrap /mnt linux-lts linux-firmware linux-lts-headers base base-devel nano neovim grub efibootmgr os-prober iw wpa_supplicant dialog networkmanager dhcpcd netctl git
+pacstrap /mnt linux linux-firmware linux-headers base base-devel nano neovim grub efibootmgr os-prober iw wpa_supplicant dialog networkmanager dhcpcd netctl git
 ```
 
 8. Gen FsTab
@@ -205,7 +205,7 @@ git pull
 ### Install basics
 
 ```bash
-pacman -S nvidia-lts nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip discord
+pacman -S nvidia-open nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip
 ```
 ### Install PARU
 
@@ -235,7 +235,7 @@ paru -S hyprland hyprpaper qt5-wayland qt6-wayland waybar cliphist
 ### Install necessary packages
 
 ```bash
-paru -Sy alacritty kitty jq picom-git rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
+paru -Sy alacritty kitty jq picom rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
 
 paru -S ttf-liberation ttf-dejavu noto-fonts
 
@@ -303,20 +303,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```sh
 nvim /etc/mkinitcpio.conf
 
-## Append to modules
-MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-
 ## Apply Mkinitcpio config
 mkinitcpio -P
 ```
 
 ## Configs
-
-### Save git credentials
-
-```sh
-git config --global credential.helper store
-```
 
 ### Disable mouse acceleration
 
@@ -397,4 +388,35 @@ paru -S papirus-icon-theme xsettingsd adwaita-qt5-git adwaita-qt6-git kvantum-qt
 ```bash
 systemctl --user daemon-reexec
 systemctl --user enable --now gnome-keyring-daemon.service
+```
+
+# SDDM
+
+## Hybrid graphics intial freeze fix
+
+```bash
+sudo nvim /usr/share/sddm/scripts/Xsetup
+```
+
+Add this config:
+
+```bash
+xrandr --setproviderouputsource modesetting NVIDIA-0
+
+xrandr --auto
+```
+
+```bash
+sudo nvim /etc/X11/xorg.conf.d/10-nvidia.conf
+```
+
+Add this config:
+
+```conf
+Section "OutputClass"
+    Identifier "nvidia"
+    MatchDriver "nvidia-drm"
+    Driver "nvidia"
+    Option "PrimaryGPU" "yes"
+EndSection
 ```
