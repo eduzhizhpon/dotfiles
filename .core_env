@@ -120,6 +120,6 @@ export GTK_THEME=Adwaita-dark
 # Flutter browser support
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
 
-[[ -f ~/.device/.env ]] && source ~/.device/.env
+[[ -f $HOME/.device/.env ]] && source $HOME/.device/.env
 
-[[ -f ~/.local_env ]] && source ~/.local_env
+[[ -f $HOME/.local_env ]] && source $HOME/.local_env

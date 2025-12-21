@@ -12,6 +12,7 @@
 !.devices
 !.local
 
+!.zshenv
 !.zshrc
 !.zprofile
 !.p10k.zsh

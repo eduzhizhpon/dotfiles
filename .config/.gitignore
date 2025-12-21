@@ -22,8 +22,10 @@
 !fontconfig
 !env-files
 !kitty
+!environment.d
 
 # Fix plasma dolphin color background
 !kdeglobals
 
 !.gitignore
+!.gitkeep
