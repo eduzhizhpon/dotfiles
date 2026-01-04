@@ -1,0 +1,43 @@
+{
+  "sway/workspaces": {
+    "active-only": false,
+    "all-outputs": false,
+    "format": "{name}",
+    "disable-scroll": true,
+    "format-icons": {
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+  "sway/window": {
+    "max-length": 40,
+    "rewrite": {
+      "(.*) - Brave": "$1",
+      "(.*) - Chromium": "$1",
+      "(.*) - Brave Search": "$1",
+      "(.*) - Outlook": "$1",
+      "(.*) Microsoft Teams": "$1",
+      "(.*) Visual Studio Code": "$1 VS Code"
+    },
+    "separate-outputs": true
+  },
+  "sway/language": {
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "format": "󰌌 {short}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+  },
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": [
+      "sway/language",
+      "bluetooth",
+      "pulseaudio",
+      "backlight",
+      "battery",
+      "clock"
+    ]
+  }
+}

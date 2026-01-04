@@ -1,0 +1,45 @@
+{
+  "hyprland/workspaces": {
+    "on-scroll-up": "hyprctl dispatch workspace r-1",
+    "on-scroll-down": "hyprctl dispatch workspace r+1",
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": false,
+    "format": "{}",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": ""
+    }
+  },
+  "hyprland/language": {
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "format": "󰌌 {short}",
+    "on-click": "custom-next-kb-lang"
+  },
+  "hyprland/window": {
+    "max-length": 40,
+    "rewrite": {
+      "(.*) - Brave": "$1",
+      "(.*) - Chromium": "$1",
+      "(.*) - Brave Search": "$1",
+      "(.*) - Outlook": "$1",
+      "(.*) Microsoft Teams": "$1",
+      "(.*) Visual Studio Code": "$1 VS Code"
+    },
+    "separate-outputs": true
+  },
+  "group/hardware": {
+    "orientation": "inherit",
+    "modules": [
+      "hyprland/language",
+      "bluetooth",
+      "pulseaudio",
+      "backlight",
+      "battery",
+      "clock"
+    ]
+  }
+}

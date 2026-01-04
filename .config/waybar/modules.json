@@ -1,24 +1,6 @@
 {
   "layer": "top",
   "position": "top",
-  "hyprland/workspaces": {
-    "on-scroll-up": "hyprctl dispatch workspace r-1",
-    "on-scroll-down": "hyprctl dispatch workspace r+1",
-    "on-click": "activate",
-    "active-only": false,
-    "all-outputs": false,
-    "format": "{}",
-    "format-icons": {
-      "urgent": "",
-      "active": "",
-      "default": ""
-    }
-  },
-  "hyprland/language": {
-    "format": "󰌌 {short}",
-    "disable-scroll": true,
-    "on-click": "custom-next-kb-lang"
-  },
   "wlr/taskbar": {
     "format": "{icon}",
     "icon-size": 18,
@@ -37,18 +19,6 @@
       "Foot Server": "Terminal"
     }
   },
-  "hyprland/window": {
-    "max-length": 40,
-    "rewrite": {
-      "(.*) - Brave": "$1",
-      "(.*) - Chromium": "$1",
-      "(.*) - Brave Search": "$1",
-      "(.*) - Outlook": "$1",
-      "(.*) Microsoft Teams": "$1",
-      "(.*) Visual Studio Code": "$1 VS Code"
-    },
-    "separate-outputs": true
-  },
   "custom/empty": {
     "format": ""
   },
@@ -61,6 +31,9 @@
     "hide-empty-text": true
   },
   "custom/nowplaying-icon": {
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
     "exec": "custom-media-info-icon",
     "interval": 2,
     "on-click": "playerctl play-pause",
@@ -108,6 +81,9 @@
     "scroll-step": 1
   },
   "battery": {
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
@@ -126,6 +102,9 @@
     "tooltip": false
   },
   "bluetooth": {
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
     "format": "",
     "format-disabled": "󰂲",
     "format-off": "󰂲",
@@ -135,19 +114,11 @@
     "format-no-controller": "󰂲 ",
     "on-click": "blueman-manager"
   },
-  "group/hardware": {
-    "orientation": "inherit",
-    "modules": [
-      "hyprland/language",
-      "bluetooth",
-      "pulseaudio",
-      "backlight",
-      "battery",
-      "clock"
-    ]
-  },
   "group/nowplaying": {
     "orientation": "inherit",
+    "disable-scroll": true,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
     "drawer": {
       "transition-duration": 500,
       "transition-left-to-right": false

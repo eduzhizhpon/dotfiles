@@ -1,0 +1,14 @@
+{
+  "modules-left": [
+    "sway/workspaces",
+    "custom/network"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "tray",
+    "group/nowplaying",
+    "group/hardware"
+  ]
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEVICE_DIR="$HOME/.device/sway"
+DEVICE_DIR="$HOME/.config/sway/monitors/$DEVICE.conf"
 DEVICE_MONITOR_CONF="$DEVICE_DIR/monitor.conf"
 
 # --- 1) If device has its own config, use it ---

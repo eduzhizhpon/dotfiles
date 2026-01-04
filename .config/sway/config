@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-include ~/.device/env
+# include ~/.device/env
 
 ### Variables
 
@@ -15,7 +15,8 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu rofi-launcher 
+set $menu rofi-launcher
+set $powermenu rofi-powermenu
 
 ### Layout
 
@@ -24,10 +25,12 @@ default_floating_border pixel 3
 gaps inner 8
 #gaps outer -8
 
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #7f689a
+
 ### Output configuration
-exec_always ~/.config/sway/scripts/monitor-setup
+exec_always ~/.config/sway/scripts/monitor-setup.sh
+
 output * bg $WALLPAPER fill
-# exec_always swaybg -i "$WALLPAPER" -m fill
 
 #
 # Example configuration:
@@ -63,6 +66,21 @@ output * bg $WALLPAPER fill
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+input type:keyboard {
+    xkb_layout us,latam
+}
+
+
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled
+}
+
+input type:pointer {
+    accel_profile flat
+    pointer_accel 0
+}
+
 ### Key bindings
 #
 # Basics:
@@ -87,7 +105,7 @@ output * bg $WALLPAPER fill
     bindsym $mod+$alt+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+$alt+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+$alt+q exec $powermenu
 #
 # Moving around:
 #
@@ -213,7 +231,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Keyboard layout
-bindsym $mod+space exec --no-startup-id "(setxkbmap -query | grep -q 'layout:\s\+us') && setxkbmap latam,us || setxkbmap us,latam"
+bindsym $mod+space input type:keyboard xkb_switch_layout next
 
 # Alter terminal 
 bindsym $mod+Shift+Return exec gnome-terminal
@@ -242,24 +260,5 @@ bindsym $mod+j exec --no-startup-id "playerctl previous"
 # Clipboard manager
 bindsym $mod+v exec --no-startup-id "copyq menu"
 
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-# bar {
-#     position top
-#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-#     colors {
-#         statusline #ffffff
-#         background #32323250
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
-
-bar {
-    swaybar_command waybar
-}
-
 # Custom device autostart
-exec_always [ -x ~/.device/autostart.sh ] && bash ~/.device/autostart.sh &
+exec_always [ -x ~/.config/sway/scripts/startup.sh ] && bash ~/.config/sway/scripts/startup.sh &

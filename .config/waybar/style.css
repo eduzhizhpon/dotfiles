@@ -106,6 +106,7 @@ window#waybar {
   border: 0px solid @primary;
 }
 
+#workspaces button.focused,
 #workspaces button.active {
   color: @on_primary;
   background: @primary;

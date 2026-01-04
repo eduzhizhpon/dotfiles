@@ -1,0 +1,17 @@
+{
+    "group/hardware": {
+        "orientation": "inherit",
+        "modules": [
+            "clock"
+        ]
+    },
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "group/hardware"
+    ]
+}
