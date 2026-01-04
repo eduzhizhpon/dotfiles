@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Configuration
+SAVE_DIR="$HOME/Pictures/screenshots"
+TIMESTAMP="$(date +%F-%T)"
+FILENAME="$SAVE_DIR/screenshot-${TIMESTAMP}.png"
+
+# Ensure the save directory exists
+mkdir -p "$SAVE_DIR"
+
+# Function to display usage
+usage() {
+    echo "Usage: $(basename "$0") [option]"
+    echo "Options:"
+    echo "  -s, --save       Save screenshot to $SAVE_DIR (Default)"
+    echo "  -c, --clipboard  Copy screenshot to clipboard"
+    echo "  -f, --full       Save full screen screenshot to $SAVE_DIR"
+    echo "  -h, --help       Show this help message"
+}
+
+# Check for required dependencies
+for cmd in grim slurp; do
+    if ! command -v $cmd &> /dev/null; then
+        echo "Error: '$cmd' is not installed."
+        exit 1
+    fi
+done
+
+# Parse command line arguments
+MODE="save"
+if [[ "$1" == "-c" || "$1" == "--clipboard" ]]; then
+    MODE="clipboard"
+elif [[ "$1" == "-f" || "$1" == "--full" ]]; then
+    MODE="full"
+elif [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+GEOMETRY=""
+if [ "$MODE" != "full" ]; then
+    # 1. Select the region using slurp
+    # We capture this first so we can exit if the user cancels (Esc)
+    GEOMETRY=$(slurp)
+
+    # If slurp was cancelled (empty output), exit silently
+    if [ -z "$GEOMETRY" ]; then
+        exit 0
+    fi
+fi
+
+# 2. Take the screenshot based on the selected mode
+if [ "$MODE" == "clipboard" ]; then
+    # Check for wl-copy specifically for clipboard mode
+    if ! command -v wl-copy &> /dev/null; then
+        echo "Error: 'wl-copy' is required for clipboard functionality."
+        exit 1
+    fi
+    
+    grim -g "$GEOMETRY" - | wl-copy
+    echo "Screenshot copied to clipboard."
+    if command -v notify-send &> /dev/null; then
+        notify-send "Screenshot" "Copied to clipboard" -i camera-photo
+    fi
+else
+    if [ -n "$GEOMETRY" ]; then
+        grim -g "$GEOMETRY" "$FILENAME"
+    else
+        grim "$FILENAME"
+    fi
+    echo "Screenshot saved to $FILENAME"
+    if command -v notify-send &> /dev/null; then
+        notify-send "Screenshot" "Saved to $FILENAME" -i "$FILENAME"
+    fi
+fi

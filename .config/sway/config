@@ -234,18 +234,18 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym $mod+space input type:keyboard xkb_switch_layout next
 
 # Alter terminal 
-bindsym $mod+Shift+Return exec gnome-terminal
+bindsym $mod+Shift+Return exec foot
 
 # Backlight
-bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 5"
-bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 5"
+bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl -q s 10%-"
+bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl -q s +10%"
 
-bindsym XF86KbdBrightnessDown exec --no-startup-id "light -U 5"
-bindsym XF86KbdBrightnessUp exec --no-startup-id "light -A 5"
+bindsym XF86KbdBrightnessDown exec --no-startup-id "brightnessctl -q s 10%-"
+bindsym XF86KbdBrightnessUp exec --no-startup-id "brightnessctl -q s +10%"
 
 # Screenshot
-#bindsym $mod+Shift+s exec --no-startup-id "flameshot gui -c"
-bindsym $mod+Shift+s exec --no-startup-id "spectacle -bcr"
+bindsym Print exec --no-startup-id custom-wayland-screenshot --full
+bindsym $mod+Shift+s exec --no-startup-id "custom-wayland-screenshot --clipboard"
 
 # Audio
 bindsym XF86AudioPlay exec --no-startup-id "playerctl play-pause"
