@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEVICE_MONITOR_CONF="$HOME/.config/sway/monitors/$DEVICE.conf"
+DEVICE_MONITOR_CONF="$HOME/.config/sway/configs/$DEVICE.conf"
 
 # --- 1) If device has its own config, use it ---
 if [ -f "$DEVICE_MONITOR_CONF" ]; then

@@ -28,7 +28,7 @@ gaps inner 8
 client.focused #4c7899 #285577 #ffffff #2e9ef4 #7f689a
 
 ### Output configuration
-exec_always ~/.config/sway/scripts/monitor-setup.sh
+exec_always ~/.config/sway/scripts/init.sh
 
 output * bg $WALLPAPER fill
 
