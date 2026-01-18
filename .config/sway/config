@@ -6,6 +6,8 @@
 
 # include ~/.device/env
 
+include /etc/sway/config.d/*
+
 ### Variables
 
 set $mod Mod4
@@ -182,6 +184,8 @@ input type:pointer {
 
     # Move focus to the parent container
     # bindsym $mod+a focus parent
+
+    for_window [app_id="xdg-desktop-portal-gtk"] floating enable, move position center
 #
 # Scratchpad:
 #
