@@ -36,6 +36,7 @@
       "bluetooth",
       "pulseaudio",
       "backlight",
+      "network",
       "battery",
       "clock"
     ]

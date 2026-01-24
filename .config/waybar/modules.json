@@ -127,5 +127,16 @@
       "custom/nowplaying-icon",
       "custom/nowplaying"
     ]
+  },
+  "network": {
+    "format": "",
+    "format-wifi": "󰖩 {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󱛅",
+    "tooltip-format": "{ifname} {ipaddr} via {gwaddr} 󰈀",
+    "tooltip-format-wifi": "{essid} {ipaddr} ({signalStrength}%) 󰖩",
+    "tooltip-format-ethernet": "{ifname} {ipaddr} via {gwaddr} 󰈀",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
   }
 }
