@@ -8,6 +8,8 @@
 
 include /etc/sway/config.d/*
 
+exec systemctl --user import-environment
+
 ### Variables
 
 set $mod Mod4

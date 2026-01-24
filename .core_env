@@ -1,126 +1,15 @@
 #!/bin/bash
 
-# ENV
 
-# ==================================================
-# User environment variables
-# ==================================================
+# Load environment variables from systemd config
+if [[ -f "$HOME/.config/environment.d/0-env.conf" ]]; then
+    set -a
+    source "$HOME/.config/environment.d/0-env.conf"
+    set +a
+fi
 
-# Java JDK
-export JAVA_HOME="/opt/bin/jvm/jdk"
-
-# export JBOSS_HOME="/opt/bin/wildfly"
-export MAVEN_HOME="/opt/bin/maven"
-
-# Android studio
-export ANDROID_SDK_ROOT="/opt/bin/android/sdk"
-export ANDROID_HOME="/opt/bin/android/sdk"
-export ANDROID_STUDIO_HOME="/opt/bin/android/studio"
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-# NodeJS
-export NODE_HOME="/opt/bin/node"
-
-# Docker
-export DOCKER_HOME="/opt/bin/docker"
-
-# Flutter
-export FLUTTER_HOME="/opt/bin/flutter"
-export DART_HOME="/opt/bin/dart-sdk"
-
-# Conda
-export CONDA_HOME="/opt/bin/miniconda3"
-
-# PNPM
-export PNPM_HOME="$HOME/.local/share/pnpm"
-
-# ==================================================
-# Export binaries
-# ==================================================
-
-# Binaries list
-path_list=(
-    "/bin"
-    "/sbin"
-    "/usr/bin"
-    "/usr/sbin"
-    "/usr/local/bin"
-    "/snap/bin"
-    "$HOME/bin"
-    "$HOME/.local/bin"
-    "$ANDROID_STUDIO_HOME/bin"
-    "$ANDROID_SDK_ROOT/tools/bin"
-    "$ANDROID_SDK_ROOT/platform-tools"
-    "$ANDROID_SDK_ROOT/emulator"
-    "$NODE_HOME/bin"
-    "$JAVA_HOME/bin"
-    "$MAVEN_HOME/bin"
-    "$DOCKER_HOME"
-    "$FLUTTER_HOME/bin"
-    "$DARK_HOME/bin"
-    "$PNPM_HOME"
-)
-
-path=""
-# Function to export $path_list binaries
-for path_bin in "${path_list[@]}"; do
-    if [ -d "$path_bin" ] ; then
-        if [ -n "$path" ]; then
-            path="$path:$path_bin"
-        else
-            path="$path_bin"
-        fi;
-    fi
-done
-
-if [ -n "$path" ]; then
-    export PATH="$path:$PATH"
-fi;
-
-
-# ==================================================
-# Config environment variables
-# ==================================================
-
-# IBus
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-
-# LS Colors Fix
-export LS_COLORS="ow=1;30;104"
-
-# GTK and Qt compatibility
-export QT_QPA_PLATFORM=wayland
-export QT_QPA_PLATFORMTHEME=qt5ct
-#export QT_STYLE_OVERRIDE=kvantum
-export XCURSOR_SIZE=26
-export XCURSOR_THEME=Adwaita
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
-export QT_SCALE_FACTOR=1
-export QT_FONT_DPI=110
-export QT_SELECT="5"
-export QT_QUICK_CONTROLS_STYLE=Default
-export QT_STYLE_OVERRIDE=Breeze
-
-# Crontab Editor
-export EDITOR='nvim'
-
-# Wallpaper
-export WALLPAPER="/usr/share/wallpapers/feh/w-1.jpg"
-
-# Theme color
-export THEME_COLOR="#7f689a"
-
-# VS Code LiveShare "Couldn't find a valid ICU package installed
-# on the system" solution
-export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-
-# Gnome dark theme
-export GTK_THEME=Adwaita:dark
-
-# Flutter browser support
-export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
+# Zsh specific: Ensure PATH contains unique entries to prevent duplicates
+typeset -U path
 
 [[ -f $HOME/.device/.env ]] && source $HOME/.device/.env
 
