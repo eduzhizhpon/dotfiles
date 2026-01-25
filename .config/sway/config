@@ -267,4 +267,4 @@ bindsym $mod+j exec --no-startup-id "playerctl previous"
 bindsym $mod+v exec --no-startup-id "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
 
 # Custom device autostart
-exec_always [ -x ~/.config/sway/scripts/startup.sh ] && bash ~/.config/sway/scripts/startup.sh &
+exec [ -x ~/.config/sway/scripts/startup.sh ] && bash ~/.config/sway/scripts/startup.sh &
