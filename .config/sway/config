@@ -8,7 +8,7 @@
 
 include /etc/sway/config.d/*
 
-exec systemctl --user import-environment
+exec systemctl --user import-environment all
 
 ### Variables
 

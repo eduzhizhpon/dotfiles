@@ -5,6 +5,8 @@ waybar_path="$HOME/.config/waybar"
 exec 200>/tmp/waybar-launch.lock
 flock -n 200 || exit 0
 
+systemctl --user import-environment all
+
 killall -q waybar
 while pgrep -x waybar >/dev/null; do sleep 0.1; done
 sleep 0.5
