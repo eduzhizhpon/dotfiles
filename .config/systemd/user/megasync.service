@@ -1,0 +1,15 @@
+[Unit]
+Description=MEGAsync Background Service
+After=graphical-session.target
+PartOf=graphical-session.target
+ConditionPathExists=/usr/bin/megasync
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/megasync
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+
