@@ -5,8 +5,10 @@ After=graphical-session.target
 
 [Service]
 Type=simple
+ExecStartPre=/bin/sleep 5
 ExecStart=/usr/bin/wl-paste --watch cliphist store
 Restart=on-failure
+RestartSec=2
 
 [Install]
 WantedBy=graphical-session.target

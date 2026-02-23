@@ -8,7 +8,13 @@
 
 include /etc/sway/config.d/*
 
-exec systemctl --user import-environment all
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP WALLPAPER
+exec systemctl --user start sway-session.target
+
+### Output configuration
+exec_always ~/.config/sway/scripts/init.sh
+
+output * bg $WALLPAPER fill
 
 ### Variables
 
@@ -31,10 +37,6 @@ gaps inner 8
 
 client.focused #4c7899 #285577 #ffffff #2e9ef4 #7f689a
 
-### Output configuration
-exec_always ~/.config/sway/scripts/init.sh
-
-output * bg $WALLPAPER fill
 
 #
 # Example configuration:
@@ -91,7 +93,7 @@ input type:pointer {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    
+
     # Kill focused window
     bindsym $mod+w kill
 
@@ -226,9 +228,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# 
+#
 # Custom keybids
-# 
+#
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && custom-volume-notify
@@ -239,7 +241,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Keyboard layout
 bindsym $mod+space input type:keyboard xkb_switch_layout next
 
-# Alter terminal 
+# Alter terminal
 bindsym $mod+Shift+Return exec foot
 
 # Backlight
