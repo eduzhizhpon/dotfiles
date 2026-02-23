@@ -6,7 +6,7 @@ ConditionPathExists=/usr/bin/megasync
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sleep 5
+ExecStartPre=/usr/bin/sleep 3
 ExecStart=/usr/bin/megasync
 Restart=on-failure
 RestartSec=5
