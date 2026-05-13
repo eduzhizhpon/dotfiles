@@ -223,7 +223,7 @@ paru -S bspwm sxhkd polybar
 ### Sway
 
 ```bash
-paru -S sway swaylock swayidle swaybg waybar
+paru -S sway swaylock swayidle swaybg waybar brightnessctl
 ```
 
 ### Hyprland
@@ -235,13 +235,13 @@ paru -S hyprland hyprpaper qt5-wayland qt6-wayland waybar cliphist
 ### Install necessary packages
 
 ```bash
-paru -Sy alacritty kitty jq picom rofi lxappearance redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
+paru -Sy alacritty kitty jq picom rofi nwg-look redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct qt6ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
 
 paru -S ttf-liberation ttf-dejavu noto-fonts
 
 paru -S ttf-ms-fonts noto-fonts-cjk ttf-baekmuk noto-fonts-emoji
 
-paru -S fontconfig copyq
+paru -S fontconfig
 ```
 
 ### Install Fira Code Nerd Font
@@ -419,4 +419,62 @@ Section "OutputClass"
     Driver "nvidia"
     Option "PrimaryGPU" "yes"
 EndSection
+```
+
+# Dark mode
+
+```bash
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+sudo pacman -S xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+```
+
+# Git SSH
+
+1. Generate a key
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/github_ed25519
+```
+
+2. Start ssh-agent
+
+```bash
+eval "$(ssh-agent -s)"
+```
+
+3. Configure SSH
+
+```bash
+nvim ~/.ssh/config
+```
+
+Add:
+
+```config
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_ed25519
+    IdentitiesOnly yes
+
+Host gitlab.com
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/gitlab_ed25519
+    IdentitiesOnly yes
+```
+
+4. Set correct permissions
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/config
+chmod 600 ~/.ssh/*
+```
+
+5. Test connections
+
+```bash
+ssh -T git@github.com
 ```
