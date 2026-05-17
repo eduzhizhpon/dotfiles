@@ -55,3 +55,5 @@ unset __conda_setup
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
 [[ -f ~/.core_rc ]] && source ~/.core_rc
+
+[[ -f ~/.device/.env ]] && source ~/.device/.env

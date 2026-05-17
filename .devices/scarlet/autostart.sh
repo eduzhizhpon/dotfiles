@@ -5,7 +5,7 @@
 
 
 # Composer
-killall picom
+# killall picom
 # picom --config ~/.config/picom/picom.conf &
 
 # Notification - dunts
@@ -13,7 +13,7 @@ killall dunst
 dunst &
 
 # Clip manager
-killall copyq
+# killall copyq
 # pgrep -x copyq || copyq &
 
 # GTK 4 dark theme

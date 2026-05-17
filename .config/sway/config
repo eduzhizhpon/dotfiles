@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-# include ~/.device/env
+# include ~/.device/.env
 
 include /etc/sway/config.d/*
 

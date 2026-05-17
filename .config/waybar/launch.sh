@@ -36,6 +36,8 @@ secondary_config_path="$wm_config_dir/secondary.json"
 generated_config_path="/tmp/waybar-config.jsonc"
 primary_monitor_path="$waybar_path/monitors/$DEVICE.json"
 
+echo "using waybar config $DEVICE" > /tmp/waybar-config-info
+
 # Load and merge modules
 common_modules="{}"
 [ -f "$common_modules_path" ] && common_modules=$(cat "$common_modules_path")
