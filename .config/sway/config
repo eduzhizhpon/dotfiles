@@ -172,7 +172,7 @@ input type:pointer {
     bindsym $mod+x splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+a layout stacking
+    bindsym $mod+a sticky toggle
     #bindsym $modw layout tabbed
     bindsym $mod+s layout toggle split
 

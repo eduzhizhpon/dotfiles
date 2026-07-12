@@ -17,7 +17,7 @@ dunst &
 # pgrep -x copyq || copyq &
 
 # GTK 4 dark theme
-# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 
 # Root password modal
