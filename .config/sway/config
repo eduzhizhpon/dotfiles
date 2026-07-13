@@ -265,6 +265,7 @@ bindsym XF86KbdBrightnessUp exec --no-startup-id "brightnessctl -q s +2%"
 # Screenshot
 bindsym Print exec --no-startup-id custom-wayland-screenshot --full
 bindsym $mod+Shift+s exec --no-startup-id "custom-wayland-screenshot --clipboard"
+bindsym $mod+Shift+a exec --no-startup-id "custom-wayland-screenshot --save"
 
 # Audio
 bindsym XF86AudioPlay exec --no-startup-id "playerctl play-pause"

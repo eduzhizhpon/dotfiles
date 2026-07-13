@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Composer
-if [ "$XDG_SESSION_TYPE" = "x11" ]; then
-    killall picom
-    picom --config ~/.config/picom/picom.conf &
-fi;
+#if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+#    killall picom
+#    picom --config ~/.config/picom/picom.conf &
+#fi;
 
 # Notification - dunts
-killall dunst
-dunst &
+#killall dunst
+#dunst &
 
 # Root password modal
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 
 # RClone to sync OneDrive

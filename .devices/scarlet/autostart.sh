@@ -9,19 +9,19 @@
 # picom --config ~/.config/picom/picom.conf &
 
 # Notification - dunts
-killall dunst
-dunst &
+# killall dunst
+# dunst &
 
 # Clip manager
 # killall copyq
 # pgrep -x copyq || copyq &
 
 # GTK 4 dark theme
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+# gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 
 # Root password modal
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 
 # RClone to sync OneDrive
