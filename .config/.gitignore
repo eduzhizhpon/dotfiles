@@ -23,6 +23,7 @@
 !env-files
 !kitty
 !environment.d
+!my-wm
 
 # Fix plasma dolphin color background
 !kdeglobals
