@@ -298,7 +298,18 @@ GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash nvidia-drm.modeset=1"
 ## Apply GRUB config
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-2. Mkinitcpio config (early loading)
+2. Extra configs
+
+```sh
+nvim /etc/modprobe.d/blacklist_i2c-nvidia-gpu.conf
+# Add:
+blacklist i2c_nvidia_gpu
+
+# Save vram status
+systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+```
+
+3. Mkinitcpio config (early loading)
 
 ```sh
 nvim /etc/mkinitcpio.conf
