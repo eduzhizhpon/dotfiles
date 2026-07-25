@@ -29,8 +29,17 @@ fi
 if [ "$LID_STATE" = "close" ]; then
     # Check if the target external monitor is connected
     if swaymsg -t get_outputs | grep -q "\"name\": \"$TARGET_MONITOR\""; then
+        # Find active workspace on laptop screen before disabling it
+        ACTIVE_WS=$(swaymsg -t get_outputs | jq -r ".[] | select(.name == \"$INTERNAL_MONITOR\") | .current_workspace")
+
         # Disable laptop screen, making the external monitor primary
         swaymsg output "$INTERNAL_MONITOR" disable
+
+        # Bring the apps into view by switching to that workspace
+        if [ -n "$ACTIVE_WS" ] && [ "$ACTIVE_WS" != "null" ]; then
+            swaymsg workspace "$ACTIVE_WS"
+        fi
+
         [ -x ~/.config/waybar/launch.sh ] && bash ~/.config/waybar/launch.sh &
     fi
 elif [ "$LID_STATE" = "open" ]; then
