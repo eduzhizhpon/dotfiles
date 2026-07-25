@@ -1,0 +1,19 @@
+{
+  "monitors": {
+    "DP-4": {
+      "mode": "2560x1440@120Hz",
+      "position": "0 0",
+      "primary": true,
+      "workspaces": [1, 2, 3, 4, 5]
+    },
+    "HDMI-A-2": {
+      "mode": "1920x1080@100Hz",
+      "transform": "90",
+      "position": "-1080 -100",
+      "primary": false
+    },
+    "HDMI-A-1": {
+      "workspaces": [6]
+    }
+  }
+}

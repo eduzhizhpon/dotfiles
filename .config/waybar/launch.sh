@@ -34,7 +34,7 @@ wm_modules_path="$wm_config_dir/modules.json"
 primary_config_path="$wm_config_dir/primary.json"
 secondary_config_path="$wm_config_dir/secondary.json"
 generated_config_path="/tmp/waybar-config.jsonc"
-primary_monitor_path="$waybar_path/monitors/$DEVICE.json"
+primary_monitor_path="$HOME/.config/my-wm/configs/$DEVICE.json"
 
 echo "using waybar config $DEVICE" > /tmp/waybar-config-info
 
@@ -62,8 +62,8 @@ if [[ "$wm" == "hyprland" ]]; then
   mapfile -t monitors < <(hyprctl monitors -j | jq -r '.[] | .name')
   detected_primary=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .name')
 elif [[ "$wm" == "sway" ]]; then
-  mapfile -t monitors < <(swaymsg -t get_outputs | jq -r '.[] | .name')
-  detected_primary=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name')
+  mapfile -t monitors < <(swaymsg -t get_outputs | jq -r '.[] | select(.active == true) | .name')
+  detected_primary=$(swaymsg -t get_outputs | jq -r '.[] | select(.active == true and .focused == true) | .name')
 fi
 
 configs="[]"
@@ -73,7 +73,28 @@ base_config=$(jq -s '.[0] * .[1]' <(echo "$modules_config") <(echo "$primary_spe
 primary_monitor=""
 if [ -f "$primary_monitor_path" ]; then
   echo "Reading monitor config: $primary_monitor_path"
-  primary_monitor=$(jq -r '.name' "$primary_monitor_path")
+  configured_primary=$(jq -r '.monitors | to_entries[]? | select(.value.primary == true) | .key' "$primary_monitor_path")
+  lid_primary=$(jq -r '.monitors | to_entries[]? | select(.value.primaryOnLid == true) | .key' "$primary_monitor_path")
+  
+  for m in "${monitors[@]}"; do
+    if [[ "$m" == "$configured_primary" ]]; then
+      primary_monitor="$configured_primary"
+      break
+    fi
+  done
+  
+  if [ -z "$primary_monitor" ] && [ -n "$lid_primary" ] && [ "$lid_primary" != "null" ]; then
+    for m in "${monitors[@]}"; do
+      if [[ "$m" == "$lid_primary" ]]; then
+        primary_monitor="$lid_primary"
+        break
+      fi
+    done
+  fi
+
+  if [ -z "$primary_monitor" ] || [ "$primary_monitor" == "null" ]; then
+    primary_monitor=$(jq -r '.name // empty' "$primary_monitor_path")
+  fi
 fi
 
 if [ -z "$primary_monitor" ] || [ "$primary_monitor" == "null" ]; then

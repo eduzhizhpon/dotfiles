@@ -1,8 +1,30 @@
 #!/usr/bin/env bash
 
+JSON_CONF="$HOME/.config/my-wm/configs/$DEVICE.json"
 DEVICE_MONITOR_CONF="$HOME/.config/sway/configs/$DEVICE.conf"
 
-# --- 1) If device has its own config, use it ---
+# --- 1) If device has JSON config, use it ---
+if [ -f "$JSON_CONF" ]; then
+    echo "Loading JSON monitor config: $JSON_CONF"
+    
+    # Process outputs
+    jq -r '.monitors | to_entries[] | .key as $k | .value | (if .mode then " mode \(.mode)" else "" end) + (if .position then " position \(.position)" else "" end) + (if .transform then " transform \(.transform)" else "" end) | if length > 0 then "output \($k)" + . else empty end' "$JSON_CONF" | \
+    while read -r cmd; do
+        echo "$cmd"
+        swaymsg "$cmd"
+    done
+
+    # Process workspaces
+    jq -r '.monitors | to_entries[] | .key as $k | .value | select(.workspaces != null) | .workspaces[] | "workspace \(. | tostring) output \($k)"' "$JSON_CONF" | \
+    while read -r cmd; do
+        echo "$cmd"
+        swaymsg "$cmd"
+    done
+    
+    exit 0
+fi
+
+# --- 2) If device has its own fallback conf, use it ---
 if [ -f "$DEVICE_MONITOR_CONF" ]; then
     echo "Loading per-device monitor config: $DEVICE_MONITOR_CONF"
     while IFS= read -r line; do

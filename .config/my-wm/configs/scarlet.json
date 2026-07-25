@@ -1,0 +1,12 @@
+{
+  "monitors": {
+    "eDP-1": {
+      "primary": true
+    },
+    "HDMI-A-1": {
+      "side": "left",
+      "primary": false,
+      "primaryOnLid": true
+    }
+  }
+}
