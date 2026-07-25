@@ -194,6 +194,7 @@ input type:pointer {
     # bindsym $mod+a focus parent
 
     for_window [app_id="xdg-desktop-portal-gtk"] floating enable, move position center
+    for_window [title="^Picture in picture$"] floating enable, sticky enable
 #
 # Scratchpad:
 #
