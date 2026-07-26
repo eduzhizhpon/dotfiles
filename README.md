@@ -489,3 +489,23 @@ chmod 600 ~/.ssh/*
 ```bash
 ssh -T git@github.com
 ```
+
+## Extra configs
+
+### Permanent Fix for F1-F12 keys issue
+
+Fixes the issue where F1-F12 keys act as media controls or do not work.
+
+1. Create the configuration file for the `hid_apple` module:
+   ```bash
+   echo "options hid_apple fnmode=0" | sudo tee /etc/modprobe.d/hid_apple.conf
+   ```
+   *(Note: Use `fnmode=2` if you want F1-F12 by default, but still want media keys when holding `Fn`).*
+
+2. Regenerate the initramfs in Arch Linux:
+   ```bash
+   sudo mkinitcpio -P
+   ```
+
+3. Reboot your system to apply changes.
+
