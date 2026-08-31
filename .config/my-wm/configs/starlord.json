@@ -10,10 +10,8 @@
       "mode": "1920x1080@100Hz",
       "transform": "90",
       "position": "-1080 -100",
-      "primary": false
-    },
-    "HDMI-A-1": {
-      "workspaces": [6]
+      "primary": false,
+      "workspaces": [6, 7, 8, 9, 0]
     }
   }
 }
