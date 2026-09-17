@@ -52,7 +52,6 @@ client.focused #4c7899 #285577 #ffffff #2e9ef4 #7f689a
 #          timeout 300 'swaylock -f -c 000000' \
 #          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #          before-sleep 'swaylock -f -c 000000'
-# Ejecutar swayidle para gestionar los eventos de la tapa de la laptop
 exec swayidle -w \
     before-sleep 'swaymsg "output * power off"' \
     after-resume 'swaymsg "output * power on"'
@@ -193,8 +192,11 @@ input type:pointer {
     # Move focus to the parent container
     # bindsym $mod+a focus parent
 
+#
+# Layout defaults:
+#
     for_window [app_id="xdg-desktop-portal-gtk"] floating enable, move position center
-    for_window [title="^Picture in picture$"] floating enable, sticky enable
+    for_window [title="(?i)^picture[- ]in[- ]picture$"] floating enable, sticky enable, inhibit_idle visible
 #
 # Scratchpad:
 #
@@ -286,7 +288,7 @@ bindsym $mod+j exec --no-startup-id "playerctl previous"
 # Clipboard manager
 bindsym $mod+v exec --no-startup-id "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
 
-# Laptop lid behavior: disable laptop screen to make external primary (HDMI-A-1) and avoid sleep when docked
+# Laptop lid behavior: disable laptop screen to make external primary and avoid sleep when docked
 bindswitch --reload --locked lid:on exec ~/.config/sway/scripts/lid.sh close
 bindswitch --reload --locked lid:off exec ~/.config/sway/scripts/lid.sh open
 
