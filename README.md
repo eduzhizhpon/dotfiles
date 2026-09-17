@@ -205,7 +205,7 @@ git pull
 ### Install basics
 
 ```bash
-pacman -S nvidia-open nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip wl-paste
+pacman -S nvidia-open nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip wl-clipboard
 ```
 ### Install PARU
 
