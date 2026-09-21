@@ -1,6 +1,6 @@
 # Dotfiles AI Specifications & System Index
 
-> **Target Audience:** Autonomous AI Coding Agents & Pair Programming Assistants  
+> **Target Audience:** Autonomous AI Coding Agents & Pair Programming Assistants
 > **Purpose:** System architecture index, design patterns, and operational guide for maintaining and extending the user's desktop environment configuration.
 
 ---

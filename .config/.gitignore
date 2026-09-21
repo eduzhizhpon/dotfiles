@@ -6,6 +6,8 @@
 !.gitignore
 !.gitkeep
 !.ai-specs
+!GEMINI.md
+!AGENTS.md
 
 # Window Managers & Custom Environment Core
 !my-wm
