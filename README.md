@@ -237,7 +237,7 @@ paru -S hyprland hyprpaper qt5-wayland qt6-wayland waybar cliphist
 ```bash
 paru -Sy alacritty kitty jq picom rofi nwg-look redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct qt6ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
 
-paru -S ttf-liberation ttf-dejavu noto-fonts
+paru -S ttf-liberation ttf-dejavu noto-fonts ttf-roboto-mono-nerd ttf-roboto
 
 paru -S ttf-ms-fonts noto-fonts-cjk ttf-baekmuk noto-fonts-emoji
 
