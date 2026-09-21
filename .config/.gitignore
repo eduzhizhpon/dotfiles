@@ -1,32 +1,43 @@
+# Ignore everything by default (allowlist pattern)
 /*
 .*
 
-!alacritty
-!picom
-!qtile
-!dunst
-!polybar
-!rofi
-!bspwm
-!sxhkd
-!nvim
-!wallpapers
-!gtk-3.0
-!gtk-4.0
-!systemd
-!i3
-!sway
-!waybar
-!hypr
-!xorg.conf.d
-!fontconfig
-!env-files
-!kitty
-!environment.d
-!my-wm
-
-# Fix plasma dolphin color background
-!kdeglobals
-
+# Repository Configuration & Documentation
 !.gitignore
 !.gitkeep
+!.ai-specs
+
+# Window Managers & Custom Environment Core
+!my-wm
+!sway
+!hypr
+!i3
+!bspwm
+!qtile
+
+# UI Components, Bars & Launchers
+!waybar
+!dunst
+!rofi
+!polybar
+!picom
+!sxhkd
+
+# Terminals & Editors
+!alacritty
+!kitty
+!nvim
+
+# Appearance, Themes & System Configs
+!gtk-3.0
+!gtk-4.0
+!kdeglobals
+!fontconfig
+!wallpapers
+!environment.d
+!env-files
+!xorg.conf.d
+
+# Ignore dynamically generated theme artifacts (compiled at runtime)
+my-wm/theme/generated/*
+!my-wm/theme/generated/.gitkeep

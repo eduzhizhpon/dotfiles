@@ -1,7 +1,7 @@
+@import "../../my-wm/theme/generated/rofi-fonts.rasi"
 @import "params.rasi"
 
 configuration {
-  font: "Cantarell 11, FiraCode Nerd Font 11";
   fullscreen: false;
   show-icons: false;
   location: 0;

@@ -119,8 +119,9 @@ configs=$(echo "$configs" | sed "s/\${primary}/$primary_monitor/g")
 
 echo "$configs" > "$generated_config_path"
 
-waybar -c "$generated_config_path" -s "$style_path" &
-
-# Explicitly release the lock (optional) -> flock releases on exit
+# Release the lock before spawning waybar to avoid fd inheritance
 flock -u 200
 exec 200>&-
+
+nohup waybar -c "$generated_config_path" -s "$style_path" >/dev/null 2>&1 &
+disown

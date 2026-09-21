@@ -1,3 +1,5 @@
+@import url("../my-wm/theme/generated/waybar-fonts.css");
+
 @define-color background #1a110f;
 
 @define-color on_surface #f1dfda;
@@ -7,11 +9,6 @@
 
 @define-color primary_container #463955;
 @define-color on_primary_container #f9f7fa;
-
-* {
-  font-family: FiraCode Nerd Font, JetBrains Mono, Roboto, sans-serif;
-  font-size: 1rem;
-}
 
 window#waybar {
   background: transparent;
