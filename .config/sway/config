@@ -25,8 +25,8 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu rofi-launcher
-set $powermenu rofi-powermenu
+set $menu ~/.config/rofi/scripts/mwm-rofi-launcher
+set $powermenu ~/.config/rofi/scripts/mwm-rofi-powermenu
 
 ### Layout
 
@@ -253,10 +253,10 @@ bindsym $mod+$alt+$right resize grow width 10px
 #
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +2% && custom-volume-notify
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -2% && custom-volume-notify
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && custom-volume-notify
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && custom-volume-notify
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +2% && ~/.config/my-wm/scripts/mwm-volume-notify
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -2% && ~/.config/my-wm/scripts/mwm-volume-notify
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.config/my-wm/scripts/mwm-volume-notify
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && ~/.config/my-wm/scripts/mwm-volume-notify
 
 # Keyboard layout
 bindsym $mod+space input type:keyboard xkb_switch_layout next
@@ -272,9 +272,9 @@ bindsym XF86KbdBrightnessDown exec --no-startup-id "brightnessctl -q s 2%-"
 bindsym XF86KbdBrightnessUp exec --no-startup-id "brightnessctl -q s +2%"
 
 # Screenshot
-bindsym Print exec --no-startup-id custom-wayland-screenshot --full
-bindsym $mod+Shift+s exec --no-startup-id "custom-wayland-screenshot --clipboard"
-bindsym $mod+Shift+a exec --no-startup-id "custom-wayland-screenshot --save"
+bindsym Print exec --no-startup-id ~/.config/my-wm/scripts/mwm-wayland-screenshot --full
+bindsym $mod+Shift+s exec --no-startup-id "~/.config/my-wm/scripts/mwm-wayland-screenshot --clipboard"
+bindsym $mod+Shift+a exec --no-startup-id "~/.config/my-wm/scripts/mwm-wayland-screenshot --save"
 
 # Audio
 bindsym XF86AudioPlay exec --no-startup-id "playerctl play-pause"

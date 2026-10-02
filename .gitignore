@@ -10,7 +10,6 @@
 !.config
 !.xsessionrc
 !.devices
-!.local
 
 !.zshenv
 !.zshrc

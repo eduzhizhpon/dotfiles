@@ -4,7 +4,7 @@ After=local-fs.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/mount-usb-monitor
+ExecStart=%h/.config/my-wm/scripts/mwm-mount-usb-monitor
 Restart=always
 KillSignal=SIGTERM
 StandardOutput=journal

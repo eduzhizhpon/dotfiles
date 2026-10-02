@@ -17,7 +17,7 @@
     "on-scroll-up": "",
     "on-scroll-down": "",
     "format": "󰌌 {short}",
-    "on-click": "custom-next-kb-lang"
+    "on-click": "$HOME/.config/my-wm/scripts/mwm-next-kb-lang"
   },
   "hyprland/window": {
     "max-length": 40,

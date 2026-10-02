@@ -12,7 +12,7 @@ super + shift + Return
 
 # program launcher
 super + shift + @space
-	rofi-launcher
+	~/.config/rofi/scripts/mwm-rofi-launcher
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -178,13 +178,13 @@ super + v
 
 # Volume Control
 XF86AudioLowerVolume
-	amixer set Master 2%- && custom-volume-notify
+	amixer set Master 2%- && ~/.config/my-wm/scripts/mwm-volume-notify
 
 XF86AudioRaiseVolume
-	amixer set Master 2%+ && custom-volume-notify
+	amixer set Master 2%+ && ~/.config/my-wm/scripts/mwm-volume-notify
 
 XF86AudioMute
-        amixer set Master toggle && custom-volume-notify
+        amixer set Master toggle && ~/.config/my-wm/scripts/mwm-volume-notify
 
 # Brightness control
 XF86MonBrightnessDown

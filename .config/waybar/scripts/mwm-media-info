@@ -21,7 +21,7 @@ prefix_len=${#prefix}
 scroll_len=$((max_length - prefix_len))
 
 # Source the common functions file
-source ~/.local/bin/media-info-commons
+source ~/.config/polybar/scripts/media-info-commons
 
 last_song=""
 active_player=""

@@ -27,14 +27,14 @@
     "spacing": 10
   },
   "custom/nowplaying": {
-    "exec": "custom-media-info",
+    "exec": "$HOME/.config/waybar/scripts/mwm-media-info",
     "hide-empty-text": true
   },
   "custom/nowplaying-icon": {
     "disable-scroll": true,
     "on-scroll-up": "",
     "on-scroll-down": "",
-    "exec": "custom-media-info-icon",
+    "exec": "$HOME/.config/waybar/scripts/mwm-media-info-icon",
     "interval": 2,
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl next",
@@ -47,11 +47,11 @@
     "hide-empty-text": true
   },
   "custom/network": {
-    "exec": "custom-get-ip",
+    "exec": "$HOME/.config/waybar/scripts/mwm-get-ip",
     "interval": 3600,
-    "on-click": "custom-get-ip -next",
-    "on-scroll-up": "custom-get-ip -prev",
-    "on-scroll-down": "custom-get-ip -next"
+    "on-click": "$HOME/.config/waybar/scripts/mwm-get-ip -next",
+    "on-scroll-up": "$HOME/.config/waybar/scripts/mwm-get-ip -prev",
+    "on-scroll-down": "$HOME/.config/waybar/scripts/mwm-get-ip -next"
   },
   "pulseaudio": {
     "format": "󰕾 {volume}%",
