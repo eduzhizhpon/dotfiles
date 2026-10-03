@@ -17,6 +17,8 @@ alias google-chrome='google-chrome-stable'
 
 alias vim='nvim'
 
+alias agy-y='agy --dangerously-skip-permissions'
+
 #
 # Config
 #

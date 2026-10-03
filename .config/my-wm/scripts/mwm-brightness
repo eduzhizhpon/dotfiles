@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+#
+# mwm-brightness: Unified monitor and keyboard brightness controller with Dunst notifications.
+#
+
+set -euo pipefail
+
+DEFAULT_STEP="2"
+NOTIFY_TIMEOUT=1000
+NOTIFY_REPLACE_ID=1001
+
+notify_brightness() {
+    local brightness=""
+    if command -v brightnessctl &>/dev/null; then
+        brightness=$(brightnessctl -m 2>/dev/null | grep 'backlight' | head -n 1 | awk -F, '{print $4}' | tr -d '%' || true)
+        if [ -z "$brightness" ]; then
+            brightness=$(brightnessctl -m 2>/dev/null | head -n 1 | awk -F, '{print $4}' | tr -d '%' || true)
+        fi
+    elif command -v xbacklight &>/dev/null; then
+        brightness=$(xbacklight -get 2>/dev/null | cut -d. -f1 || true)
+    fi
+
+    if [ -z "$brightness" ]; then
+        return 0
+    fi
+
+    # Select icon based on brightness percentage
+    local icon="🔆"
+    if [ "$brightness" -lt 30 ]; then
+        icon="🔅"
+    elif [ "$brightness" -lt 70 ]; then
+        icon="🔆"
+    else
+        icon="☀️"
+    fi
+
+    if command -v notify-send &>/dev/null; then
+        notify-send \
+            -h int:value:"$brightness" \
+            -h string:x-dunst-stack-tag:brightness \
+            -t "$NOTIFY_TIMEOUT" \
+            -r "$NOTIFY_REPLACE_ID" \
+            -u low \
+            "Brightness: ${brightness}%" \
+            "$icon"
+    fi
+}
+
+notify_kbd_brightness() {
+    local kbd_brightness=""
+    if command -v brightnessctl &>/dev/null; then
+        kbd_brightness=$(brightnessctl -m -d '*::kbd_backlight' 2>/dev/null | head -n 1 | awk -F, '{print $4}' | tr -d '%' || true)
+        if [ -z "$kbd_brightness" ]; then
+            kbd_brightness=$(brightnessctl -m 2>/dev/null | grep -i 'kbd' | head -n 1 | awk -F, '{print $4}' | tr -d '%' || true)
+        fi
+    fi
+
+    if [ -z "$kbd_brightness" ]; then
+        return 0
+    fi
+
+    if command -v notify-send &>/dev/null; then
+        notify-send \
+            -h int:value:"$kbd_brightness" \
+            -h string:x-dunst-stack-tag:kbd_brightness \
+            -t "$NOTIFY_TIMEOUT" \
+            -r 1003 \
+            -u low \
+            "Keyboard Brightness: ${kbd_brightness}%" \
+            "⌨️"
+    fi
+}
+
+action="${1:-notify}"
+step="${2:-$DEFAULT_STEP}"
+
+case "$action" in
+    up|raise|inc|+)
+        if command -v brightnessctl &>/dev/null; then
+            brightnessctl -q s "+${step}%"
+        elif command -v xbacklight &>/dev/null; then
+            xbacklight -inc "$step"
+        fi
+        notify_brightness
+        ;;
+    down|lower|dec|-)
+        if command -v brightnessctl &>/dev/null; then
+            brightnessctl -q s "${step}%-"
+        elif command -v xbacklight &>/dev/null; then
+            xbacklight -dec "$step"
+        fi
+        notify_brightness
+        ;;
+    set)
+        val="${2:-50%}"
+        if command -v brightnessctl &>/dev/null; then
+            brightnessctl -q s "$val"
+        elif command -v xbacklight &>/dev/null; then
+            xbacklight -set "${val%%%}"
+        fi
+        notify_brightness
+        ;;
+    kbd-up|kbd_up)
+        if command -v brightnessctl &>/dev/null; then
+            brightnessctl -q -d '*::kbd_backlight' s "+${step}%" 2>/dev/null || brightnessctl -q -d 'smc::kbd_backlight' s "+${step}%" 2>/dev/null || true
+        fi
+        notify_kbd_brightness
+        ;;
+    kbd-down|kbd_down)
+        if command -v brightnessctl &>/dev/null; then
+            brightnessctl -q -d '*::kbd_backlight' s "${step}%-" 2>/dev/null || brightnessctl -q -d 'smc::kbd_backlight' s "${step}%-" 2>/dev/null || true
+        fi
+        notify_kbd_brightness
+        ;;
+    notify|get)
+        notify_brightness
+        ;;
+    *)
+        echo "Usage: $0 {up|down|set <val>|kbd-up|kbd-down|notify} [step]" >&2
+        exit 1
+        ;;
+esac

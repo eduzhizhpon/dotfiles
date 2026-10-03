@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+#
+# mwm-volume: Unified volume, mute, and microphone controller with Dunst notifications.
+#
+
+set -euo pipefail
+
+DEFAULT_STEP="2"
+NOTIFY_TIMEOUT=1000
+NOTIFY_REPLACE_ID=1000
+
+notify_volume() {
+    local volume="0"
+    local mute="no"
+
+    if command -v pactl &>/dev/null; then
+        volume=$(pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -oP '\d+%' | head -n 1 | tr -d '%' || true)
+        mute=$(pactl get-sink-mute @DEFAULT_SINK@ 2>/dev/null | grep -oP 'yes|no' || true)
+    fi
+
+    if [ -z "$volume" ] && command -v amixer &>/dev/null; then
+        volume=$(amixer get Master 2>/dev/null | grep -oP '\[\d+%\]' | head -1 | tr -d '[]%' || true)
+        local amixer_on
+        amixer_on=$(amixer get Master 2>/dev/null | grep -o '\[on\]' | head -1 || true)
+        if [ "$amixer_on" != "[on]" ]; then
+            mute="yes"
+        else
+            mute="no"
+        fi
+    fi
+
+    volume="${volume:-0}"
+
+    local icon="🔊"
+    local summary="Volume: ${volume}%"
+
+    if [ "$mute" = "yes" ]; then
+        icon="🔇"
+        summary="Volume: Muted (${volume}%)"
+    elif [ "$volume" -lt 30 ]; then
+        icon="🔈"
+    elif [ "$volume" -lt 70 ]; then
+        icon="🔉"
+    else
+        icon="🔊"
+    fi
+
+    if command -v notify-send &>/dev/null; then
+        notify-send \
+            -h int:value:"$volume" \
+            -h string:x-dunst-stack-tag:volume \
+            -t "$NOTIFY_TIMEOUT" \
+            -r "$NOTIFY_REPLACE_ID" \
+            -u low \
+            "$summary" \
+            "$icon"
+    fi
+}
+
+notify_mic() {
+    local mic_mute="no"
+    if command -v pactl &>/dev/null; then
+        mic_mute=$(pactl get-source-mute @DEFAULT_SOURCE@ 2>/dev/null | grep -oP 'yes|no' || true)
+    fi
+
+    local icon="🎙️"
+    local summary="Microphone: Unmuted"
+
+    if [ "$mic_mute" = "yes" ]; then
+        icon="🔇"
+        summary="Microphone: Muted"
+    fi
+
+    if command -v notify-send &>/dev/null; then
+        notify-send \
+            -h string:x-dunst-stack-tag:microphone \
+            -t "$NOTIFY_TIMEOUT" \
+            -r 1002 \
+            -u low \
+            "$summary" \
+            "$icon"
+    fi
+}
+
+action="${1:-notify}"
+step="${2:-$DEFAULT_STEP}"
+
+case "$action" in
+    up|raise|inc|+)
+        if command -v pactl &>/dev/null; then
+            pactl set-sink-mute @DEFAULT_SINK@ 0
+            pactl set-sink-volume @DEFAULT_SINK@ "+${step}%"
+        elif command -v wpctl &>/dev/null; then
+            wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+            wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ "${step}%+"
+        elif command -v amixer &>/dev/null; then
+            amixer -q sset Master "${step}%+" unmute
+        fi
+        notify_volume
+        ;;
+    down|lower|dec|-)
+        if command -v pactl &>/dev/null; then
+            pactl set-sink-mute @DEFAULT_SINK@ 0
+            pactl set-sink-volume @DEFAULT_SINK@ "-${step}%"
+        elif command -v wpctl &>/dev/null; then
+            wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+            wpctl set-volume @DEFAULT_AUDIO_SINK@ "${step}%-"
+        elif command -v amixer &>/dev/null; then
+            amixer -q sset Master "${step}%-" unmute
+        fi
+        notify_volume
+        ;;
+    mute|toggle-mute)
+        if command -v pactl &>/dev/null; then
+            pactl set-sink-mute @DEFAULT_SINK@ toggle
+        elif command -v wpctl &>/dev/null; then
+            wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        elif command -v amixer &>/dev/null; then
+            amixer -q sset Master toggle
+        fi
+        notify_volume
+        ;;
+    mic-mute|toggle-mic)
+        if command -v pactl &>/dev/null; then
+            pactl set-source-mute @DEFAULT_SOURCE@ toggle
+        elif command -v wpctl &>/dev/null; then
+            wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+        fi
+        notify_mic
+        ;;
+    notify|get)
+        notify_volume
+        ;;
+    *)
+        echo "Usage: $0 {up|down|mute|mic-mute|notify} [step]" >&2
+        exit 1
+        ;;
+esac

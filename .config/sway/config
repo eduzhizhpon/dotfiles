@@ -252,11 +252,11 @@ bindsym $mod+$alt+$right resize grow width 10px
 # Custom keybids
 #
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ +2% && ~/.config/my-wm/scripts/mwm-volume-notify
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ -2% && ~/.config/my-wm/scripts/mwm-volume-notify
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.config/my-wm/scripts/mwm-volume-notify
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && ~/.config/my-wm/scripts/mwm-volume-notify
+# Use mwm-volume to adjust volume in PulseAudio / PipeWire with Dunst notifications.
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume mute
+bindsym XF86AudioMicMute exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume mic-mute
 
 # Keyboard layout
 bindsym $mod+space input type:keyboard xkb_switch_layout next
@@ -264,12 +264,11 @@ bindsym $mod+space input type:keyboard xkb_switch_layout next
 # Alter terminal
 bindsym $mod+Shift+Return exec foot
 
-# Backlight
-bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl -q s 2%-"
-bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl -q s +2%"
-
-bindsym XF86KbdBrightnessDown exec --no-startup-id "brightnessctl -q s 2%-"
-bindsym XF86KbdBrightnessUp exec --no-startup-id "brightnessctl -q s +2%"
+# Backlight (Monitor and Keyboard) with Dunst notifications
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness down
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness up
+bindsym XF86KbdBrightnessDown exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness kbd-down
+bindsym XF86KbdBrightnessUp exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness kbd-up
 
 # Screenshot
 bindsym Print exec --no-startup-id ~/.config/my-wm/scripts/mwm-wayland-screenshot --full

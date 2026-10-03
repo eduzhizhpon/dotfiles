@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Wrapper for backwards compatibility. Delegates to unified mwm-volume script.
+#
+exec "$(dirname "$0")/mwm-volume" notify "$@"

@@ -1,6 +1,7 @@
 {
   "modules-left": [
     "hyprland/workspaces",
+    "custom/tailscale",
     "custom/network"
   ],
   "modules-center": [

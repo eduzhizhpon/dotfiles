@@ -43,12 +43,11 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# Use mwm-volume to adjust volume in PulseAudio with Dunst notifications.
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume mute
+bindsym XF86AudioMicMute exec --no-startup-id ~/.config/my-wm/scripts/mwm-volume mic-mute
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -205,9 +204,8 @@ bindsym --release $mod+Shift+l exec slock
 
 bindsym $mod+Shift+s exec --no-startup-id "spectacle -bcr"
 
-bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 5"
-
-bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 5"
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness down
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/my-wm/scripts/mwm-brightness up
 
 bindsym XF86AudioPlay exec --no-startup-id "playerctl play-pause"
 

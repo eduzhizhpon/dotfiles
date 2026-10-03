@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Script para emitir el estado de Tailscale en formato JSON para Waybar
+
+if ! command -v tailscale >/dev/null 2>&1; then
+    printf '{"text": "󰦞", "alt": "not_installed", "tooltip": "Tailscale no está instalado", "class": "not-installed"}\n'
+    exit 0
+fi
+
+if ! systemctl is-active --quiet tailscaled 2>/dev/null; then
+    printf '{"text": "󰒍", "alt": "stopped", "tooltip": "Servicio tailscaled detenido\\nClick para gestionar", "class": "stopped"}\n'
+    exit 0
+fi
+
+# El demonio está activo, consultar estado
+status_json=$(tailscale status --json 2>/dev/null)
+backend_state=$(echo "$status_json" | jq -r '.BackendState // empty' 2>/dev/null)
+
+if [ "$backend_state" = "Running" ]; then
+    ip=$(tailscale ip -4 2>/dev/null | head -n1)
+    hostname=$(echo "$status_json" | jq -r '.Self.HostName // empty' 2>/dev/null)
+    [ -z "$hostname" ] && hostname=$(hostname)
+    
+    tooltip="Tailscale: Conectado"
+    [ -n "$ip" ] && tooltip="$tooltip\nIP: $ip"
+    [ -n "$hostname" ] && tooltip="$tooltip\nNodo: $hostname"
+    tooltip="$tooltip\nClick para gestionar"
+
+    printf '{"text": "󰒍", "alt": "up", "tooltip": "%s", "class": "connected"}\n' "$tooltip"
+elif [ "$backend_state" = "NeedsLogin" ]; then
+    auth_url=$(echo "$status_json" | jq -r '.AuthURL // empty' 2>/dev/null)
+    printf '{"text": "󰒍", "alt": "needs_login", "tooltip": "Tailscale requiere login\\nClick para gestionar", "class": "needs-login"}\n'
+else
+    # Stopped / Disconnected
+    printf '{"text": "󰒍", "alt": "down", "tooltip": "Tailscale desconectado\\nClick para gestionar", "class": "down"}\n'
+fi

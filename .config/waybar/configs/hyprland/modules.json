@@ -16,7 +16,13 @@
     "disable-scroll": true,
     "on-scroll-up": "",
     "on-scroll-down": "",
-    "format": "󰌌 {short}",
+    "format": "󰌌 {}",
+    "format-en": "US",
+    "format-us": "US",
+    "format-es": "LATAM",
+    "format-latam": "LATAM",
+    "tooltip": true,
+    "tooltip-format": "{long}",
     "on-click": "$HOME/.config/my-wm/scripts/mwm-next-kb-lang"
   },
   "hyprland/window": {

@@ -38,7 +38,7 @@ case "$SESSION_TYPE" in
 wayland)
     # For Wayland, detect the compositor (Sway or Hyprland)
     case "${XDG_CURRENT_DESKTOP:-}" in
-    sway)
+    *sway*|*Sway*)
         if ! command -v swaymsg &>/dev/null || ! command -v jq &>/dev/null; then
             handle_error "swaymsg or jq not found."
         fi
@@ -51,7 +51,7 @@ wayland)
         # Notify the user of the new layout
         notify "Switched to ${LAYOUTS[$next_layout_index]}"
         ;;
-    Hyprland)
+    *hyprland*|*Hyprland*)
         if ! command -v hyprctl &>/dev/null || ! command -v jq &>/dev/null; then
             handle_error "hyprctl or jq not found. This version of the script requires jq for Hyprland."
         fi

@@ -19,6 +19,7 @@
 | Path | Responsibility | Documentation Link |
 |---|---|---|
 | [`my-wm/theme/`](file:///home/user/.config/my-wm/theme) | Central Theme Contracts (Single Source of Truth) & Compiled Artifacts | [Theme & Font Architecture](file:///home/user/.config/.ai-specs/docs/theme-architecture.md) |
+| [`my-wm/scripts/`](file:///home/user/.config/my-wm/scripts) | Multi-WM Utility Scripts (`mwm-volume`, `mwm-brightness`, `mwm-next-kb-lang`, etc.) | — |
 | [`my-wm/scripts/theme/`](file:///home/user/.config/my-wm/scripts/theme) | Modular Theme Engine & Component Handlers | [Theme Handlers & CLI](file:///home/user/.config/.ai-specs/docs/theme-architecture.md#modular-handlers-scripts) |
 | [`my-wm/configs/`](file:///home/user/.config/my-wm/configs) | Per-device monitor and display workspace configurations (`$DEVICE.json`) | — |
 | [`sway/`](file:///home/user/.config/sway) | Sway WM configuration and scripts | — |

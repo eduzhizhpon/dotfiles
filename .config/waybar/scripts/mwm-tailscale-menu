@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+# Menú interactivo de gestión de Tailscale usando Rofi y Polkit (pkexec)
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 2500 -u normal "Tailscale" "$1"
+    fi
+}
+
+refresh_waybar() {
+    pkill -RTMIN+8 waybar 2>/dev/null || true
+}
+
+# 1. Validar instalación
+if ! command -v tailscale >/dev/null 2>&1; then
+    notify "Tailscale no está instalado en el sistema."
+    exit 0
+fi
+
+# 2. Consultar estado del demonio y Tailscale
+is_daemon_active="false"
+if systemctl is-active --quiet tailscaled 2>/dev/null; then
+    is_daemon_active="true"
+fi
+
+status_json=""
+backend_state=""
+if [ "$is_daemon_active" = "true" ]; then
+    status_json=$(tailscale status --json 2>/dev/null)
+    backend_state=$(echo "$status_json" | jq -r '.BackendState // empty' 2>/dev/null)
+fi
+
+# 3. Opciones de menú según estado
+opt_start_daemon="  Iniciar servicio tailscaled"
+opt_enable_daemon="✓  Habilitar e iniciar tailscaled"
+opt_stop_daemon="⏹  Detener servicio tailscaled"
+opt_disable_daemon="⏻  Deshabilitar servicio tailscaled"
+
+opt_connect="  Conectar Tailscale (up)"
+opt_disconnect="⏹  Desconectar Tailscale (down)"
+opt_copy_ip="󰆏  Copiar IP de Tailscale"
+
+menu_options=""
+
+if [ "$is_daemon_active" != "true" ]; then
+    menu_options="$opt_start_daemon\n$opt_enable_daemon"
+    prompt="Tailscale (Detenido)"
+elif [ "$backend_state" = "Running" ]; then
+    ip=$(tailscale ip -4 2>/dev/null | head -n1)
+    prompt="Tailscale ($ip)"
+    menu_options="$opt_disconnect\n$opt_copy_ip\n$opt_stop_daemon\n$opt_disable_daemon"
+else
+    prompt="Tailscale (Desconectado)"
+    menu_options="$opt_connect\n$opt_stop_daemon\n$opt_disable_daemon"
+fi
+
+chosen=$(echo -e "$menu_options" | rofi -dmenu -p "$prompt" -selected-row 0)
+
+[ -z "$chosen" ] && exit 0
+
+case "$chosen" in
+    "$opt_start_daemon")
+        if pkexec systemctl start tailscaled; then
+            notify "Servicio tailscaled iniciado"
+        else
+            notify "Fallo al iniciar servicio tailscaled"
+        fi
+        ;;
+    "$opt_enable_daemon")
+        if pkexec systemctl enable --now tailscaled; then
+            notify "Servicio tailscaled habilitado e iniciado"
+        else
+            notify "Fallo al habilitar servicio tailscaled"
+        fi
+        ;;
+    "$opt_stop_daemon")
+        if pkexec systemctl stop tailscaled; then
+            notify "Servicio tailscaled detenido"
+        else
+            notify "Fallo al detener servicio tailscaled"
+        fi
+        ;;
+    "$opt_disable_daemon")
+        if pkexec systemctl disable --now tailscaled; then
+            notify "Servicio tailscaled deshabilitado y detenido"
+        else
+            notify "Fallo al deshabilitar servicio tailscaled"
+        fi
+        ;;
+    "$opt_connect")
+        if pkexec tailscale up; then
+            notify "Tailscale conectado"
+        else
+            notify "Fallo al conectar Tailscale"
+        fi
+        ;;
+    "$opt_disconnect")
+        if pkexec tailscale down; then
+            notify "Tailscale desconectado"
+        else
+            notify "Fallo al desconectar Tailscale"
+        fi
+        ;;
+    "$opt_copy_ip")
+        ip=$(tailscale ip -4 2>/dev/null | head -n1)
+        if [ -n "$ip" ]; then
+            if command -v wl-copy >/dev/null 2>&1; then
+                echo -n "$ip" | wl-copy
+            elif command -v xclip >/dev/null 2>&1; then
+                echo -n "$ip" | xclip -selection clipboard
+            fi
+            notify "IP copiada al portapapeles: $ip"
+        else
+            notify "No se encontró IP asignada de Tailscale"
+        fi
+        ;;
+esac
+
+sleep 0.3
+refresh_waybar

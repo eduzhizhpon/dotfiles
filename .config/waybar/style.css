@@ -54,6 +54,7 @@ window#waybar {
  * ----------------------------------------------------- */
 #custom-weather,
 #custom-network,
+#custom-tailscale,
 #nowplaying,
 #hardware,
 #workspaces {
@@ -63,9 +64,27 @@ window#waybar {
 
 #custom-weather,
 #custom-network,
+#custom-tailscale,
 #nowplaying,
 #hardware {
   margin-left: 5px;
+}
+
+#custom-tailscale {
+  padding: 0 10px;
+}
+
+#custom-tailscale.connected {
+  color: #a6e3a1;
+}
+
+#custom-tailscale.down,
+#custom-tailscale.stopped {
+  color: #9399b2;
+}
+
+#custom-tailscale.not-installed {
+  color: #f38ba8;
 }
 
 #nowplaying {
