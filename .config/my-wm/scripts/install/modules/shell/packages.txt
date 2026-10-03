@@ -1,0 +1,10 @@
+# ==============================================================================
+# Shell Module - Zsh, CLI Enhancements & Productivity Tools
+# ==============================================================================
+
+zsh
+lsd
+bat
+zsh-syntax-highlighting
+zsh-autosuggestions
+plocate

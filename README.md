@@ -1,511 +1,413 @@
-# Install ARCH Linux with Windows Dual Boot - UEFI
+# Arch Linux Dual Boot & MWM Desktop Installation Guide
 
-## Install windows 10
+A complete, step-by-step installation guide to set up Arch Linux in Dual Boot with Windows 10 (UEFI), clone your dotfiles, and deploy the modular **MWM** desktop environment (**Sway**, **Hyprland**, **i3**, or **BSPWM**) in a fast, automated way.
 
-We have to install windows 10 with 1GB for UFI partition. This enable to install another linux distros like PopOs. Which requieres more space in this partition. Thats why we need to create a EFI partition before installing Windows 10.
+---
 
-1. Create installation media with Microsoft Tool.
-2. To install windows 10 pro we need to create a file inside the instalation media in directory `sources/` with name `ei.cfg` with content:
+## Table of Contents
 
-```batch
-[Channel]
-_Default
-[VL]
-0
-```
+1. [Step 1: Install Windows 10 (UEFI Dual Boot Preparation)](#step-1-install-windows-10-uefi-dual-boot-preparation)
+2. [Step 2: Base Arch Linux Installation](#step-2-base-arch-linux-installation)
+3. [Step 3: Post-Arch Base Setup & Clone Dotfiles](#step-3-post-arch-base-setup--clone-dotfiles)
+4. [Step 4: Desktop Environment Setup with `mwm.sh`](#step-4-desktop-environment-setup-with-mwmsh)
+5. [Step 5: System Services, Shell & Git Configuration](#step-5-system-services-shell--git-configuration)
+6. [Step 6: Hardware & Driver Tweaks](#step-6-hardware--driver-tweaks)
 
-3. Boot on instalation media and before partitioning step or click "Refresh" if do this during this step:
-   * Pres `Shift` + `F10` to open Command Line.
-   * Type `diskpart` and `Enter`.
-   * Type `list disk` and `Enter`.
-   * Type `select disk <<number>>` and `Enter`. Number is the disk that we want to clean and install windows.
-   * Type `clean` and `Enter`. Clean all content.
-   * Type `convert gpt`
-   * Type `create partition efi size=500` and `Enter`. 500 is the size in MB of the partition.
-   * Type `exit` and `Enter` to close Command Line.
-   * Now in partition step, click on empty disk an click `New`. This will crate two partition (MSR and Primary).
-   * Click next and then it will install windows 10.
+---
 
-## Install Arch Linux
+## Step 1: Install Windows 10 (UEFI Dual Boot Preparation)
 
-1. Partition disck in `Disck Management` windows 10 tool. Create an empty partition to install Arch (root, home y swap).
+To ensure a seamless dual boot setup, create the EFI partition with sufficient size (500MB–1GB) before installing Windows 10. This avoids partition size limitations when sharing the EFI partition with Arch Linux.
 
-2. Create instalation media with `rufus.exe` and Arch Linux ISO resource.
+1. Create a bootable Windows 10 installation USB using Microsoft's official Media Creation Tool.
+2. *(Optional for Windows 10 Pro)*: To enforce Windows 10 Pro installation, create a file named `ei.cfg` inside the `sources/` folder of the USB drive with the following content:
 
-3. Reboot on Arch instalation media.
+   ```ini
+   [Channel]
+   _Default
+   [VL]
+   0
+   ```
 
-4. Test internet connection `ping google.com`.
-   * For WIFI connection:
-   * `ip link set wlan0 up`
+3. Boot your PC from the Windows 10 installation media.
+4. On the setup screen (before or during the partition selection step):
+   - Press `Shift` + `F10` to open Command Prompt.
+   - Run the following commands:
 
-5. Enable NTP
+   ```cmd
+   diskpart
+   list disk
+   select disk 0
+   clean
+   convert gpt
+   create partition efi size=500
+   exit
+   ```
+   *(Note: Replace `0` with the actual disk number where you intend to install the OS).*
+
+5. Close the Command Prompt. In the Windows partition manager, select the unallocated space and click **New** and **Apply** (Windows will automatically create the MSR and Primary partitions).
+6. Select the Primary partition and proceed with the Windows 10 installation.
+
+---
+
+## Step 2: Base Arch Linux Installation
+
+### 2.1 Boot into Arch Linux Live Environment & Connect to Internet
+1. Flash the Arch Linux ISO to a USB drive using **Rufus** (GPT/UEFI mode) or `dd`.
+2. Boot your machine from the Arch Linux installation USB in UEFI mode.
+3. **Connect to Internet**:
+   - **Ethernet**: Connected automatically via DHCP.
+   - **WiFi (Interactive `iwctl`)**:
+     ```bash
+     iwctl
+     [iwd]# station wlan0 scan
+     [iwd]# station wlan0 get-networks
+     [iwd]# station wlan0 connect "YOUR_WIFI_SSID"
+     # If network SSID is hidden:
+     [iwd]# station wlan0 connect-hidden "HIDDEN_SSID"
+     [iwd]# exit
+     ```
+     *(Or as a one-liner: `iwctl --passphrase "PASSWORD" station wlan0 connect "SSID"`)*.
+4. Verify connection & synchronize clock:
+   ```bash
+   ping -c 3 google.com
+   timedatectl set-ntp true
+   ```
+
+### 2.2 Disk Partitioning
+
+Identify your disk with `lsblk` or `fdisk -l`, then partition:
+
+- **Option A (From Windows)**: Shrink volume in **Disk Management** (`diskmgmt.msc`) to leave unallocated free space.
+- **Option B (From Linux CLI)**: Run `cfdisk /dev/nvme0n1` (or `/dev/sda`):
+  - **Root (`/`)**: ~50–100GB+ (or all remaining space if not creating a separate `/home`) -> `Linux filesystem`
+  - **Swap**: ~4–16GB -> `Linux swap`
+  - **Home (`/home`, Optional)**: Remaining space -> `Linux filesystem`
+  - *(If standalone without Windows)*: Create `500M` -> `EFI System`
+  - Select **[ Write ]** -> `yes` -> **[ Quit ]**.
+
+### 2.3 Format & Mount Partitions
 
 ```bash
-timedatectl set-ntp true
-```
-6. Disk partitions:
+# Format partitions
+mkfs.ext4 /dev/{root_partition}
+mkswap /dev/{swap_partition}
+swapon /dev/{swap_partition}
+mkfs.ext4 /dev/{home_partition}       # Optional (only if you created a separate /home)
 
-```bash
-fdisk -l # or lsblk
+# Mount filesystems
+mount /dev/{root_partition} /mnt
+mkdir -p /mnt/boot
+mount /dev/{efi_partition} /mnt/boot  # EFI partition from Step 1 (or Step 2.2)
 
-mkfs.ext4 /dev/{partition} # Root partition.
-
-mkfs.ext4 /dev/{partition} # Home partition.
-
-mkswap /dev/{partition} # Swap partition.
-
-swapon /dev/{partition} # Swap partition.
-
-mount /dev/{root partition} /mnt
-
-mkdir /mnt/home
-
-mkdir /mnt/boot
-
-mount /dev/{home partition} /mnt/home
-
-mount /dev/{boot partition} /mnt/boot
+# Optional: Mount separate home (if created)
+mkdir -p /mnt/home
+mount /dev/{home_partition} /mnt/home
 ```
 
-7. Install BASE
+### 2.4 Install the Base System
+Bootstrap the Linux kernel, headers, and core utilities:
 
 ```bash
-pacstrap /mnt linux linux-firmware linux-headers base base-devel nano neovim grub efibootmgr os-prober iw wpa_supplicant dialog networkmanager dhcpcd netctl git
+pacstrap /mnt linux linux-firmware linux-headers base base-devel nano neovim grub efibootmgr os-prober networkmanager git
 ```
 
-8. Gen FsTab
-
+### 2.5 Generate FSTAB & Chroot
 ```bash
+# Generate fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
-```
 
-9. Enter to system
-
-```bash
+# Chroot into the newly installed system
 arch-chroot /mnt
 ```
 
-10. Configure Timezone
+### 2.6 Localization and System Configuration
+1. **Timezone & Hardware Clock**:
+   ```bash
+   ln -sf /usr/share/zoneinfo/America/{Your_Timezone} /etc/localtime
+   hwclock --systohc
+   ```
 
+2. **Locales**:
+   Edit `/etc/locale.gen`:
+   ```bash
+   nvim /etc/locale.gen
+   ```
+   Uncomment:
+   ```text
+   en_US.UTF-8 UTF-8
+   es_EC.UTF-8 UTF-8
+   ```
+   Generate locales and configure default language:
+   ```bash
+   locale-gen
+   echo "LANG=en_US.UTF-8" > /etc/locale.conf
+   ```
+
+3. **Hostname**:
+   ```bash
+   echo "my-laptop" > /etc/hostname
+   ```
+   Edit `/etc/hosts`:
+   ```text
+   127.0.0.1   localhost
+   ::1         localhost
+   127.0.1.1   my-laptop.localdomain my-laptop
+   ```
+
+4. **Root Password & Create User**:
+   ```bash
+   # Set root password
+   passwd
+
+   # Create administrative user
+   useradd -m -g users -G wheel,power,storage,video,audio -s /bin/bash username
+   passwd username
+
+   # Enable sudo privileges for wheel group
+   EDITOR=nvim visudo
+   # Uncomment: %wheel ALL=(ALL:ALL) ALL
+   ```
+
+### 2.7 Configure Bootloader (GRUB with Dual Boot)
 ```bash
-ln -sf /usr/share/zoneinfo/America/{timezone} /etc/localtime
-```
-
-11. Sync clock
-
-```bash
-hwclock --systohc
-```
-
-12. Configure lang
-
-```bash
-nvim /etc/locale.gen
-
-# uncoment
-en_US.UTF-8 UTF-8
-es_EC.UTF-8 UTF-8
-
-# Type :wq and Enter
-
-# Generate configuration
-locale-gen
-
-nvim /etc/locale.conf
-
-# Add
-LANG=en_US.UTF-8
-
-# Type :wq and Enter
-```
-
-13. Configure hostname and hosts
-```bash
-# Hostname
-echo "{hostname}" > /etc/hostname
-
-# Hosts
-nvim /etc/hosts
-
-# Add:
-127.0.0.1		localhost
-::1				localhost
-127.0.1.1		{hostname}.localdomain		{hostname}
-
-# Type :wq and Enter
-```
-14.  Configure user
-
-```bash
-# Set admin password
-passwd
-
-# Add normal user
-useradd -g users -G power,storage,wheel -m {username}
-
-# Set password
-passwd {username}
-```
-
-15. Configure GRUB
-
-```bash
-# Install GRUB
+# Install GRUB for UEFI
 grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=ArchLinux
 
-# Test windows partition. If not detected, you can do this again when system reboots.
-os-prober
-
-# Enable os-prober
-nano /etc/default/grub
-
-# Uncomment
+# Enable OS Prober for Windows detection
+nvim /etc/default/grub
+# Ensure the following line is set or uncommented:
 GRUB_DISABLE_OS_PROBER=false
-
-# Type :wq and Enter
 
 # Generate GRUB configuration
 grub-mkconfig -o /boot/grub/grub.cfg
-```
 
-16. Apply Mkinitcpio config
-
-```bash
+# Rebuild initramfs
 mkinitcpio -P
 ```
 
-17. Exit and Reboot
-
-## Post Arch instalation
-
-### Enable Services
-
-```sh
-systemctl enable NetworkManager.service
-
-systemctl start NetworkManager.service
-
-systemctl enable sddm.service
-
-systemctl enable bluetooth.service
+### 2.8 Exit and Reboot
+```bash
+exit
+umount -R /mnt
+reboot
 ```
 
-### Clone dotfiles
+---
 
+## Step 3: Post-Arch Base Setup & Clone Dotfiles
+
+Log in with your normal user account.
+
+### 3.1 Enable Networking & Connect to WiFi
+```bash
+# Start and enable NetworkManager
+sudo systemctl enable --now NetworkManager.service
+
+# If using WiFi (visible network):
+nmcli device wifi list
+nmcli device wifi connect "YOUR_WIFI_SSID" password "YOUR_PASSWORD"
+
+# If using WiFi (hidden SSID network):
+nmcli device wifi connect "HIDDEN_SSID" password "YOUR_PASSWORD" hidden yes
+```
+
+### 3.2 Clone Dotfiles into User Home
 ```bash
 cd ~
-
 git init
-
-git remote add origin https://github.com/eduzhizhpon/dotfiles
-
-git pull
+git remote add origin <your_dotfiles_repository_url>
+git pull origin master
 ```
 
-### Install basics
+---
+
+## Step 4: Desktop Environment Setup with `mwm.sh`
+
+Instead of running dozens of manual package commands prone to missing dependencies, the repository provides the modular [`mwm.sh`](mwm.sh) installer.
+
+The installer queries the local database in milliseconds (`pacman -Qq`) and **only installs missing packages**, auto-detecting your package manager (`paru`, `yay`, or `pacman`).
+
+### 4.1 Install Your Preferred Desktop Environment
+
+Run the script with the desired desktop profile:
 
 ```bash
-pacman -S nvidia-open nvidia-utils nvidia-settings xorg sddm dmenu feh firefox arandr dunst pavucontrol slock playerctl pipewire-pulse pipewire-alsa gnome-themes-standard wget p7zip unzip gnome-keyring libsecret libgnome-keyring bluez bluez-utils blueman flameshot ibus polkit-gnome gwenview xclip wl-clipboard cliphist
+# Option A: Sway (Wayland - Recommended)
+./mwm.sh --sway
+
+# Option B: Hyprland (Wayland)
+./mwm.sh --hyprland
+
+# Option C: i3 (X11)
+./mwm.sh --i3
+
+# Option D: BSPWM (X11)
+./mwm.sh --bspwm
+
+# Option E: Install all environments and applications
+./mwm.sh --all
 ```
-### Install PARU
+
+> [!TIP]
+> **Check / Dry-Run Mode:**  
+> You can inspect which packages are already installed and which ones are missing without making any system changes:
+> ```bash
+> ./mwm.sh --sway --check
+> ```
+
+### 4.2 Modular & Granular Options
+
+Install or check specific modules using `-m` or `--module`:
 
 ```bash
-git clone https://aur.archlinux.org/paru-bin
+# Install core tools and typography only
+./mwm.sh -m core -m fonts
 
-makepkg -si
+# Install user applications (kitty, neovim, vlc, visual-studio-code-bin, etc.)
+./mwm.sh -m apps
+
+# Install Nvidia GPU drivers
+./mwm.sh -m nvidia
+
+# Run setup hooks only (e.g. fc-cache, compile themes)
+./mwm.sh --setup-only
 ```
-### BSPWM WM
 
+### 4.3 Available Modules (`.config/my-wm/scripts/install/modules/`)
+
+- **`core`**: Universal base tools (`jq`, `rofi`, `dunst`, `playerctl`, `pamixer`, `pipewire-pulse`, `brightnessctl`, `cliphist`, `wl-clipboard`, `xclip`, `polkit-gnome`, `gnome-keyring`, `bluez`, etc.).
+- **`fonts`**: Nerd fonts & system typography (`ttf-roboto-mono-nerd`, `ttf-firacode-nerd`, `noto-fonts`, `ttf-liberation`, `fontconfig`).
+- **`themes`**: GTK & Qt styling engines (`papirus-icon-theme`, `nwg-look`, `qt5ct`, `qt6ct`, `kvantum-qt5`, `breeze`, `adwaita-qt5-git`, `adwaita-qt6-git`).
+- **`sway`**: Sway Wayland suite (`sway`, `waybar`, `swaylock`, `swayidle`, `swaybg`, `grim`, `slurp`, `xdg-desktop-portal-wlr`, `kitty`).
+- **`hyprland`**: Hyprland Wayland suite (`hyprland`, `waybar`, `hyprpaper`, `qt5-wayland`, `qt6-wayland`, `xdg-desktop-portal-hyprland`).
+- **`i3`**: i3 X11 suite (`i3-wm`, `i3lock`, `dex`, `xss-lock`, `nm-applet`, `polybar`, `picom`, `slock`, `sxhkd`, `alacritty`).
+- **`bspwm`**: BSPWM X11 suite (`bspwm`, `sxhkd`, `polybar`, `picom`, `feh`, `slock`, `alacritty`).
+- **`shell`**: Zsh and shell productivity enhancements (`zsh`, `lsd`, `bat`, `zsh-syntax-highlighting`, `zsh-autosuggestions`, `plocate`).
+- **`apps`**: User applications (`kitty`, `alacritty`, `neovim`, `nautilus`, `gnome-disk-utility`, `vlc`, `vlc-plugins-all`, `vlc-gui-skins2`, `google-chrome`, `visual-studio-code-bin`).
+- **`nvidia`**: GPU drivers & management tools (`nvidia-open`, `nvidia-utils`, `nvidia-settings`).
+
+---
+
+## Step 5: System Services, Shell & Git Configuration
+
+### 5.1 Enable Essential Services
 ```bash
-paru -S bspwm sxhkd polybar
-```
+# Bluetooth and Display Manager (SDDM)
+sudo systemctl enable --now bluetooth.service
+sudo systemctl enable --now sddm.service
 
-### Sway
-
-```bash
-paru -S sway swaylock swayidle swaybg waybar brightnessctl
-```
-
-### Hyprland
-
-```bash
-paru -S hyprland hyprpaper qt5-wayland qt6-wayland waybar cliphist
-```
-
-### Install necessary packages
-
-```bash
-paru -Sy alacritty kitty jq picom rofi nwg-look redshift alsa-utils ttf-fira-code nautilus gnome-disk-utility vlc dolphin qt5ct qt6ct gnome-terminal yay google-chrome visual-studio-code-bin ttf-material-design-icons ttf-firacode-nerd breeze breeze-gtk
-
-paru -S ttf-liberation ttf-dejavu noto-fonts ttf-roboto-mono-nerd ttf-roboto
-
-paru -S ttf-ms-fonts noto-fonts-cjk ttf-baekmuk noto-fonts-emoji
-
-paru -S fontconfig
-```
-
-### Install Fira Code Nerd Font
-
-```bash
-# Download Fira Code Nerd Font from: https://www.nerdfonts.com/font-downloads
-
-# Create directory
-mkdir -p ~/.local/share/fonts/FiraCodeNerdFont
-
-# Unzip fonts
-unzip /path/to/downloaded/font.zip -d ~/.local/share/fonts/FiraCodeNerdFont
-
-# Or copy  
-cp /path/to/downloaded/fonts/* ~/.local/share/fonts/FiraCodeNerdFont
-
-# Update font cache
-fc-cache -fv
-
-# Show installed fonts
-fc-list
-```
-
-# Installing Fira Code Nerd Font on macOS
-
-```bash
-# Download Fira Code Nerd Font from: https://www.nerdfonts.com/font-downloads
-
-# Create the fonts directory (optional on macOS)
-mkdir -p ~/Library/Fonts/FiraCodeNerdFont
-
-# Unzip fonts to the fonts directory
-unzip /path/to/downloaded/font.zip -d ~/Library/Fonts/FiraCodeNerdFont
-
-# Or copy fonts directly
-cp /path/to/downloaded/fonts/* ~/Library/Fonts/FiraCodeNerdFont
-
-# No need to run fc-cache; macOS handles fonts automatically
-
-# Verify installed fonts
-system_profiler SPFontsDataType | grep "FiraCode"
-```
-
-### Nvidia Config
-
-1. GRUB config
-
-```sh
-nvim /etc/default/grub
-
-## Append to GRUB_CMDLINE_LINUX_DEFAULT
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash nvidia-drm.modeset=1"
-
-## Apply GRUB config
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-2. Extra configs
-
-```sh
-nvim /etc/modprobe.d/blacklist_i2c-nvidia-gpu.conf
-# Add:
-blacklist i2c_nvidia_gpu
-
-# Save vram status
-systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
-```
-
-3. Mkinitcpio config (early loading)
-
-```sh
-nvim /etc/mkinitcpio.conf
-
-## Apply Mkinitcpio config
-mkinitcpio -P
-```
-
-## Configs
-
-### Disable mouse acceleration
-
-1. Access to config folder
-
-```bash
-# Access to folder
-cd /usr/share/X11/xorg.conf.d/
-
-# Create config file (no matter the name)
-nvim 90-mouse_accel.conf
-```
-
-2. Add config to file
-
-```bash
-Section "InputClass"
-        Identifier "Mouse With No Acceleration"
-        MatchDriver "libinput"
-        MatchIsPointer "yes"
-        Option "AccelProfile" "flat"
-EndSection
-```
-### Custom zsh Terminal
-
-```bash
-
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
-
-# simple type zsh to configure or:
-p10k configure
-
-pacman -S zsh locate lsd bat
-paru -S zsh-syntax-highlighting zsh-autosuggestions
-
-# Do it also with root
-usermod --shell /usr/bin/zsh $USER
-
-# Link configs
-sudo su
-cd
-ln -s <USER HOME>/.zshrc .
-ln -s <USER HOME>/.p10k.zsh .
-
-# zsh sudo
-sudo mkdir /usr/share/zsh/plugins/zsh-sudo && cd $_
-
-sudo curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh --output sudo.plugin.zsh
-```
-
-### Fix cursor size
-
-1. Create config file
-
-```
-sudo nano /etc/X11/xorg.conf.d/30-cursor.conf
-
-```
-2. Add:
-
-```bash
-Section "InputClass"
-    Identifier "Cursor Settings"
-    MatchIsPointer "yes"
-    Option "Xcursor.theme" "Adwaita"
-    Option "Xcursor.size" "24"
-EndSection
-```
-
-### Themes
-
-```bash
-paru -S papirus-icon-theme xsettingsd adwaita-qt5-git adwaita-qt6-git kvantum-qt5
-```
-
-# Gnome Keyring
-```bash
+# User keyring daemon
 systemctl --user daemon-reexec
 systemctl --user enable --now gnome-keyring-daemon.service
 ```
 
-# SDDM
-
-## Hybrid graphics intial freeze fix
-
+### 5.2 Configure Zsh & Powerlevel10k
 ```bash
-sudo nvim /usr/share/sddm/scripts/Xsetup
+# Install Powerlevel10k theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+
+# Set default shell to Zsh
+chsh -s /usr/bin/zsh $USER
+
+# Install zsh-sudo plugin
+sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo
+sudo curl -s https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh -o /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
 ```
 
-Add this config:
-
+### 5.3 Configure Git SSH Keys
 ```bash
-xrandr --setproviderouputsource modesetting NVIDIA-0
-
-xrandr --auto
-```
-
-```bash
-sudo nvim /etc/X11/xorg.conf.d/10-nvidia.conf
-```
-
-Add this config:
-
-```conf
-Section "OutputClass"
-    Identifier "nvidia"
-    MatchDriver "nvidia-drm"
-    Driver "nvidia"
-    Option "PrimaryGPU" "yes"
-EndSection
-```
-
-# Dark mode
-
-```bash
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
-sudo pacman -S xdg-desktop-portal-wlr xdg-desktop-portal-gtk
-```
-
-# Git SSH
-
-1. Generate a key
-
-```bash
+# 1. Generate SSH key
 ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/github_ed25519
-```
 
-2. Start ssh-agent
-
-```bash
-eval "$(ssh-agent -s)"
-```
-
-3. Configure SSH
-
-```bash
-nvim ~/.ssh/config
-```
-
-Add:
-
-```config
+# 2. Configure ~/.ssh/config
+cat <<EOF >> ~/.ssh/config
 Host github.com
     HostName github.com
     User git
     IdentityFile ~/.ssh/github_ed25519
     IdentitiesOnly yes
+EOF
 
-Host gitlab.com
-    HostName gitlab.com
-    User git
-    IdentityFile ~/.ssh/gitlab_ed25519
-    IdentitiesOnly yes
-```
-
-4. Set correct permissions
-
-```bash
 chmod 700 ~/.ssh
-chmod 600 ~/.ssh/config
-chmod 600 ~/.ssh/*
-```
+chmod 600 ~/.ssh/config ~/.ssh/github_ed25519
 
-5. Test connections
-
-```bash
+# 3. Test SSH connection
 ssh -T git@github.com
 ```
 
-## Extra configs
+---
 
-### Permanent Fix for F1-F12 keys issue
+## Step 6: Hardware & Driver Tweaks
 
-Fixes the issue where F1-F12 keys act as media controls or do not work.
+### 6.1 Apple / Keychron Keyboard F1–F12 Keys Fix
+Fixes issues where F1–F12 keys act as media controls by default:
+```bash
+echo "options hid_apple fnmode=0" | sudo tee /etc/modprobe.d/hid_apple.conf
+sudo mkinitcpio -P
+```
 
-1. Create the configuration file for the `hid_apple` module:
+### 6.2 Nvidia Early Loading & Power Management
+In `/etc/default/grub`:
+```sh
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash nvidia-drm.modeset=1"
+```
+Apply GRUB changes and enable power management services:
+```bash
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
+```
+
+### 6.3 SDDM Hybrid Graphics Freeze Fix
+For laptops with hybrid graphics (Intel/AMD + Nvidia) freezing on login:
+1. In `/usr/share/sddm/scripts/Xsetup`:
    ```bash
-   echo "options hid_apple fnmode=0" | sudo tee /etc/modprobe.d/hid_apple.conf
+   xrandr --setprovideroutputsource modesetting NVIDIA-0
+   xrandr --auto
    ```
-   *(Note: Use `fnmode=2` if you want F1-F12 by default, but still want media keys when holding `Fn`).*
-
-2. Regenerate the initramfs in Arch Linux:
-   ```bash
-   sudo mkinitcpio -P
+2. In `/etc/X11/xorg.conf.d/10-nvidia.conf`:
+   ```conf
+   Section "OutputClass"
+       Identifier "nvidia"
+       MatchDriver "nvidia-drm"
+       Driver "nvidia"
+       Option "PrimaryGPU" "yes"
+   EndSection
    ```
 
-3. Reboot your system to apply changes.
+### 6.4 Mouse Acceleration & Cursor Size (X11)
+- **Disable Mouse Acceleration**: In `/etc/X11/xorg.conf.d/90-mouse_accel.conf`:
+  ```conf
+  Section "InputClass"
+      Identifier "Mouse With No Acceleration"
+      MatchDriver "libinput"
+      MatchIsPointer "yes"
+      Option "AccelProfile" "flat"
+  EndSection
+  ```
+- **Cursor Size & Theme**: In `/etc/X11/xorg.conf.d/30-cursor.conf`:
+  ```conf
+  Section "InputClass"
+      Identifier "Cursor Settings"
+      MatchIsPointer "yes"
+      Option "Xcursor.theme" "Adwaita"
+      Option "Xcursor.size" "24"
+  EndSection
+  ```
 
+---
+
+## 🎨 Theme Engine & System Specifications
+
+The desktop appearance is managed by a centralized, contract-driven theme engine in `.config/my-wm/theme/`:
+
+- **Font Contract**: `.config/my-wm/theme/fonts.json`
+- **Compiled Artifacts**: `.config/my-wm/theme/generated/`
+- **Compile fonts & live reload active session**:
+  ```bash
+  ~/.config/my-wm/scripts/theme/apply.sh fonts
+  ```
+
+For complete architectural specifications, see [`.config/.ai-specs/`](.config/.ai-specs/):
+- [`theme-architecture.md`](.config/.ai-specs/docs/theme-architecture.md) — Theme and font compilation engine.
+- [`installer-architecture.md`](.config/.ai-specs/docs/installer-architecture.md) — Modular package installer specification.

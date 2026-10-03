@@ -1,0 +1,22 @@
+# ==============================================================================
+# Fonts Module - Monospace, UI & Icon Typography
+# ==============================================================================
+
+# Nerd Fonts
+ttf-roboto-mono-nerd
+ttf-firacode-nerd
+ttf-material-design-icons
+
+# UI & System Fonts
+ttf-fira-code
+ttf-roboto
+ttf-liberation
+ttf-dejavu
+
+# Noto International Fonts & Emojis
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+
+# Font Configuration Utilities
+fontconfig

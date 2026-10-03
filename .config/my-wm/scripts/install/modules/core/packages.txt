@@ -1,0 +1,47 @@
+# ==============================================================================
+# Core Packages - Universal tools & desktop dependencies
+# ==============================================================================
+
+# Scripting & Parsing
+jq
+
+# Menus & Launchers
+rofi
+
+# Notification Daemon & Tools
+dunst
+libnotify
+
+# Audio & Media Controls
+playerctl
+pamixer
+pipewire-pulse
+pipewire-alsa
+pavucontrol
+
+# Brightness & Hardware Controls
+brightnessctl
+
+# Clipboard Managers (Wayland & X11)
+cliphist
+wl-clipboard
+xclip
+
+# Networking & Downloaders
+wget
+curl
+bluez
+bluez-utils
+blueman
+
+# Archives
+p7zip
+unzip
+
+# Authentication & Keyring
+polkit-gnome
+gnome-keyring
+libsecret
+
+# Wallpapers & Graphics Fallbacks
+feh

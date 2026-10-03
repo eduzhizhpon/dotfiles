@@ -1,0 +1,24 @@
+# ==============================================================================
+# Hyprland Module - Dynamic Tiling Wayland Compositor
+# ==============================================================================
+
+# Hyprland Core & Paper
+hyprland
+waybar
+hyprpaper
+
+# Qt Wayland Plugins
+qt5-wayland
+qt6-wayland
+
+# Wayland Utilities
+cliphist
+grim
+slurp
+
+# Desktop Portals
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+
+# Terminal
+kitty

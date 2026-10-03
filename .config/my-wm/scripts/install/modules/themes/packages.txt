@@ -1,0 +1,19 @@
+# ==============================================================================
+# Themes Module - GTK, Qt, Icons & Appearance Configuration
+# ==============================================================================
+
+# Icons
+papirus-icon-theme
+
+# GTK & Qt Styling Engines
+nwg-look
+qt5ct
+qt6ct
+kvantum-qt5
+xsettingsd
+breeze
+breeze-gtk
+
+# Adwaita Qt Styles
+adwaita-qt5-git
+adwaita-qt6-git

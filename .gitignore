@@ -23,5 +23,6 @@
 !.core_rc
 !.sway_env
 
-# README
+# README & Entrypoint
 !README.md
+!mwm.sh

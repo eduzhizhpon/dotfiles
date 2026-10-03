@@ -1,0 +1,21 @@
+# ==============================================================================
+# Sway Module - Wayland Compositor & Utilities
+# ==============================================================================
+
+# Core Sway & Bar
+sway
+waybar
+swaylock
+swayidle
+swaybg
+
+# Wayland Screenshot & Region Selection
+grim
+slurp
+
+# Portals
+xdg-desktop-portal-wlr
+xdg-desktop-portal-gtk
+
+# Terminal
+kitty

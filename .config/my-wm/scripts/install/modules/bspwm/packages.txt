@@ -1,0 +1,12 @@
+# ==============================================================================
+# BSPWM Module - Binary Space Partitioning Window Manager
+# ==============================================================================
+
+bspwm
+sxhkd
+polybar
+picom
+feh
+slock
+xclip
+alacritty

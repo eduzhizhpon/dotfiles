@@ -1,0 +1,14 @@
+# ==============================================================================
+# Apps Module - Terminal Emulators, Browsers & Productivity
+# ==============================================================================
+
+kitty
+alacritty
+neovim
+nautilus
+gnome-disk-utility
+vlc
+vlc-plugins-all
+vlc-gui-skins2
+google-chrome
+visual-studio-code-bin

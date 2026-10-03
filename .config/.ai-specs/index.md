@@ -18,6 +18,7 @@
 
 | Path | Responsibility | Documentation Link |
 |---|---|---|
+| [`my-wm/scripts/install/`](file:///home/user/.config/my-wm/scripts/install/) | Modular Desktop & Dotfiles Installer Engine (`mwm.sh`) | [Installer & Package Architecture](file:///home/user/.config/.ai-specs/docs/installer-architecture.md) |
 | [`my-wm/theme/`](file:///home/user/.config/my-wm/theme) | Central Theme Contracts (Single Source of Truth) & Compiled Artifacts | [Theme & Font Architecture](file:///home/user/.config/.ai-specs/docs/theme-architecture.md) |
 | [`my-wm/scripts/`](file:///home/user/.config/my-wm/scripts) | Multi-WM Utility Scripts (`mwm-volume`, `mwm-brightness`, `mwm-next-kb-lang`, etc.) | — |
 | [`my-wm/scripts/theme/`](file:///home/user/.config/my-wm/scripts/theme) | Modular Theme Engine & Component Handlers | [Theme Handlers & CLI](file:///home/user/.config/.ai-specs/docs/theme-architecture.md#modular-handlers-scripts) |
@@ -36,6 +37,12 @@
    - Handler plugin architecture (`scripts/theme/<component>/<feature>.sh`).
    - Compilation lifecycle, shared context (`lib.sh`), and reload orchestration (`reload.sh`).
    - Guidelines for extending to Hyprland, new components, and color palettes.
+
+2. **[MWM Modular Installer & Package Architecture](file:///home/user/.config/.ai-specs/docs/installer-architecture.md)**
+   - Single-command automated installer (`mwm.sh`).
+   - Modular package sets (`core`, `fonts`, `themes`, `sway`, `hyprland`, `i3`, `bspwm`, `shell`, `apps`, `nvidia`).
+   - Fast package validation engine & dry-run reporting.
+   - Post-install compilation integration.
 
 ---
 

@@ -1,0 +1,20 @@
+# ==============================================================================
+# i3 Module - X11 Tiling Window Manager
+# ==============================================================================
+
+# Core i3 Suite
+i3-wm
+i3lock
+i3status
+
+# X11 Helpers & Lock
+dex
+xss-lock
+nm-applet
+polybar
+picom
+slock
+sxhkd
+
+# Terminal
+alacritty
