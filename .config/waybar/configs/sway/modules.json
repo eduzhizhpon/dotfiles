@@ -26,11 +26,7 @@
     "disable-scroll": true,
     "on-scroll-up": "",
     "on-scroll-down": "",
-    "format": "󰌌 {}",
-    "format-en": "US",
-    "format-us": "US",
-    "format-es": "LATAM",
-    "format-latam": "LATAM",
+    "format": "󰌌 {short}",
     "tooltip": true,
     "tooltip-format": "{long}",
     "on-click": "$HOME/.config/my-wm/scripts/mwm-next-kb-lang"
